@@ -1,16 +1,46 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// This is purely to silence a bug
-// https://stackoverflow.com/questions/64749385/predefined-type-system-runtime-compilerservices-isexternalinit-is-not-defined
-namespace System.Runtime.CompilerServices
-{
-    internal static class IsExternalInit { }
-}
-
 [CreateAssetMenu(fileName = "InventoryScript", menuName = "Scriptable Objects/InventoryScript")]
 public class InventoryScript : ScriptableObject
 {
-    public record ItemComb(GenericItem Item, int Quantity);
-    public List<ItemComb> items = new();
+
+    public Dictionary<string, ItemCountPair> inventoryDict = new Dictionary<string, ItemCountPair>();
+    
+    public void addItem(GenericItem item)
+    {
+        if (inventoryDict.ContainsKey(item.itemName))
+        {
+            inventoryDict[item.itemName].count++;
+        } else
+        {
+            inventoryDict.Add(item.itemName, new ItemCountPair(item, 1));
+        }
+    }
+
+    public void removeItem(GenericItem item)
+    {
+        if (inventoryDict.ContainsKey(item.itemName))
+        {
+            if (inventoryDict[item.itemName].count > 1)
+            {
+                inventoryDict[item.itemName].count--;
+            } else
+            {
+                inventoryDict.Remove(item.itemName);
+            }
+        }
+    }
+}
+
+public class ItemCountPair
+{
+    public GenericItem item;
+    public int count;
+
+    public ItemCountPair(GenericItem item, int count)
+    {
+        this.item = item;
+        this.count = count;
+    }
 }
