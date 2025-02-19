@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "ItemCasing", menuName = "Scriptable Objects/ItemCasing")]
 public class ItemCasing : GenericItem
 {
     public enum CASING_SIZE

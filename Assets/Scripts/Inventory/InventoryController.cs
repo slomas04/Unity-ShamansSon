@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "InventoryScript", menuName = "Scriptable Objects/InventoryScript")]
-public class InventoryScript : ScriptableObject
+public class InventoryScript : MonoBehaviour
 {
 
     public Dictionary<string, ItemCountPair> inventoryDict = new Dictionary<string, ItemCountPair>();
