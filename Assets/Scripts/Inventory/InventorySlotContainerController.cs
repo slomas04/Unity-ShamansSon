@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class InventorySlotContainerController : MonoBehaviour
 {
-    public const int INVENTORY_SLOT_COUNT = 27;
+    public const int INVENTORY_SLOT_COUNT = 21;
     public List<GameObject> inventorySlots;
     public GameObject prefab;
 
