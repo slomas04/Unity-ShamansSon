@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class InventoryController : MonoBehaviour
+public class InventoryCanvasController : MonoBehaviour
 {
     public bool isVisible = false;
     public GameObject inventoryGO;

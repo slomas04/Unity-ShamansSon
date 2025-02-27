@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2636427183325756031}
   - component: {fileID: 7737094971390476478}
-  - component: {fileID: 2627177888058268141}
-  - component: {fileID: 408704492850314154}
+  - component: {fileID: 6986819093591918002}
+  - component: {fileID: 9213635888178983308}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -46,7 +46,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6717007984042466547}
   m_CullTransparentMesh: 1
---- !u!114 &2627177888058268141
+--- !u!114 &6986819093591918002
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -68,15 +68,15 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: bdfba2a46253a5549811042de862caf5, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
-  m_UseSpriteMesh: 1
+  m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &408704492850314154
+--- !u!114 &9213635888178983308
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,3 +88,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7900e72839d858546922d0eb6732c706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  containedItem: {fileID: 0}
+  imageRenderer: {fileID: 0}

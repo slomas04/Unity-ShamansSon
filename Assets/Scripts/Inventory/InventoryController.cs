@@ -1,45 +1,36 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class InventoryScript : MonoBehaviour
+public class InventoryController : MonoBehaviour
 {
 
-    public Dictionary<string, ItemCountPair> inventoryDict = new Dictionary<string, ItemCountPair>();
+    [SerializeField] private InventorySlotController[] inventory = new InventorySlotController[21];
+    [SerializeField] private int indexPointer = 0;
     
     public void addItem(GenericItem item)
     {
-        if (inventoryDict.ContainsKey(item.itemName))
+        while(inventory[indexPointer].containedItem != null && indexPointer < 21)
         {
-            inventoryDict[item.itemName].count++;
-        } else
-        {
-            inventoryDict.Add(item.itemName, new ItemCountPair(item, 1));
+            indexPointer++;
         }
+        if (indexPointer < 21) return;
+        inventory[indexPointer].setHeldItem(item);
+        indexPointer++;
     }
 
-    public void removeItem(GenericItem item)
+    public void removeItem(int index)
     {
-        if (inventoryDict.ContainsKey(item.itemName))
-        {
-            if (inventoryDict[item.itemName].count > 1)
-            {
-                inventoryDict[item.itemName].count--;
-            } else
-            {
-                inventoryDict.Remove(item.itemName);
-            }
-        }
+        inventory[index].setHeldItem(null);
+        indexPointer = index;
     }
-}
 
-public class ItemCountPair
-{
-    public GenericItem item;
-    public int count;
-
-    public ItemCountPair(GenericItem item, int count)
+    public void setItemAtIndex(int index, GenericItem item)
     {
-        this.item = item;
-        this.count = count;
+        inventory[index].setHeldItem(item);
+    }
+
+    public void setICSAtIndex(int index, InventorySlotController ics)
+    {
+        inventory[index] = ics;
     }
 }
