@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlotController : MonoBehaviour
+public class InventorySlotController : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] public int index;
     [SerializeField] public GenericItem containedItem;
@@ -37,7 +37,10 @@ public class InventorySlotController : MonoBehaviour
 
     void Update()
     {
-
+        if(imageRenderer.sprite != containedItem.icon && imageRenderer.sprite != DEFAULT_SPRITE)
+        {
+            imageRenderer.sprite = containedItem.icon;
+        }
     }
 
     private void OnMouseDown()
@@ -55,6 +58,11 @@ public class InventorySlotController : MonoBehaviour
         {
             imageRenderer.sprite = item.icon;
         }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+
     }
 
 }
