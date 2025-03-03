@@ -4,24 +4,34 @@ using System.Collections.Generic;
 public class InventoryController : MonoBehaviour
 {
 
-    [SerializeField] private InventorySlotController[] inventory = new InventorySlotController[21];
-    [SerializeField] private int indexPointer = 0;
-    
-    public void addItem(GenericItem item)
+    [SerializeField] private Dictionary<int, InventorySlotController> inventory = new Dictionary<int, InventorySlotController>();
+    [SerializeField] public const int INVENTORY_SIZE = 21;
+
+    public void Awake()
     {
-        while(inventory[indexPointer].containedItem != null && indexPointer < 21)
+        for (int i = 0; i < INVENTORY_SIZE; i++)
         {
-            indexPointer++;
+            inventory.Add(i, null);
         }
-        if (indexPointer < 21) return;
-        inventory[indexPointer].setHeldItem(item);
-        indexPointer++;
+    }
+
+    public bool addItem(GenericItem item)
+    {
+        bool isSet = false;
+        foreach(KeyValuePair<int,InventorySlotController> entry in inventory)
+        {
+            if (entry.Value.containedItem == null && !isSet)
+            {
+                isSet = true;
+                entry.Value.setHeldItem(item);
+            }
+        }
+        return isSet;
     }
 
     public void removeItem(int index)
     {
         inventory[index].setHeldItem(null);
-        indexPointer = index;
     }
 
     public void setItemAtIndex(int index, GenericItem item)

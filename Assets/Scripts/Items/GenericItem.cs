@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
 // This supresses a unity error associated with defining records
@@ -9,7 +7,8 @@ namespace System.Runtime.CompilerServices
     internal class IsExternalInit { }
 }
 
-public class GenericItem : MonoBehaviour
+[System.Serializable]
+public abstract class GenericItem : System.ICloneable
 {
     public record attributeRecord(string attribute, float value);
 
@@ -18,4 +17,10 @@ public class GenericItem : MonoBehaviour
     public Sprite icon;
     public List<attributeRecord> attributes = new List<attributeRecord> { new attributeRecord("Test Value", 5f)};
 
+    protected GenericItem() { }
+
+    public object Clone()
+    {
+        return this.MemberwiseClone();
+    }
 }
