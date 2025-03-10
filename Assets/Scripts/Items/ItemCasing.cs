@@ -13,6 +13,7 @@ public class ItemCasing : GenericItem
     public ItemCasing(CASING_SIZE size)
     {
         attributes = new List<attributeRecord>();
+        this.type = ITEM_TYPE.CASING;
         switch (size)
         {
             case CASING_SIZE.SMALL:

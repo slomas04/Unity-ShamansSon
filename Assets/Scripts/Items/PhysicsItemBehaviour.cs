@@ -18,7 +18,7 @@ public class PhysicsItemBehaviour : MonoBehaviour
     }
 
     // True Advertisement
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D()
     {
         this.rigidBodyComponent.linearVelocityY = (-this.rigidBodyComponent.linearVelocityY) * 0.25f;
     }
