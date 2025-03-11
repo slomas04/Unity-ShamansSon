@@ -9,6 +9,7 @@ public class Primer : GenericItem
         this.itemName = "Primer";
         this.description = "Like those things that you put in cap guns.";
         this.icon = Resources.Load<Sprite>("Sprites/Items/primer_default");
+        this.type = ITEM_TYPE.PRIMER;
         attributes.Add("delay", 10);
 
     }

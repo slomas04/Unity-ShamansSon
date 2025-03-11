@@ -9,6 +9,7 @@ public class Gunpowder : GenericItem
         this.itemName = "Gunpowder";
         this.description = "The basic stuff, goes bang.";
         this.icon = Resources.Load<Sprite>("Sprites/Items/powder_default");
+        this.type = ITEM_TYPE.POWDER;
         attributes.Add("Force Multiplier", 1);
 
     }

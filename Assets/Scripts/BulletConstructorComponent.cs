@@ -11,10 +11,12 @@ public class BulletConstructorComponent : MonoBehaviour
     private int currentSize;
     private static Sprite CASING_START;
     private static Sprite CASING_MAIN;
+    private InventoryController inventoryController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        inventoryController = FindFirstObjectByType<InventoryController>();
         slotController = casingSlot.GetComponent<TypeConstrainedInventorySlotController>();
         if (CASING_START == null)
         {
@@ -31,6 +33,7 @@ public class BulletConstructorComponent : MonoBehaviour
             int casingSize = (int) slotController.containedItem.attributes["capacity"];
             if (casingSize != currentSize)
             {
+                clearChildren();
                 currentSize = casingSize;
                 bulletSlots = new TypeConstrainedInventorySlotController[casingSize];
                 for (int i = 0; i < casingSize; i++)
@@ -61,12 +64,26 @@ public class BulletConstructorComponent : MonoBehaviour
             }
         } else
         {
-            // Destroy all children if no casing in item slot
-            while (transform.childCount > 0)
-            {
-                DestroyImmediate(transform.GetChild(0).gameObject);
-            }
-            currentSize = 0;
+            if (bulletSlots != null) clearChildren();
         }
+    }
+
+    // Destroy all children if no casing in item slot
+    private void clearChildren()
+    {
+        if (bulletSlots != null)
+        {
+            foreach (TypeConstrainedInventorySlotController slot in bulletSlots)
+            {
+                if (slot.containedItem != null) inventoryController.addItem(slot.containedItem);
+            }
+            bulletSlots = null;
+        }
+        
+        while (transform.childCount > 0)
+        {
+            DestroyImmediate(transform.GetChild(0).gameObject);
+        }
+        currentSize = 0;
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 public class TypeConstrainedInventorySlotController : InventorySlotController
 {
@@ -47,7 +48,7 @@ public class TypeConstrainedInventorySlotController : InventorySlotController
             throw new System.ArgumentException("Item Type cannot be null!");
         }
         typeConstraint = type;
-        overlaySprite = Resources.Load<Sprite>("Sprites/UI/slot" + nameof(type).ToLower());
+        overlaySprite = Resources.Load<Sprite>("Sprites/UI/slot_" + Enum.GetName(typeof(GenericItem.ITEM_TYPE), type).ToLower());
     }
 
     public override void OnPointerDown(PointerEventData eventData)
