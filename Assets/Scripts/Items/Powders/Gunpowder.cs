@@ -5,11 +5,11 @@ public class Gunpowder : GenericItem
 {
     public Gunpowder()
     {
-        this.attributes = new List<attributeRecord>();
+        this.attributes = new Dictionary<string, double>();
         this.itemName = "Gunpowder";
         this.description = "The basic stuff, goes bang.";
         this.icon = Resources.Load<Sprite>("Sprites/Items/powder_default");
-        attributes.Add(new attributeRecord("Force Multiplier", 1));
+        attributes.Add("Force Multiplier", 1);
 
     }
 }

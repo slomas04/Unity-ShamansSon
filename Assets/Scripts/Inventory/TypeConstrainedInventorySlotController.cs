@@ -40,7 +40,7 @@ public class TypeConstrainedInventorySlotController : InventorySlotController
         }
     }
 
-    public TypeConstrainedInventorySlotController(GenericItem.ITEM_TYPE type)
+    public void setType(GenericItem.ITEM_TYPE type)
     {
         if(type == GenericItem.ITEM_TYPE.NONE)
         {
