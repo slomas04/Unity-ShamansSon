@@ -38,6 +38,11 @@ public class InventoryCanvasController : MonoBehaviour
             inventoryController.addItem(new ItemCasing(ItemCasing.CASING_SIZE.SMALL));
             inventoryController.addItem(new ItemCasing(ItemCasing.CASING_SIZE.MEDIUM));
             inventoryController.addItem(new ItemCasing(ItemCasing.CASING_SIZE.LARGE));
+            inventoryController.addItem(new Bullet());
+            inventoryController.addItem(new Primer());
+            inventoryController.addItem(new Gunpowder());
+
+
         }
         hasAddedItems = true;
     }

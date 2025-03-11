@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 04125407be644224fa81983c2f0d9716
+guid: a5b2f5d07eb453942993b54bd67cdf22
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -39,16 +39,16 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 0
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 1
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -108,12 +108,34 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: BulletConstruct_back_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 16, y: 16, z: 16, w: 16}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 134b935c78047364ba1b6a89be2da0d2
+      internalID: -1623937333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 11f5daeeaf544e24f929aad2bd16a575
     internalID: 0
     vertices: []
     indices: 
@@ -122,7 +144,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BulletConstruct_back_0: -1623937333
+      BulletConstruct_back_1: 455646922
+      BulletConstruct_back_2: -1982889019
+      BulletConstruct_back_3: 1559861214
+      BulletConstruct_back_4: -993185844
+      BulletConstruct_back_5: -283065518
+      BulletConstruct_back_6: 2076441293
+      BulletConstruct_back_7: 627882979
+      BulletConstruct_back_8: 213154347
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

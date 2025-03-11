@@ -6,14 +6,13 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] public int index;
     [SerializeField] public GenericItem containedItem;
-    [SerializeField] private Image imageRenderer;
+    [SerializeField] protected Image imageRenderer;
 
-    private InventoryController inventoryController;
+    protected InventoryController inventoryController;
+    protected static Sprite DEFAULT_SPRITE;
+    protected static DraggedItemBehaviour ITEM_DRAG;
 
-    private static Sprite DEFAULT_SPRITE;
-    private static DraggedItemBehaviour ITEM_DRAG;
-    
-    protected static int nextIndex = 0;
+    private static int nextIndex = 0;
 
     private void Awake()
     {
@@ -35,7 +34,7 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
     }
 
 
-    void Update()
+    protected virtual void Update()
     {
         imageRenderer.sprite = (containedItem == null) ? DEFAULT_SPRITE : containedItem.icon;
     }
@@ -53,11 +52,13 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public virtual void OnPointerDown(PointerEventData eventData)
     {
         GenericItem pastCont = (containedItem == null) ? null : (GenericItem) containedItem.Clone();
         containedItem = ITEM_DRAG.getItem();
         ITEM_DRAG.setItem(pastCont);
     }
+
+
 
 }
