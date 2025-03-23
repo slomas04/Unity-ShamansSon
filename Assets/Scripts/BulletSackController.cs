@@ -1,18 +1,59 @@
 using UnityEngine;
+using System;
+using TMPro;
+using System.Collections.Generic;
 
 public class BulletSackController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private const int MAX_SIZE = 255;
+    [SerializeField] private const int MAX_RECUR = 10;
 
+    [SerializeField] private Stack<cBullet> bStack;
+    [SerializeField] private TMP_Text textBox;
+
+    private System.Random r;
+
+    private void Awake()
+    {
+        bStack = new Stack<cBullet>();
+        r = new System.Random();
+    }
 
     void Start()
     {
-        
+        textBox = gameObject.GetComponentInChildren<TMP_Text>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        textBox.text = bStack.Count.ToString();
+    }
+
+    bool addItem(cBullet b)
+    {
+        bool canPush = bStack.Count <= MAX_SIZE;
+        if (canPush)
+        {
+            bStack.Push(b);
+        }
+        return canPush;
+    }
+
+    cBullet getBullet()
+    {
+        return recurAndGrab(0);
+    }
+
+    cBullet recurAndGrab(int i)
+    {
+        if (i < MAX_RECUR && bStack.Count > 1 && r.NextDouble() < 0.5)
+        {
+            cBullet tempBullet = bStack.Pop();
+            cBullet rBullet = recurAndGrab(i + 1);
+            bStack.Push(tempBullet);
+            return rBullet;
+        }
+        return bStack.Pop();
     }
 }

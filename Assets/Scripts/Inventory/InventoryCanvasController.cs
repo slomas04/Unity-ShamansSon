@@ -1,34 +1,39 @@
 using System;
 using UnityEngine;
 
+/* Inventory Canvas Controller
+ * This component is attached to the Inventory canvas itself
+ * It mostly just handles toggling the visibility of the inventory
+ * This may be merged with another controller in the future, it seems like too much of a stub.
+ */
 public class InventoryCanvasController : MonoBehaviour
 {
+    // Store the inventory visibility
     public bool isVisible = false;
+    // Store a reference to the Inventory, for adding items
     public GameObject inventoryGO;
 
+    // Only allow dev items to be added once
     private bool hasAddedItems = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
+        // Check for Tab being pressed, this opens the inventory.
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             isVisible = !isVisible;
             SendMessage("toggleInventoryShow", isVisible);
         }
         inventoryGO.SetActive(isVisible);
+
+        // Add dev items on left bracket down, this may be removed in the future.
         if(Input.GetKeyDown(KeyCode.LeftBracket))
         {
             addDevItems();
         }
     }
 
+    // Add a set of useful items for testing
     void addDevItems()
     {
         if (hasAddedItems) return;

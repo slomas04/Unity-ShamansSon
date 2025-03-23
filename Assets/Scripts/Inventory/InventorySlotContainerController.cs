@@ -1,13 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+/* Inventory Slot Container Controller
+ * This class simply creates N many inventory slots inside the inventory slot window.
+ */
 public class InventorySlotContainerController : MonoBehaviour
 {
     public List<GameObject> inventorySlots;
     public GameObject prefab;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         inventorySlots = new List<GameObject>();
@@ -19,9 +21,4 @@ public class InventorySlotContainerController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

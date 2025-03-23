@@ -3,9 +3,16 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
 
+/* Type Constrained Inventory Slot Controller
+ * Wordy name, does the same thing as InventorySlotController but is intended
+ * for use in the bullet constructor and is limited to a certain type of item.
+ */
 public class TypeConstrainedInventorySlotController : InventorySlotController
 {
+    // The type of Item that this slot is limited to
     [SerializeField] private GenericItem.ITEM_TYPE typeConstraint;
+
+    // The Sprite of the Required item that should be overlayed over the inventory slot
     [SerializeField] private Sprite overlaySprite;
 
     private Image overlayImage;
@@ -22,7 +29,7 @@ public class TypeConstrainedInventorySlotController : InventorySlotController
         if (ITEM_DRAG == null) ITEM_DRAG = FindAnyObjectByType<DraggedItemBehaviour>();
         imageRenderer = gameObject.GetComponent<Image>();
         imageRenderer.sprite = DEFAULT_SPRITE;
-        overlayImage = GetComponentsInChildren<Image>()[1]; //Jank
+        overlayImage = GetComponentsInChildren<Image>()[1]; //Jank, for some reason this seemed to get the Image component of this object if done normally
     }
 
     protected override void Update()
@@ -32,6 +39,8 @@ public class TypeConstrainedInventorySlotController : InventorySlotController
         {
             overlayImage.sprite = overlaySprite;
         }
+
+        // Hide the overlay image if there is an item in the slot
         if(base.containedItem != null)
         {
             overlayImage.enabled = false;
@@ -41,6 +50,7 @@ public class TypeConstrainedInventorySlotController : InventorySlotController
         }
     }
 
+    // Method to set the type constraint, if the object is Instantiated from a prefab.
     public void setType(GenericItem.ITEM_TYPE type)
     {
         if(type == GenericItem.ITEM_TYPE.NONE)
@@ -48,9 +58,12 @@ public class TypeConstrainedInventorySlotController : InventorySlotController
             throw new System.ArgumentException("Item Type cannot be null!");
         }
         typeConstraint = type;
+
+        // Slightly janky method to load a sprite for the overlay by the string version of the Item type.
         overlaySprite = Resources.Load<Sprite>("Sprites/UI/slot_" + Enum.GetName(typeof(GenericItem.ITEM_TYPE), type).ToLower());
     }
 
+    // Do not call the parent class's version of the method unless the constraint is satisfied.
     public override void OnPointerDown(PointerEventData eventData)
     {
         if(ITEM_DRAG.getItem() == null || ITEM_DRAG.getItem().type == typeConstraint)
