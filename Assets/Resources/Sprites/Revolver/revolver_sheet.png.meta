@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: revolver_idle
+      name: idle
       rect:
         serializedVersion: 2
         x: 0
@@ -132,7 +132,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: revolver_half
+      name: half
       rect:
         serializedVersion: 2
         x: 128
@@ -154,7 +154,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: revolver_full
+      name: full
       rect:
         serializedVersion: 2
         x: 256
@@ -176,7 +176,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: revolver_fire
+      name: fire
       rect:
         serializedVersion: 2
         x: 384
@@ -198,7 +198,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: revolver_idle_t
+      name: idle_t
       rect:
         serializedVersion: 2
         x: 0
@@ -220,7 +220,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: revolver_half_t
+      name: half_t
       rect:
         serializedVersion: 2
         x: 128
@@ -242,7 +242,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: revolver_full_t
+      name: full_t
       rect:
         serializedVersion: 2
         x: 256
@@ -286,7 +286,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: revolver_eject_f
+      name: reload_eject_f
       rect:
         serializedVersion: 2
         x: 128
@@ -308,7 +308,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: revolver_insert
+      name: reload_insert
       rect:
         serializedVersion: 2
         x: 256
@@ -330,7 +330,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: revolver_open
+      name: reload_open
       rect:
         serializedVersion: 2
         x: 0
@@ -352,7 +352,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: revolver_eject
+      name: reload_eject
       rect:
         serializedVersion: 2
         x: 128
@@ -387,18 +387,18 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      fire: 1102046680
+      full: 1249656402
+      full_t: 1393114397
+      half: -1365357356
+      half_t: 498863694
+      idle: 2006652948
+      idle_t: -135898926
+      reload_eject: 1219223471
+      reload_eject_f: -1711287073
+      reload_insert: -1335982451
+      reload_open: 62666634
       reload_shut: 668475965
-      revolver_eject: 1219223471
-      revolver_eject_f: -1711287073
-      revolver_fire: 1102046680
-      revolver_full: 1249656402
-      revolver_full_t: 1393114397
-      revolver_half: -1365357356
-      revolver_half_t: 498863694
-      revolver_idle: 2006652948
-      revolver_idle_t: -135898926
-      revolver_insert: -1335982451
-      revolver_open: 62666634
       revolver_sheet_7: 266085881
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
