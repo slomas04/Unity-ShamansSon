@@ -13,8 +13,11 @@ public class RevolverFrameBehaviour : MonoBehaviour
     private Sprite[] sprites;
     private Dictionary<REVOLVER_STATE, Sprite> spriteMap;
     private Image GOImage;
+
     private TimeSpan thumbDuration;
     private DateTime lastThumb;
+
+    private DateTime lastEject;
 
     [SerializeField] private REVOLVER_STATE currentState;
     [SerializeField] private bool isReloading;
@@ -23,7 +26,9 @@ public class RevolverFrameBehaviour : MonoBehaviour
     private void Awake()
     {
         thumbDuration = TimeSpan.FromSeconds(thumbTime);
+
         lastThumb = DateTime.UtcNow;
+        lastEject = DateTime.UtcNow;
 
         spriteMap = new Dictionary<REVOLVER_STATE, Sprite>();
         sprites = Resources.LoadAll<Sprite>("Sprites/Revolver");
@@ -50,20 +55,62 @@ public class RevolverFrameBehaviour : MonoBehaviour
             double sWheel = Input.GetAxis("Mouse ScrollWheel");
             if(sWheel != 0) handleMWheel(sWheel > 0);
             if (Input.GetMouseButton(0)) handleMouseDown();
+
+            if (currentState == REVOLVER_STATE.HALF && Input.GetKeyDown(KeyCode.R))
+            {
+                isReloading = true;
+                setFrame(REVOLVER_STATE.RELOAD_SHUT);
+                FirearmPositionManager.instance.setReloadPosition();
+            }
+
         } else
         {
+            if (currentState == REVOLVER_STATE.RELOAD_SHUT && Input.GetKeyDown(KeyCode.R))
+            {
+                isReloading = false;
+                setFrame(REVOLVER_STATE.HALF);
+                FirearmPositionManager.instance.setFirePosition();
+                lastEject = DateTime.UtcNow - thumbDuration;
+            } else if(currentState != REVOLVER_STATE.RELOAD_SHUT)
+            {
+                if (Input.GetKeyDown(KeyCode.E) && currentState != REVOLVER_STATE.RELOAD_EJECT_F) currentState = REVOLVER_STATE.RELOAD_INSERT;
+                if (Input.GetKeyUp(KeyCode.E))
+                {
+                    currentState = REVOLVER_STATE.RELOAD_OPEN;
+                    handleBulletInsert();
+                    lastEject = DateTime.UtcNow - thumbDuration;
+                }
 
+                if (Input.GetKeyDown(KeyCode.F) && currentState != REVOLVER_STATE.RELOAD_INSERT) currentState = REVOLVER_STATE.RELOAD_EJECT_F;
+                if (Input.GetKeyUp(KeyCode.F))
+                {
+                    lastEject = DateTime.UtcNow;
+                    currentState = REVOLVER_STATE.RELOAD_OPEN;
+                    handleBulletEject();
+                }
+            }
+
+            if (currentState != REVOLVER_STATE.RELOAD_INSERT && currentState != REVOLVER_STATE.RELOAD_EJECT_F)
+            {
+                if (Input.GetKeyDown(KeyCode.T)) handleGate();
+            }
         }
-        
-        if(!isReloading && (DateTime.UtcNow - lastThumb < thumbDuration))
+
+
+        if (!isReloading && (DateTime.UtcNow - lastThumb < thumbDuration))
         {
             string thumbString = Enum.GetName(typeof(REVOLVER_STATE), currentState) + "_T";
             Enum.TryParse(thumbString, out REVOLVER_STATE thumb);
             GOImage.sprite = spriteMap[thumb];
         } else
         {
-            GOImage.sprite = spriteMap[currentState];
-
+            if(currentState == REVOLVER_STATE.RELOAD_OPEN && DateTime.UtcNow - lastEject < thumbDuration)
+            {
+                GOImage.sprite = spriteMap[REVOLVER_STATE.RELOAD_EJECT];
+            } else
+            {
+                GOImage.sprite = spriteMap[currentState];
+            }
         }
     }
 
@@ -99,5 +146,28 @@ public class RevolverFrameBehaviour : MonoBehaviour
             lastThumb = DateTime.UtcNow - thumbDuration;
             // TODO: A BULLET HAS JUST FIRED!
         }
+    }
+
+    private void handleGate()
+    {
+        if (currentState == REVOLVER_STATE.RELOAD_SHUT)
+        {
+            currentState = REVOLVER_STATE.RELOAD_OPEN;
+        } else if (currentState == REVOLVER_STATE.RELOAD_OPEN)
+        {
+            currentState = REVOLVER_STATE.RELOAD_SHUT;
+        }
+    }
+
+    private void handleBulletInsert()
+    {
+        print("Bullet Inserted!");
+        // TODO: INSERT A BULLET!
+    }
+
+    private void handleBulletEject()
+    {
+        print("Bullet Ejected!");
+        // TODO: EJECT A BULLET!
     }
 }

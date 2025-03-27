@@ -22,6 +22,7 @@ public class InventoryCanvasController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             isVisible = !isVisible;
+            UIVisibilityController.instance.visible = !isVisible;
             SendMessage("toggleInventoryShow", isVisible);
         }
         inventoryGO.SetActive(isVisible);
