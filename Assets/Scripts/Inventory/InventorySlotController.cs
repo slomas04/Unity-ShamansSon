@@ -25,7 +25,7 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
     private void Awake()
     {
         // Set default statics, only once on load
-        if (DEFAULT_SPRITE == null) DEFAULT_SPRITE = Resources.Load<Sprite>("Sprites/UI/Item_Frame");
+        if (DEFAULT_SPRITE == null) DEFAULT_SPRITE = Resources.Load<Sprite>("Sprites/UI/Item_Slots/Item_Frame");
 
         // Assign and increment index
         index = nextIndex;

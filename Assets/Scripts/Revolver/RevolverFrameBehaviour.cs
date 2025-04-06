@@ -13,12 +13,15 @@ public class RevolverFrameBehaviour : MonoBehaviour
     private Sprite[] sprites;
     private Dictionary<REVOLVER_STATE, Sprite> spriteMap;
     private Image GOImage;
+    private RevolverCylinderController cylinder;
 
     private TimeSpan thumbDuration;
     private DateTime lastThumb;
-
     private DateTime lastEject;
+    private DateTime lastFire;
+    private List<REVOLVER_STATE> cycleWhitelist = new List<REVOLVER_STATE> { REVOLVER_STATE.HALF, REVOLVER_STATE.RELOAD_SHUT, REVOLVER_STATE.RELOAD_OPEN };
 
+    [SerializeField] private GameObject ChamberUIElement;
     [SerializeField] private REVOLVER_STATE currentState;
     [SerializeField] private bool isReloading;
     [SerializeField] private double thumbTime = 0.4;
@@ -29,6 +32,7 @@ public class RevolverFrameBehaviour : MonoBehaviour
 
         lastThumb = DateTime.UtcNow;
         lastEject = DateTime.UtcNow;
+        lastFire = DateTime.UtcNow;
 
         spriteMap = new Dictionary<REVOLVER_STATE, Sprite>();
         sprites = Resources.LoadAll<Sprite>("Sprites/Revolver");
@@ -43,13 +47,29 @@ public class RevolverFrameBehaviour : MonoBehaviour
     void Start()
     {
         GOImage = gameObject.GetComponent<Image>();
+        cylinder = gameObject.GetComponent<RevolverCylinderController>();
         setFrame(REVOLVER_STATE.IDLE);
+        ChamberUIElement.SetActive(false);
         isReloading = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Do nothing if there is recoil
+        if(currentState == REVOLVER_STATE.IDLE && (DateTime.UtcNow - lastFire < thumbDuration))
+        {
+            GOImage.sprite = spriteMap[REVOLVER_STATE.FIRE];
+            FirearmPositionManager.instance.setFired();
+            return;
+        }
+        FirearmPositionManager.instance.unsetFired();
+
+        if (Input.GetKeyDown(KeyCode.Q) && cycleWhitelist.Contains(currentState))
+        {
+            cylinder.cycleCylinder();
+        }
+
         if (!isReloading)
         {
             double sWheel = Input.GetAxis("Mouse ScrollWheel");
@@ -129,6 +149,7 @@ public class RevolverFrameBehaviour : MonoBehaviour
                 break;
             case REVOLVER_STATE.HALF:
                 currentState = (isUp) ? REVOLVER_STATE.IDLE : REVOLVER_STATE.FULL;
+                if (!isUp) cylinder.cycleCylinder();
                 break;
             case REVOLVER_STATE.FULL:
                 currentState = (isUp) ? REVOLVER_STATE.HALF : currentState;
@@ -144,7 +165,11 @@ public class RevolverFrameBehaviour : MonoBehaviour
         {
             currentState = REVOLVER_STATE.IDLE;
             lastThumb = DateTime.UtcNow - thumbDuration;
-            // TODO: A BULLET HAS JUST FIRED!
+            if (cylinder.getBarrelState() == RevolverCylinderController.CHAMBER_STATE.LOADED)
+            {
+                lastFire = DateTime.UtcNow; //TODO: PROPER RECOIL HANDLING
+                cylinder.handleFire();
+            }
         }
     }
 
@@ -153,21 +178,24 @@ public class RevolverFrameBehaviour : MonoBehaviour
         if (currentState == REVOLVER_STATE.RELOAD_SHUT)
         {
             currentState = REVOLVER_STATE.RELOAD_OPEN;
-        } else if (currentState == REVOLVER_STATE.RELOAD_OPEN)
+            ChamberUIElement.SetActive(true);
+        }
+        else if (currentState == REVOLVER_STATE.RELOAD_OPEN)
         {
             currentState = REVOLVER_STATE.RELOAD_SHUT;
+            ChamberUIElement.SetActive(false);
         }
     }
 
     private void handleBulletInsert()
     {
         print("Bullet Inserted!");
-        // TODO: INSERT A BULLET!
+        cylinder.handleInsert();
     }
 
     private void handleBulletEject()
     {
         print("Bullet Ejected!");
-        // TODO: EJECT A BULLET!
+        cylinder.handleEject();
     }
 }

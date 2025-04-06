@@ -46,6 +46,16 @@ public class FirearmPositionManager : MonoBehaviour
         goTransform.anchoredPosition = new Vector3(0, 0, 0);
     }
 
+    public void setFired()
+    {
+        goTransform.sizeDelta = new Vector2(width, height * 2);
+    }
+
+    public void unsetFired()
+    {
+        goTransform.sizeDelta = new Vector2(width, height);
+    }
+
     public void setReloadPosition()
     {
         Vector2 anchor = new Vector2(0, 0);

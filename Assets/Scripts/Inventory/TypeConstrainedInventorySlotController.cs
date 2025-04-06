@@ -20,7 +20,7 @@ public class TypeConstrainedInventorySlotController : InventorySlotController
     private void Awake()
     {
         // Set default statics, only once on load
-        if (DEFAULT_SPRITE == null) DEFAULT_SPRITE = Resources.Load<Sprite>("Sprites/UI/Item_Frame");
+        if (DEFAULT_SPRITE == null) DEFAULT_SPRITE = Resources.Load<Sprite>("Sprites/UI/Item_Slots/Item_Frame");
         containedItem = null;
     }
 
@@ -60,7 +60,7 @@ public class TypeConstrainedInventorySlotController : InventorySlotController
         typeConstraint = type;
 
         // Slightly janky method to load a sprite for the overlay by the string version of the Item type.
-        overlaySprite = Resources.Load<Sprite>("Sprites/UI/slot_" + Enum.GetName(typeof(GenericItem.ITEM_TYPE), type).ToLower());
+        overlaySprite = Resources.Load<Sprite>("Sprites/UI/Item_Slots/slot_" + Enum.GetName(typeof(GenericItem.ITEM_TYPE), type).ToLower());
     }
 
     // Do not call the parent class's version of the method unless the constraint is satisfied.

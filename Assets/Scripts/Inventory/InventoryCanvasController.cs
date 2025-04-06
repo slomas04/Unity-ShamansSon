@@ -48,8 +48,11 @@ public class InventoryCanvasController : MonoBehaviour
             inventoryController.addItem(new Primer());
             inventoryController.addItem(new Gunpowder());
 
-
         }
+
+        BulletSackController sack = BulletSackController.instance;
+        GenericItem[] items = { new Bullet(), new Gunpowder(), new Gunpowder(), new Primer()};
+        for (int i = 0; i < 12; i++) sack.addItem(new cBullet(items));
         hasAddedItems = true;
     }
 }

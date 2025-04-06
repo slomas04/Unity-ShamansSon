@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class BulletSackController : MonoBehaviour
 {
+    public static BulletSackController instance { get; private set; }
+
     [SerializeField] private const int MAX_SIZE = 255;
     [SerializeField] private const int MAX_RECUR = 10;
 
@@ -15,6 +17,8 @@ public class BulletSackController : MonoBehaviour
 
     private void Awake()
     {
+        if (instance) Destroy(gameObject);
+        instance = this;
         bStack = new Stack<cBullet>();
         r = new System.Random();
     }
@@ -30,7 +34,7 @@ public class BulletSackController : MonoBehaviour
         textBox.text = bStack.Count.ToString();
     }
 
-    bool addItem(cBullet b)
+    public bool addItem(cBullet b)
     {
         bool canPush = bStack.Count <= MAX_SIZE;
         if (canPush)
@@ -40,12 +44,12 @@ public class BulletSackController : MonoBehaviour
         return canPush;
     }
 
-    cBullet getBullet()
+    public cBullet getBullet()
     {
         return recurAndGrab(0);
     }
 
-    cBullet recurAndGrab(int i)
+    private cBullet recurAndGrab(int i)
     {
         if (i < MAX_RECUR && bStack.Count > 1 && r.NextDouble() < 0.5)
         {
@@ -55,5 +59,10 @@ public class BulletSackController : MonoBehaviour
             return rBullet;
         }
         return bStack.Pop();
+    }
+
+    public int getSize()
+    {
+        return bStack.Count;
     }
 }
