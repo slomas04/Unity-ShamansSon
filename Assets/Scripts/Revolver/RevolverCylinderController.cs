@@ -36,7 +36,7 @@ public class RevolverCylinderController : MonoBehaviour
 
     void Start()
     {
-        sack = BulletSackController.instance;
+        sack = BulletSackController.Instance;
         chamberImage = GameObject.Find("ChamberImage").GetComponent<Image>();
         chamberDecal = GameObject.Find("FiredDecal");
         textBox = GameObject.Find("ChamberStatusText").GetComponent<TMP_Text>();

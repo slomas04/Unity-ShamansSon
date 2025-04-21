@@ -49,7 +49,7 @@ public class RevolverFrameBehaviour : MonoBehaviour
         GOImage = gameObject.GetComponent<Image>();
         cylinder = gameObject.GetComponent<RevolverCylinderController>();
         setFrame(REVOLVER_STATE.IDLE);
-        ChamberUIElement.SetActive(false);
+        ChamberUIElement.transform.localScale = new Vector3(0,0,0);
         isReloading = false;
     }
 
@@ -178,12 +178,12 @@ public class RevolverFrameBehaviour : MonoBehaviour
         if (currentState == REVOLVER_STATE.RELOAD_SHUT)
         {
             currentState = REVOLVER_STATE.RELOAD_OPEN;
-            ChamberUIElement.SetActive(true);
+            ChamberUIElement.transform.localScale = new Vector3(1,1,1);
         }
         else if (currentState == REVOLVER_STATE.RELOAD_OPEN)
         {
             currentState = REVOLVER_STATE.RELOAD_SHUT;
-            ChamberUIElement.SetActive(false);
+            ChamberUIElement.transform.localScale = new Vector3(0,0,0);
         }
     }
 

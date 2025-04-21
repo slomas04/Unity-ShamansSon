@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class BulletConstructorComponent : MonoBehaviour
 {
+    public static BulletConstructorComponent Instance { get; private set; }
+
     [SerializeField] private GameObject casingSlot;
     [SerializeField] private TypeConstrainedInventorySlotController slotController;
     [SerializeField] private TypeConstrainedInventorySlotController[] bulletSlots;
@@ -13,9 +15,16 @@ public class BulletConstructorComponent : MonoBehaviour
     private static Sprite CASING_MAIN;
     private InventoryController inventoryController;
 
+    void Awake()
+    {
+        if (Instance) Destroy(gameObject);
+        Instance = this;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         inventoryController = FindFirstObjectByType<InventoryController>();
         slotController = casingSlot.GetComponent<TypeConstrainedInventorySlotController>();
         if (CASING_START == null)
@@ -85,5 +94,9 @@ public class BulletConstructorComponent : MonoBehaviour
             DestroyImmediate(transform.GetChild(0).gameObject);
         }
         currentSize = 0;
+    }
+
+    public TypeConstrainedInventorySlotController[] getBulletSlots(){
+        return bulletSlots;
     }
 }

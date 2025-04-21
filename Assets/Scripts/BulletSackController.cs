@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class BulletSackController : MonoBehaviour
 {
-    public static BulletSackController instance { get; private set; }
+    public static BulletSackController Instance { get; private set; }
 
     [SerializeField] private const int MAX_SIZE = 255;
     [SerializeField] private const int MAX_RECUR = 10;
@@ -17,8 +17,8 @@ public class BulletSackController : MonoBehaviour
 
     private void Awake()
     {
-        if (instance) Destroy(gameObject);
-        instance = this;
+        if (Instance) Destroy(gameObject);
+        Instance = this;
         bStack = new Stack<cBullet>();
         r = new System.Random();
     }

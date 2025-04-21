@@ -44,6 +44,18 @@ public class InventoryController : MonoBehaviour
         inventory[index].setHeldItem(null);
     }
 
+    public int? getItemIndex(GenericItem item){
+        foreach(KeyValuePair<int,InventorySlotController> entry in inventory)
+        {
+            if (entry.Value.containedItem != null)
+            {
+                if (entry.Value.containedItem.itemName == item.itemName) return entry.Key;
+            }
+        }
+
+        return null;
+    }
+
     public void setItemAtIndex(int index, GenericItem item)
     {
         inventory[index].setHeldItem(item);

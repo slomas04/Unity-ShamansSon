@@ -71,4 +71,15 @@ public class TypeConstrainedInventorySlotController : InventorySlotController
             base.OnPointerDown(eventData);
         }
     }
+
+    // Return true if a new item was got
+    public bool handleBulletCreate(){
+        int? nextItemIndex = inventoryController.getItemIndex(containedItem);
+        if (nextItemIndex == null){
+            containedItem = null;
+            return false;
+        }
+        inventoryController.removeItem(nextItemIndex.Value);
+        return true;
+    }
 }
