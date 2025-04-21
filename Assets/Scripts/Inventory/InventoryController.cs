@@ -49,7 +49,10 @@ public class InventoryController : MonoBehaviour
         {
             if (entry.Value.containedItem != null)
             {
-                if (entry.Value.containedItem.itemName == item.itemName) return entry.Key;
+                if (entry.Value.containedItem.itemName == item.itemName) {
+                    print(entry.Key);
+                    return entry.Key;
+                }
             }
         }
 
