@@ -67,11 +67,14 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
     // Handles mousedown events on this Object.
     public virtual void OnPointerDown(PointerEventData eventData)
     {
-        GenericItem pastCont = (containedItem == null) ? null : (GenericItem) containedItem.Clone();
-        containedItem = ITEM_DRAG.getItem();
-        ITEM_DRAG.setItem(pastCont);
+        if (Input.GetKey(KeyCode.LeftShift)){
+            if (BulletConstructorComponent.Instance.handleShiftInsert(containedItem)) containedItem = null;
+        } else {
+            GenericItem pastCont = (containedItem == null) ? null : (GenericItem) containedItem.Clone();
+            containedItem = ITEM_DRAG.getItem();
+            ITEM_DRAG.setItem(pastCont);
+        }
+        
     }
-
-
 
 }

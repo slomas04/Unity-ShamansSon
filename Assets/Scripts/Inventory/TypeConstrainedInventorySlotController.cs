@@ -82,4 +82,8 @@ public class TypeConstrainedInventorySlotController : InventorySlotController
         inventoryController.removeItem(nextItemIndex.Value);
         return true;
     }
+
+    public GenericItem.ITEM_TYPE getTypeConstraint(){
+        return typeConstraint;
+    }
 }

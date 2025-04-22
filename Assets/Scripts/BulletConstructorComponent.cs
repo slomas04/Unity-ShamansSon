@@ -99,4 +99,22 @@ public class BulletConstructorComponent : MonoBehaviour
     public TypeConstrainedInventorySlotController[] getBulletSlots(){
         return bulletSlots;
     }
+
+    public bool handleShiftInsert(GenericItem i){
+        if (i.type == GenericItem.ITEM_TYPE.CASING && slotController.containedItem == null){
+            slotController.containedItem = i;
+            return true;
+        }
+
+        if (bulletSlots != null){
+            foreach(TypeConstrainedInventorySlotController s in bulletSlots){
+                if (s.getTypeConstraint() == i.type && s.containedItem == null){
+                    s.containedItem = i;
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }
