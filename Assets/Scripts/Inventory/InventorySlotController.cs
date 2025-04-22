@@ -37,7 +37,7 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
     {
         // Get Drag and inventory objects if they are null
         if (ITEM_DRAG == null) ITEM_DRAG = FindAnyObjectByType<DraggedItemBehaviour>();
-        if (inventoryController == null) inventoryController = FindAnyObjectByType<InventoryController>();
+        inventoryController = InventoryController.Instance;
 
         // Set the index of the slot in the inventory controller here
         inventoryController.setICSAtIndex(index, this);

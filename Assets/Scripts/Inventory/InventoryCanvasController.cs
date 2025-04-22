@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /* Inventory Canvas Controller
  * This component is attached to the Inventory canvas itself
@@ -15,6 +16,14 @@ public class InventoryCanvasController : MonoBehaviour
 
     // Only allow dev items to be added once
     private bool hasAddedItems = false;
+    private System.Random r;
+    private GameObject itemPickupPrefab;
+
+    void Start()
+    {
+        r = new System.Random();
+        itemPickupPrefab = Resources.Load<GameObject>("Prefabs/ItemPickup");
+    }
 
     void Update()
     {
@@ -32,6 +41,8 @@ public class InventoryCanvasController : MonoBehaviour
         {
             addDevItems();
         }
+
+        if(Input.GetKeyDown(KeyCode.RightBracket)) spawnItem();
     }
 
     // Add a set of useful items for testing
@@ -53,6 +64,14 @@ public class InventoryCanvasController : MonoBehaviour
         BulletSackController sack = BulletSackController.Instance;
         GenericItem[] items = { new Bullet(), new Gunpowder(), new Gunpowder(), new Primer()};
         for (int i = 0; i < 12; i++) sack.addItem(new cBullet(items));
+
         hasAddedItems = true;
+    }
+
+    void spawnItem(){
+        float x = (float) r.NextDouble() * 10;
+        float y = (float) r.NextDouble() * 10;
+        GameObject item = Instantiate(itemPickupPrefab, new Vector3(x,1,y), transform.rotation);
+        item.GetComponent<PhysicsItemBehaviour>().setContainedItem(new Gunpowder());
     }
 }

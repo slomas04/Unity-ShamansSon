@@ -1,25 +1,41 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PhysicsItemBehaviour : MonoBehaviour
 {
 
-    private Rigidbody2D rigidBodyComponent;
+    [SerializeField] private GenericItem containedItem;
+    [SerializeField] private SphereCollider colliderSmall;
+
+    private SpriteRenderer spriteR;
+
+    void Awake()
+    {
+        spriteR = gameObject.GetComponent<SpriteRenderer>();
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rigidBodyComponent = GetComponent<Rigidbody2D>();
+        SphereCollider colliderSmall = gameObject.GetComponent<SphereCollider>();
+        colliderSmall.radius = 0.3f;
+        colliderSmall.tag = "Item_Pickup";
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        gameObject.transform.Rotate(new Vector3(0, 75 * Time.deltaTime, 0));
     }
 
-    // True Advertisement
-    private void OnTriggerEnter2D()
-    {
-        this.rigidBodyComponent.linearVelocityY = (-this.rigidBodyComponent.linearVelocityY) * 0.25f;
+    public void setContainedItem(GenericItem i){
+        containedItem = i;
+        spriteR.sprite = i.icon;
     }
+
+
+    public GenericItem getContainedItem(){
+        return containedItem;
+    }
+
 }

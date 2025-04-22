@@ -8,12 +8,15 @@ using System.Collections.Generic;
  */
 public class InventoryController : MonoBehaviour
 {
+    public static InventoryController Instance { get; private set; }
     // We store a list of all InventorySlotControllers, where each controller assigns itself a slot in their Start() method.
     [SerializeField] private Dictionary<int, InventorySlotController> inventory = new Dictionary<int, InventorySlotController>();
     [SerializeField] public const int INVENTORY_SIZE = 21;
 
     public void Awake()
     {
+        if (Instance) Destroy(gameObject);
+        Instance = this;
         // We need to set all inventory slots to Null to prevent an exception
         for (int i = 0; i < INVENTORY_SIZE; i++)
         {
