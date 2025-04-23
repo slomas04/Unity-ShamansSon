@@ -554,6 +554,8 @@ MonoBehaviour:
   currentState: 0
   isReloading: 0
   thumbTime: 0.4
+  firedelay: 0.1
+  haltForDelay: 0
 --- !u!114 &203323182
 MonoBehaviour:
   m_ObjectHideFlags: 0

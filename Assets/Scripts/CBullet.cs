@@ -4,16 +4,14 @@ public class cBullet
 {
     public enum HEAD_TYPE { FMJ, HP, BLANK, HE, BUCK, DU, FRANCE }
 
-    private HEAD_TYPE HeadType { get; }
+    public HEAD_TYPE HeadType { get; private set;}
 
-    // How long (in ms) to wait between hammer drop and bullet shoot
-    private double FireDelay { get; }
     // Bullet speed in m/s (160gr JHP for SAA fires at 343m/s)
-    private double ProjSpeed { get; }
+    public float ProjSpeed { get;  private set;}
     // Value from 0 to 100 to represent how much visual recoil the player gets
-    private double RecoilAdj { get; }
+    public float RecoilAdj { get;  private set;}
     // Knockback force to apply to player in m/s
-    private double Knockback { get; }
+    public float Knockback { get;  private set;}
 
 
     // TODO:: THIS IS A STUB, IMPLEMENT PROPERLY LATER

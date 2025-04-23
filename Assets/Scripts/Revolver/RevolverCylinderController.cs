@@ -15,6 +15,8 @@ public class RevolverCylinderController : MonoBehaviour
 
     private Sprite chamberEmpty;
     private Sprite chamberFull;
+    private GameObject projectilePrefab;
+    private GameObject player;
 
     [SerializeField] public const int CYLINDER_SIZE = 6;
     [SerializeField] private cBullet[] cylinderArr;
@@ -39,7 +41,9 @@ public class RevolverCylinderController : MonoBehaviour
         sack = BulletSackController.Instance;
         chamberImage = GameObject.Find("ChamberImage").GetComponent<Image>();
         chamberDecal = GameObject.Find("FiredDecal");
+        player = GameObject.Find("Player");
         textBox = GameObject.Find("ChamberStatusText").GetComponent<TMP_Text>();
+        projectilePrefab = Resources.Load<GameObject>("Prefabs/Projectile");
 
         setChamberEmpty();
     }
@@ -116,9 +120,15 @@ public class RevolverCylinderController : MonoBehaviour
         if(cylinderStateArr[barrelPosition] == CHAMBER_STATE.LOADED)
         {
             // HANDLE BULLET FIRING LOGIC
+            GameObject proj = Instantiate(projectilePrefab, player.transform.position, player.transform.rotation);
+            proj.gameObject.GetComponent<ProjectileFireBehaviour>().setBullet(cylinderArr[barrelPosition]);
             cylinderStateArr[barrelPosition] = CHAMBER_STATE.FIRED;
             setChamberFired();
         }
+    }
+
+    public cBullet getChamber(){
+        return cylinderArr[barrelPosition];
     }
 
     public CHAMBER_STATE getBarrelState()

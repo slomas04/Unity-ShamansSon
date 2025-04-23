@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
@@ -25,6 +26,8 @@ public class RevolverFrameBehaviour : MonoBehaviour
     [SerializeField] private REVOLVER_STATE currentState;
     [SerializeField] private bool isReloading;
     [SerializeField] private double thumbTime = 0.4;
+    [SerializeField] private float firedelay = 0.1f;
+    [SerializeField] private bool haltForDelay = false;
 
     private void Awake()
     {
@@ -35,7 +38,7 @@ public class RevolverFrameBehaviour : MonoBehaviour
         lastFire = DateTime.UtcNow;
 
         spriteMap = new Dictionary<REVOLVER_STATE, Sprite>();
-        sprites = Resources.LoadAll<Sprite>("Sprites/Revolver");
+        sprites = Resources.LoadAll<Sprite>("Sprites/Revolver/Sheet");
         foreach(Sprite s in sprites)
         {
             Enum.TryParse(s.name.ToUpper(), out REVOLVER_STATE stateEnum);
@@ -56,6 +59,8 @@ public class RevolverFrameBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (haltForDelay == true) return;
+
         // Do nothing if there is recoil
         if(currentState == REVOLVER_STATE.IDLE && (DateTime.UtcNow - lastFire < thumbDuration))
         {
@@ -74,7 +79,7 @@ public class RevolverFrameBehaviour : MonoBehaviour
         {
             double sWheel = Input.GetAxis("Mouse ScrollWheel");
             if(sWheel != 0) handleMWheel(sWheel > 0);
-            if (Input.GetMouseButton(0)) handleMouseDown();
+            if (Input.GetMouseButton(0)) StartCoroutine(handleMouseDown());
 
             if (currentState == REVOLVER_STATE.HALF && Input.GetKeyDown(KeyCode.R))
             {
@@ -159,14 +164,18 @@ public class RevolverFrameBehaviour : MonoBehaviour
         }
     }
 
-    private void handleMouseDown()
-    {
+    private IEnumerator handleMouseDown(){
         if(currentState == REVOLVER_STATE.FULL)
         {
             currentState = REVOLVER_STATE.IDLE;
             lastThumb = DateTime.UtcNow - thumbDuration;
             if (cylinder.getBarrelState() == RevolverCylinderController.CHAMBER_STATE.LOADED)
             {
+                haltForDelay = true;
+                GOImage.sprite = spriteMap[REVOLVER_STATE.IDLE]; // Prolly wanna play a clicking sound here TODO
+                yield return new WaitForSeconds(firedelay);
+
+                haltForDelay = false;
                 lastFire = DateTime.UtcNow; //TODO: PROPER RECOIL HANDLING
                 cylinder.handleFire();
             }
