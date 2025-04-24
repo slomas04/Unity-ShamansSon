@@ -26,13 +26,13 @@ public class cBullet
 
             if (i is Gunpowder)
             {
-                ProjSpeed += 1;
+                ProjSpeed += 150;
                 RecoilAdj += 1;
             }
 
             if (i is Primer)
             {
-                Knockback += 1;
+                Knockback += 10;
             }
         }
     }

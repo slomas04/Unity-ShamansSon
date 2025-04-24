@@ -62,7 +62,7 @@ public class InventoryCanvasController : MonoBehaviour
         }
 
         BulletSackController sack = BulletSackController.Instance;
-        GenericItem[] items = { new Bullet(), new Gunpowder(), new Gunpowder(), new Primer()};
+        GenericItem[] items = { new Bullet(), new Gunpowder(), new Primer()};
         for (int i = 0; i < 12; i++) sack.addItem(new cBullet(items));
 
         hasAddedItems = true;

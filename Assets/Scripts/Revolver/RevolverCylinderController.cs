@@ -17,6 +17,7 @@ public class RevolverCylinderController : MonoBehaviour
     private Sprite chamberFull;
     private GameObject projectilePrefab;
     private GameObject player;
+    private Camera camera;
 
     [SerializeField] public const int CYLINDER_SIZE = 6;
     [SerializeField] private cBullet[] cylinderArr;
@@ -42,6 +43,7 @@ public class RevolverCylinderController : MonoBehaviour
         chamberImage = GameObject.Find("ChamberImage").GetComponent<Image>();
         chamberDecal = GameObject.Find("FiredDecal");
         player = GameObject.Find("Player");
+        camera = GameObject.Find("Main Camera").GetComponent<Camera>();
         textBox = GameObject.Find("ChamberStatusText").GetComponent<TMP_Text>();
         projectilePrefab = Resources.Load<GameObject>("Prefabs/Projectile");
 
@@ -119,9 +121,30 @@ public class RevolverCylinderController : MonoBehaviour
     {
         if(cylinderStateArr[barrelPosition] == CHAMBER_STATE.LOADED)
         {
+            Vector3 cameraPos = camera.gameObject.transform.position;
+            cBullet b = cylinderArr[barrelPosition];
+
             // HANDLE BULLET FIRING LOGIC
-            GameObject proj = Instantiate(projectilePrefab, player.transform.position, player.transform.rotation);
-            proj.gameObject.GetComponent<ProjectileFireBehaviour>().setBullet(cylinderArr[barrelPosition]);
+            Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hitPoint;
+            Vector3 targetPosition;
+
+            if(Physics.Raycast(ray, out hitPoint)){
+                targetPosition = hitPoint.point;
+            } else {
+                targetPosition = ray.GetPoint(60);
+            }
+
+            Vector3 direction = targetPosition - cameraPos;
+
+            GameObject proj = Instantiate(projectilePrefab, cameraPos, Quaternion.identity);
+            proj.gameObject.GetComponent<ProjectileFireBehaviour>().setBullet(b);
+
+            proj.transform.forward = direction.normalized;
+            Rigidbody rb = proj.GetComponent<Rigidbody>();
+            rb.AddForce(direction.normalized * b.ProjSpeed, ForceMode.Impulse);
+            player.GetComponent<Rigidbody>().AddForce(-direction.normalized * b.Knockback, ForceMode.Impulse);
+
             cylinderStateArr[barrelPosition] = CHAMBER_STATE.FIRED;
             setChamberFired();
         }
