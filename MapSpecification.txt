@@ -1,0 +1,23 @@
+Tilemap Features:
+W - Wall
+- - empty space
+F - Pit
+T - Torch on wall
+L - Lamp on floor
+D - Door
+
+
+[ - Player Spawn
+] - Level Exit
+
+s - Small Casing
+m - Medium Casing
+l - Large Casing
+g - Gunpowder
+o - Primer
+b - bullet
+e - explosive bullet
+
+1 - Turret
+2 - Melee Enemy
+3 - Ranged Enemy
