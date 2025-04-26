@@ -1,11 +1,12 @@
-WWWWTWWWWW        WWWWTWWWWWWWWWWWWWWWWW
-W--------W        W--------------------W
-T---[----W        W--------------------]
-W--------W        W--------------------W
-W--------WWWWWWWWWW--------------------W
-W------------D--------------L----------W
-W--------WWTWWWWTWW--------------------W
-W--------W        W--------------------W
-T-smlpob-T        W--------------------W
-W--------W        W--------------------W
-WWWWWWWWWW        WWWWTWWWWWWWWWWWWWWWWW
+WWTWTTWTWW      WWWTWWWWTWW
+W--------W      T---------W
+T-[------WTWTWTWW----L----T
+W----------D--------------W
+T---L----WTWTWTWWWWTWW-WWTW
+W----------D--------------W
+T-smlpob-WTWTWTW----L--p--W
+W--------W     W-------p--W
+WWTWTTWTWW     T-------p--T
+               W----L-----W
+               T----------T
+               WWWWW]WWWWWW

@@ -9,7 +9,10 @@ public class LevelGenerationHandler : MonoBehaviour
 
     private GameObject player;
     private GameObject ceilFloor;
+    private GameObject itemPickupPrefab;
     private GameObject wall;
+    private GameObject wallTorch;
+    private GameObject lampFloor;
 
     private Vector3 spawnPos;
 
@@ -20,6 +23,10 @@ public class LevelGenerationHandler : MonoBehaviour
 
         ceilFloor = Resources.Load<GameObject>("Prefabs/Level/CeilFloor");
         wall = Resources.Load<GameObject>("Prefabs/Level/Wall");
+        wallTorch = Resources.Load<GameObject>("Prefabs/Level/WallTorch");
+        lampFloor = Resources.Load<GameObject>("Prefabs/Level/LampFloor");
+        itemPickupPrefab = Resources.Load<GameObject>("Prefabs/ItemPickup");
+
     }
 
     void Start()
@@ -68,22 +75,59 @@ public class LevelGenerationHandler : MonoBehaviour
         GameObject created = null;
         switch(c){
             case 'T':
+                created = Instantiate(wallTorch, position, zeroed);
+                break;
+
             case ']':
             case 'W':
                 created = Instantiate(wall, position, zeroed);
                 break;
+
+            case 'p':
+                created = Instantiate(ceilFloor, position, zeroed);
+                Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed)
+                    .GetComponent<PhysicsItemBehaviour>().setContainedItem(new Gunpowder());
+                break;
+
+            case 'o':
+                created = Instantiate(ceilFloor, position, zeroed);
+                Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed)
+                    .GetComponent<PhysicsItemBehaviour>().setContainedItem(new Primer());
+                break;
+
+            case 'b':
+                created = Instantiate(ceilFloor, position, zeroed);
+                Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed)
+                    .GetComponent<PhysicsItemBehaviour>().setContainedItem(new Bullet());
+                break;
+
+            case 's':
+                created = Instantiate(ceilFloor, position, zeroed);
+                Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed)
+                    .GetComponent<PhysicsItemBehaviour>().setContainedItem(new ItemCasing(ItemCasing.CASING_SIZE.SMALL));
+                break;
+
+            case 'm':
+                created = Instantiate(ceilFloor, position, zeroed);
+                Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed)
+                    .GetComponent<PhysicsItemBehaviour>().setContainedItem(new ItemCasing(ItemCasing.CASING_SIZE.MEDIUM));
+                break;
+
+            case 'l':
+                created = Instantiate(ceilFloor, position, zeroed);
+                Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed)
+                    .GetComponent<PhysicsItemBehaviour>().setContainedItem(new ItemCasing(ItemCasing.CASING_SIZE.LARGE));
+                break;
+
             
             case '1':
             case '2':
             case '3':
             case 'L':
+                created = Instantiate(lampFloor, position, zeroed);
+                break;
+                
             case 'D':
-            case 's':
-            case 'm':
-            case 'l':
-            case 'p':
-            case 'o':
-            case 'b':
             case '-':
                 created = Instantiate(ceilFloor, position, zeroed);
                 break;
