@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Item_Large
   - Item_Pickup
+  - Torch
   layers:
   - Default
   - TransparentFX

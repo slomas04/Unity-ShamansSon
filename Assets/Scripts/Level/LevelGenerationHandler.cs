@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.IO;
+using UnityEditor;
 
 public class LevelGenerationHandler : MonoBehaviour
 {
@@ -66,6 +67,13 @@ public class LevelGenerationHandler : MonoBehaviour
 
                 line = reader.ReadLine();
                 lineNo++;   
+            }
+        }
+
+        // Get all torches and cull them if they are not above ground
+        foreach(GameObject torch in GameObject.FindGameObjectsWithTag("Torch")){
+            if(!Physics.Raycast(torch.transform.position, Vector3.down, 10)) {
+                GameObject.Destroy(torch);
             }
         }
     }
