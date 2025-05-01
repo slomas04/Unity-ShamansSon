@@ -9,12 +9,20 @@ using UnityEngine.UI;
  */
 public class DraggedItemBehaviour : MonoBehaviour
 {
+    public static DraggedItemBehaviour Instance {get; private set;}
+
     // The item being held
     [SerializeField] private GenericItem CurrentItem;
     // The object's Image component
     public Image imageRenderer;
     // Store a reference to the canvas group to modify Object's alpha
     public CanvasGroup cGroup;
+
+    void Awake()
+    {
+        if (Instance) Destroy(gameObject);
+        Instance = this;
+    }
 
     void Start()
     {

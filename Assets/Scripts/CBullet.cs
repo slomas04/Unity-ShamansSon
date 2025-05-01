@@ -6,7 +6,7 @@ public class cBullet
 
     public HEAD_TYPE HeadType { get; private set;}
 
-    // Bullet speed in m/s (160gr JHP for SAA fires at 343m/s)
+    // Bullet speed
     public float ProjSpeed { get;  private set;}
     // Value from 0 to 100 to represent how much visual recoil the player gets
     public float RecoilAdj { get;  private set;}
@@ -26,7 +26,7 @@ public class cBullet
 
             if (i is Gunpowder)
             {
-                ProjSpeed += 150;
+                ProjSpeed += 75;
                 RecoilAdj += 1;
             }
 

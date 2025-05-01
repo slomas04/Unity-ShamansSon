@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Molcajete Massacre 1996.sln"
+    "dotnet.defaultSolution": "Molcajete-Massacre-1996.sln",
+    "dotnet.preferCSharpExtension": true
 }

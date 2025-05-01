@@ -14,6 +14,7 @@ public class LevelGenerationHandler : MonoBehaviour
     private GameObject wall;
     private GameObject wallTorch;
     private GameObject lampFloor;
+    private GameObject exitDoors;
 
     private Vector3 spawnPos;
 
@@ -27,6 +28,7 @@ public class LevelGenerationHandler : MonoBehaviour
         wallTorch = Resources.Load<GameObject>("Prefabs/Level/WallTorch");
         lampFloor = Resources.Load<GameObject>("Prefabs/Level/LampFloor");
         itemPickupPrefab = Resources.Load<GameObject>("Prefabs/ItemPickup");
+        exitDoors = Resources.Load<GameObject>("Prefabs/Level/ExitDoors");
 
     }
 
@@ -87,6 +89,9 @@ public class LevelGenerationHandler : MonoBehaviour
                 break;
 
             case ']':
+                created = Instantiate(exitDoors, position, zeroed);
+                break;
+
             case 'W':
                 created = Instantiate(wall, position, zeroed);
                 break;

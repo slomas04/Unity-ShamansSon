@@ -17,7 +17,7 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
     // They are instanced only once for the sake of efficency.
     protected static InventoryController inventoryController;
     protected static Sprite DEFAULT_SPRITE;
-    protected static DraggedItemBehaviour ITEM_DRAG;
+    protected DraggedItemBehaviour dragged_item;
 
     // Static int used to keep each slot's index unique.
     private static int nextIndex = 0;
@@ -36,7 +36,7 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
     private void Start()
     {
         // Get Drag and inventory objects if they are null
-        if (ITEM_DRAG == null) ITEM_DRAG = FindAnyObjectByType<DraggedItemBehaviour>();
+        dragged_item = DraggedItemBehaviour.Instance;
         inventoryController = InventoryController.Instance;
 
         // Set the index of the slot in the inventory controller here
@@ -69,10 +69,12 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
     {
         if (Input.GetKey(KeyCode.LeftShift)){
             if (BulletConstructorComponent.Instance.handleShiftInsert(containedItem)) containedItem = null;
+        } else if (Input.GetKey(KeyCode.LeftControl)){
+            containedItem = null;
         } else {
             GenericItem pastCont = (containedItem == null) ? null : (GenericItem) containedItem.Clone();
-            containedItem = ITEM_DRAG.getItem();
-            ITEM_DRAG.setItem(pastCont);
+            containedItem = dragged_item.getItem();
+            dragged_item.setItem(pastCont);
         }
         
     }

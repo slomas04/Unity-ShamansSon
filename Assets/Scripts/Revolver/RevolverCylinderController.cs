@@ -143,9 +143,8 @@ public class RevolverCylinderController : MonoBehaviour
             proj.transform.forward = direction.normalized;
             Rigidbody rb = proj.GetComponent<Rigidbody>();
             rb.AddForce(direction.normalized * b.ProjSpeed, ForceMode.Impulse);
-            HealthCylinderController.Instance.spin(b.ProjSpeed);
             player.GetComponent<Rigidbody>().AddForce(-direction.normalized * b.Knockback, ForceMode.Impulse);
-
+            HealthCylinderController.Instance.spin(b.ProjSpeed);
             cylinderStateArr[barrelPosition] = CHAMBER_STATE.FIRED;
             setChamberFired();
         }

@@ -15,6 +15,7 @@ public class RevolverFrameBehaviour : MonoBehaviour
     private Dictionary<REVOLVER_STATE, Sprite> spriteMap;
     private Image GOImage;
     private RevolverCylinderController cylinder;
+    private HealthCylinderController health;
 
     private TimeSpan thumbDuration;
     private DateTime lastThumb;
@@ -51,6 +52,7 @@ public class RevolverFrameBehaviour : MonoBehaviour
     {
         GOImage = gameObject.GetComponent<Image>();
         cylinder = gameObject.GetComponent<RevolverCylinderController>();
+        health = HealthCylinderController.Instance;
         setFrame(REVOLVER_STATE.IDLE);
         ChamberUIElement.transform.localScale = new Vector3(0,0,0);
         isReloading = false;
@@ -151,13 +153,16 @@ public class RevolverFrameBehaviour : MonoBehaviour
         {
             case REVOLVER_STATE.IDLE:
                 currentState = (isUp) ? currentState : REVOLVER_STATE.HALF;
+                if (!isUp) health.spin(40f);
                 break;
             case REVOLVER_STATE.HALF:
                 currentState = (isUp) ? REVOLVER_STATE.IDLE : REVOLVER_STATE.FULL;
                 if (!isUp) cylinder.cycleCylinder();
+                health.spin(isUp ? -40f : 80f);
                 break;
             case REVOLVER_STATE.FULL:
                 currentState = (isUp) ? REVOLVER_STATE.HALF : currentState;
+                if(isUp) health.spin(-80f);
                 break;
             default:
                 break;

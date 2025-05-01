@@ -5,7 +5,7 @@ public class HealthCylinderController : MonoBehaviour
 {
     public static HealthCylinderController Instance { get; private set; }
 
-    [SerializeField] private float spinForce = 1.5f;
+    [SerializeField] private float spinForce = 500f;
 
     private Sprite[] sprites;
     private Image cylinderImage;

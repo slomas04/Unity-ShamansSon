@@ -26,7 +26,7 @@ public class TypeConstrainedInventorySlotController : InventorySlotController
 
     private void Start()
     {
-        if (ITEM_DRAG == null) ITEM_DRAG = FindAnyObjectByType<DraggedItemBehaviour>();
+        if (dragged_item == null) dragged_item = FindAnyObjectByType<DraggedItemBehaviour>();
         imageRenderer = gameObject.GetComponent<Image>();
         imageRenderer.sprite = DEFAULT_SPRITE;
         overlayImage = GetComponentsInChildren<Image>()[1]; //Jank, for some reason this seemed to get the Image component of this object if done normally
@@ -66,7 +66,7 @@ public class TypeConstrainedInventorySlotController : InventorySlotController
     // Do not call the parent class's version of the method unless the constraint is satisfied.
     public override void OnPointerDown(PointerEventData eventData)
     {
-        if(ITEM_DRAG.getItem() == null || ITEM_DRAG.getItem().type == typeConstraint)
+        if(dragged_item.getItem() == null || dragged_item.getItem().type == typeConstraint)
         {
             base.OnPointerDown(eventData);
         }

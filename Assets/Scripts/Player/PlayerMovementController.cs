@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
@@ -5,15 +6,19 @@ public class PlayerMovementController : MonoBehaviour
     public float moveSpeed = 10f;
     public float jumpForce = 5f;
     public float sprintMultiplier = 2f;
-    
+    public double headBobMultiplier = 0.01;
+
+    [SerializeField] private double distance;
+
     private Rigidbody rb; 
+    private Camera mainCamera;
 
     //Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
-        
+        mainCamera = Camera.main;
+        distance = 0;
     }
 
     // Update is called once per frame
@@ -21,6 +26,14 @@ public class PlayerMovementController : MonoBehaviour
     {
         handleJump();
         handleAxisMovement();
+    }
+
+    void Update()
+    {
+        if (rb.linearVelocity != Vector3.zero){
+            distance += headBobMultiplier * rb.linearVelocity.magnitude;
+        }
+        bobHead();
     }
 
     void handleAxisMovement()
@@ -45,4 +58,9 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
+    void bobHead(){
+        // This is probably quite expensive
+        double cameraHeight = 0.5 + (0.25*Math.Cos(distance));
+        mainCamera.transform.localPosition = new Vector3(mainCamera.transform.localPosition.x, (float) cameraHeight, mainCamera.transform.localPosition.z);
+    }
 }
