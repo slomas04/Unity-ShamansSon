@@ -16,8 +16,10 @@ public class LevelGenerationHandler : MonoBehaviour
     private GameObject lampFloor;
     private GameObject exitDoors;
     private GameObject snakeEnemy;
+    private GameObject idol;
 
     private Vector3 spawnPos;
+    private Vector3 idolPos;
 
     void Awake()
     {
@@ -30,6 +32,7 @@ public class LevelGenerationHandler : MonoBehaviour
         lampFloor = Resources.Load<GameObject>("Prefabs/Level/LampFloor");
         itemPickupPrefab = Resources.Load<GameObject>("Prefabs/ItemPickup");
         exitDoors = Resources.Load<GameObject>("Prefabs/Level/ExitDoors");
+        idol = Resources.Load<GameObject>("Prefabs/Level/TheIdol");
 
         snakeEnemy = Resources.Load<GameObject>("Prefabs/Enemy/SnakeEnemy");
 
@@ -40,8 +43,9 @@ public class LevelGenerationHandler : MonoBehaviour
         
     }
 
-    public void loadMenu(){
+    public Vector3 loadMenu(){
         loadLevelFromFile("M");
+        return idolPos;
     }
 
     public void loadLevel(int levelNo){
@@ -50,7 +54,7 @@ public class LevelGenerationHandler : MonoBehaviour
         loadLevelFromFile(levelNo.ToString());
         if(spawnPos != null){
             Debug.Log(spawnPos);
-            player.transform.SetPositionAndRotation(spawnPos + new Vector3(0,1,0), zeroed);
+            player.transform.SetPositionAndRotation(spawnPos + new Vector3(0,1.75f,0), zeroed);
             player.SetActive(true);
         } else {
             Debug.Log("No Spawn position given!");
@@ -162,6 +166,11 @@ public class LevelGenerationHandler : MonoBehaviour
             case '[':
                 created = Instantiate(ceilFloor, position, zeroed);
                 spawnPos = position;
+                break;
+
+            case 'G':
+                created = Instantiate(idol, position, zeroed);
+                idolPos = position + new Vector3(0,1,0);
                 break;
         }
 
