@@ -4,9 +4,11 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Item_Large
   - Item_Pickup
   - Torch
+  - Enemy
+  - PlayerBullet
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

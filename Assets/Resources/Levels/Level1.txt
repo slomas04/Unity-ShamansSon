@@ -1,12 +1,15 @@
-WWTWTTWTWW      WWWTWWWWTWW
-W--------W      T---------W
-T-[------WTWTWTWW----L----T
-W----------D--------------W
-T---L----WTWTWTWWWWTWW-WWTW
-W----------D--------------W
-T-smlpob-WTWTWTW----L--p--W
-W--------W     W-------p--W
-WWTWTTWTWW     T-------p--T
-               W----L-----W
-               T----------T
-               WWWWW]WWWWWW
+WWTWTWTWW
+W-------W
+T---[---TWWTWWW
+W---L---D-----]
+W-------W-----W
+T-------TWWWTDWWW           WWWTWWW
+W------sW---1---W           W-----W
+T------mT-------T           W-----W
+Wo--L--lW---L---WWTWTWTWTWTWW-----W
+Wb-----pW-------------D--------L--W
+T---------------TWTWTWTWTWTWW-----W
+W---------------W           W-----W
+WWWTWTWTWTWTWTWWW           W-----W
+                            W-----W
+                            WWWTWWW

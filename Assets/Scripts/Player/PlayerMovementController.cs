@@ -6,7 +6,7 @@ public class PlayerMovementController : MonoBehaviour
     public float moveSpeed = 10f;
     public float jumpForce = 5f;
     public float sprintMultiplier = 2f;
-    public double headBobMultiplier = 0.01;
+    public double headBobMultiplier = 0.006;
 
     [SerializeField] private double distance;
 
@@ -30,10 +30,13 @@ public class PlayerMovementController : MonoBehaviour
 
     void Update()
     {
-        if (rb.linearVelocity != Vector3.zero){
-            distance += headBobMultiplier * rb.linearVelocity.magnitude;
+        // Bob head, but only if on the ground
+        if (transform.position.y < 1.1) {
+            if (rb.linearVelocity != Vector3.zero){
+                distance += headBobMultiplier * rb.linearVelocity.magnitude;
+            }
+            bobHead();
         }
-        bobHead();
     }
 
     void handleAxisMovement()
@@ -60,7 +63,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void bobHead(){
         // This is probably quite expensive
-        double cameraHeight = 0.5 + (0.25*Math.Cos(distance));
+        double cameraHeight = 0.5 + (0.1*Math.Cos(distance));
         mainCamera.transform.localPosition = new Vector3(mainCamera.transform.localPosition.x, (float) cameraHeight, mainCamera.transform.localPosition.z);
     }
 }

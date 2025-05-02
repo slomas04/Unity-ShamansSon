@@ -26,4 +26,12 @@ public class PlayerCollisionManager : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter(Collision collision){
+        if (collision.gameObject.CompareTag("EnemyBullet")){
+            print("Player hit!");
+            PlayerHealthManager.Instance.Hit();
+            Destroy(collision.gameObject);
+        }
+    }
+
 }

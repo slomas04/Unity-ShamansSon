@@ -40,7 +40,7 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void Hit()
     {
-        if (DateTime.UtcNow - lastHit < iFrameTime)
+        if (DateTime.UtcNow - lastHit > iFrameTime  && currentHealth > 0)
         {
             currentHealth -= 1;
             HealthCylinderController.Instance.setHealth(currentHealth);

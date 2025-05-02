@@ -11,7 +11,7 @@ public class BillboardBehaviour : MonoBehaviour
         mainCamera = Camera.main;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // Look directly at the camera
         transform.LookAt(mainCamera.transform);

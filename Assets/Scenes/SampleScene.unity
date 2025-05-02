@@ -2895,6 +2895,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1442510771}
   - component: {fileID: 1442510772}
+  - component: {fileID: 1442510773}
   m_Layer: 0
   m_Name: LevelGeometry
   m_TagString: Untagged
@@ -2927,6 +2928,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f55036d7881f991629a077b84882576a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1442510773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442510770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae07c84fece0bfd41bfa90db19772b05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1448275483
@@ -3678,6 +3691,8 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 5
   sprintMultiplier: 2
+  headBobMultiplier: 0.006
+  distance: 0
 --- !u!114 &2104078557
 MonoBehaviour:
   m_ObjectHideFlags: 0

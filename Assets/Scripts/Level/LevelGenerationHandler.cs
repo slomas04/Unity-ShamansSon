@@ -15,6 +15,7 @@ public class LevelGenerationHandler : MonoBehaviour
     private GameObject wallTorch;
     private GameObject lampFloor;
     private GameObject exitDoors;
+    private GameObject snakeEnemy;
 
     private Vector3 spawnPos;
 
@@ -30,13 +31,23 @@ public class LevelGenerationHandler : MonoBehaviour
         itemPickupPrefab = Resources.Load<GameObject>("Prefabs/ItemPickup");
         exitDoors = Resources.Load<GameObject>("Prefabs/Level/ExitDoors");
 
+        snakeEnemy = Resources.Load<GameObject>("Prefabs/Enemy/SnakeEnemy");
+
     }
 
     void Start()
     {
+        
+    }
+
+    public void loadMenu(){
+        loadLevelFromFile("M");
+    }
+
+    public void loadLevel(int levelNo){
         player = GameObject.Find("Player");
         player.SetActive(false);
-        loadLevelFromFile(1);
+        loadLevelFromFile(levelNo.ToString());
         if(spawnPos != null){
             Debug.Log(spawnPos);
             player.transform.SetPositionAndRotation(spawnPos + new Vector3(0,1,0), zeroed);
@@ -51,7 +62,7 @@ public class LevelGenerationHandler : MonoBehaviour
         
     }
 
-    private void loadLevelFromFile(int levelNo){
+    private void loadLevelFromFile(string levelNo){
         TextAsset leveldata = Resources.Load<TextAsset>("Levels/Level" + levelNo);
         if (leveldata == null){
             Debug.Log("Unable to find level " + levelNo + "!");
@@ -134,6 +145,9 @@ public class LevelGenerationHandler : MonoBehaviour
 
             
             case '1':
+                created = Instantiate(ceilFloor, position, zeroed);
+                Instantiate(snakeEnemy, position + new Vector3(0,0,0), zeroed);
+                break;
             case '2':
             case '3':
             case 'L':

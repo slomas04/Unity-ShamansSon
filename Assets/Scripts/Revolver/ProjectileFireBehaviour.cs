@@ -30,10 +30,18 @@ public class ProjectileFireBehaviour : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "Player"){
-            GameObject.Destroy(gameObject);
+        if(gameObject.CompareTag("PlayerBullet")){
+            if (collision.gameObject.tag != "Player"){
+                GameObject.Destroy(gameObject);
+            }
+        } else {
+            if (!collision.gameObject.CompareTag("Enemy")){
+                Destroy(gameObject);
+            }
         }
+        
     }
+
 
     public void setBullet(cBullet b){
         containedBullet = b;
