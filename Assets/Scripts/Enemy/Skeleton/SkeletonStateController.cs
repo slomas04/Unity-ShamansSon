@@ -2,14 +2,12 @@ using System;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class SnakeStateController : EnemyStateController
+public class SkeletonStateController : EnemyStateController
 {
-
     protected override void Awake()
     {
         initialState = new snake_state_idle(this);
-        spriteSheetPath = "Sprites/Enemies/Snake/";
+        spriteSheetPath = "Sprites/Enemies/Skeleton/";
         base.Awake();
-        
     }
 }

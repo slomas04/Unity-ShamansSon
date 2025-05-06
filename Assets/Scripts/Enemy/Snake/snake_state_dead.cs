@@ -1,11 +1,11 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class snake_state_dead : SnakeState
+public class snake_state_dead : EnemyState
 {
-    private SnakeStateController sc;
+    private EnemyStateController sc;
 
-    public snake_state_dead(SnakeStateController stateController){
+    public snake_state_dead(EnemyStateController stateController){
         sc = stateController;
     }
 

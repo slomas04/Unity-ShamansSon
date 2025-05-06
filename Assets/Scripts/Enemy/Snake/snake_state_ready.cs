@@ -3,15 +3,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class snake_state_ready : SnakeState
+public class snake_state_ready : EnemyState
 {
-    private SnakeStateController sc;
+    private EnemyStateController sc;
     private DateTime lastEyeShot;
     private TimeSpan eyeShotTime;
 
     private static double eyeShotSeconds = 0.5f;
 
-    public snake_state_ready(SnakeStateController stateController){
+    public snake_state_ready(EnemyStateController stateController){
         sc = stateController;
         lastEyeShot = DateTime.MaxValue;
         eyeShotTime = TimeSpan.FromSeconds(eyeShotSeconds);
@@ -26,7 +26,7 @@ public class snake_state_ready : SnakeState
     }
 
     public void OnUpdate(){
-        if (sc.distToPlayer() > SnakeStateController.triggerDist){
+        if (sc.distToPlayer() > EnemyStateController.triggerDist){
             sc.setState(new snake_state_idle(sc));
             return;
         }
@@ -34,7 +34,7 @@ public class snake_state_ready : SnakeState
         bool rayOnPlayer = false;
         RaycastHit hit;
         Ray ray = new Ray(sc.transform.position, sc.transform.forward);
-        if(Physics.Raycast(ray, out hit, SnakeStateController.triggerDist)){
+        if(Physics.Raycast(ray, out hit, EnemyStateController.triggerDist)){
             if(hit.collider.gameObject.CompareTag("Player")){
                 rayOnPlayer = true;
             }

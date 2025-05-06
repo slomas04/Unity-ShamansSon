@@ -3,16 +3,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class snake_state_shoot : SnakeState
+public class snake_state_shoot : EnemyState
 {
-    private SnakeStateController sc;
+    private EnemyStateController sc;
     private DateTime timeEnter;
     private TimeSpan frameTime;
 
     private static double frameDuration = 0.4f;
-    private static float projSpeed = 20f;
+    private static float projSpeed = 80f;
 
-    public snake_state_shoot(SnakeStateController stateController){
+    public snake_state_shoot(EnemyStateController stateController){
         sc = stateController;
         timeEnter = DateTime.Now;
         frameTime = TimeSpan.FromSeconds(frameDuration);

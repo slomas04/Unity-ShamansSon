@@ -1,11 +1,11 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class snake_state_idle : SnakeState
+public class snake_state_idle : EnemyState
 {
-    private SnakeStateController sc;
+    private EnemyStateController sc;
 
-    public snake_state_idle(SnakeStateController stateController){
+    public snake_state_idle(EnemyStateController stateController){
         sc = stateController;
     }
 
@@ -18,7 +18,7 @@ public class snake_state_idle : SnakeState
     }
 
     public void OnUpdate(){
-        if (sc.distToPlayer() < SnakeStateController.triggerDist){
+        if (sc.distToPlayer() < EnemyStateController.triggerDist){
             sc.setState(new snake_state_active(sc));
             return;
         }
