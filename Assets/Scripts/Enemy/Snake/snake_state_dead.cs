@@ -10,7 +10,7 @@ public class snake_state_dead : EnemyState
     }
 
     public void OnEnterState(){
-        sc.setSprite("snake_dead");
+        sc.setAnim("SnakeDead");
     }
 
     public void OnShot(){

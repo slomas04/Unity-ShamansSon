@@ -18,7 +18,7 @@ public class snake_state_active : EnemyState
     }
 
     public void OnEnterState(){
-        sc.setSprite("snake_active");
+        sc.setAnim("SnakeActive");
     }
 
     public void OnShot(){

@@ -11,14 +11,14 @@ public class skeleton_state_walk : EnemyState
 
     public skeleton_state_walk(EnemyStateController stateController){
         System.Random rnd = new System.Random();
-        walkDuration = rnd.Next(2,7)/10;
+        walkDuration = rnd.Next(5,20)/10;
         sc = stateController;
         timeEnter = DateTime.Now;
-        frameTime = TimeSpan.FromSeconds(idleDuration);
+        frameTime = TimeSpan.FromSeconds(walkDuration);
     }
 
     public void OnEnterState(){
-        sc.setSprite("Skeleton_Idle");
+        sc.setAnim("SkeletonWalkAnimation");
     }
 
     public void OnShot(){
@@ -27,6 +27,7 @@ public class skeleton_state_walk : EnemyState
 
     public void OnUpdate(){
         if(DateTime.Now - timeEnter > frameTime){
+            //next state
             sc.setState(new skeleton_state_walk(sc));
         }
     }

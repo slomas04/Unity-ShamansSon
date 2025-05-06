@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8628538152787021966}
   - component: {fileID: 9220174638530987526}
   - component: {fileID: 9066140276217541491}
+  - component: {fileID: 1777484480518350458}
   m_Layer: 0
   m_Name: SnakeEnemy
   m_TagString: Enemy
@@ -135,3 +136,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.64, y: 0.64, z: 0.64}
   m_Center: {x: 0, y: 0.32, z: 0}
+--- !u!95 &1777484480518350458
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853300963824399718}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 52f13d50d6784de4ab9555e271d379f4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

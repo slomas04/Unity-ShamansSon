@@ -40,7 +40,7 @@ public class snake_state_shoot : EnemyState
     }
 
     public void OnEnterState(){
-        sc.setSprite("snake_shoot");
+        sc.setAnim("SnakeShoot");
     }
 
     public void OnShot(){

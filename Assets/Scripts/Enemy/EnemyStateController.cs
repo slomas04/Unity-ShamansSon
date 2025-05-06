@@ -1,25 +1,24 @@
 using System;
 using Unity.IO.LowLevel.Unsafe;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public abstract class EnemyStateController : MonoBehaviour
 {
     private EnemyState currentState;
     private Sprite[] sprites;
-    private SpriteRenderer sr;
+    private Animator anim;
     private Transform playerTransform;
     public GameObject EnemyProjectile {get; private set;}
     
-    protected string spriteSheetPath;
     protected EnemyState initialState;
 
     [SerializeField] public static float triggerDist = 16f;
 
     protected virtual void Awake()
     {
-        sprites = Resources.LoadAll<Sprite>(spriteSheetPath);
         EnemyProjectile = Resources.Load<GameObject>("Prefabs/EnemyProjectile");
-        sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -50,10 +49,8 @@ public abstract class EnemyStateController : MonoBehaviour
         return Vector3.Distance(pos, playerPos);
     }
 
-    public void setSprite(String name){
-        foreach (Sprite s in sprites){
-            if(s.name == name) sr.sprite = s;
-        }
+    public void setAnim(String name){
+        anim.SetTrigger(name);
     }
 
     public void OnTriggerEnter(Collider other)

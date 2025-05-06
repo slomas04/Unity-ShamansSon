@@ -16,7 +16,7 @@ public class skeleton_state_idle : EnemyState
     }
 
     public void OnEnterState(){
-        sc.setSprite("Skeleton_Idle");
+        sc.setAnim("SkeletonIdle");
     }
 
     public void OnShot(){
