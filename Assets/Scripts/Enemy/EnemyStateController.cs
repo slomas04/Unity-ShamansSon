@@ -11,10 +11,10 @@ public abstract class EnemyStateController : MonoBehaviour
     private Transform playerTransform;
     private BillboardBehaviour billboard;
     public GameObject EnemyProjectile {get; private set;}
-    
     protected EnemyState initialState;
 
     [SerializeField] public static float triggerDist = 16f;
+    [SerializeField] public static float sightAngle = Mathf.Cos(30 * Mathf.Deg2Rad);
 
     protected virtual void Awake()
     {
@@ -62,12 +62,32 @@ public abstract class EnemyStateController : MonoBehaviour
         anim.SetTrigger(name);
     }
 
-    public void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.CompareTag("PlayerBullet")){
+        if (collision.gameObject.CompareTag("PlayerBullet")){
             currentState.OnShot();
         }
     }
+
+    public bool canSeePlayer(){
+
+        Vector3 directionToPlayer = playerTransform.position - transform.position;
+        directionToPlayer.y = 0f;
+
+        if (Vector3.Dot(transform.forward, directionToPlayer.normalized) < sightAngle) return false;
+
+        Vector3 eyePosition = transform.position + Vector3.up * 1.5f;
+        RaycastHit hit;
+        if (Physics.Raycast(eyePosition, directionToPlayer.normalized, out hit, directionToPlayer.magnitude)){
+            if (hit.collider.CompareTag("Player"))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }
 
 public interface EnemyState{

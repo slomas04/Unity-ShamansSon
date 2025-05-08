@@ -14,8 +14,10 @@ public class skeleton_state_shoot : EnemyState
     }
 
     public void OnEnterState(){
+        Vector3 pos = sc.transform.position + new Vector3(0, 1f, 0);
+
         // HANDLE BULLET FIRING LOGIC
-        Ray ray = new Ray(sc.transform.position, sc.transform.forward);
+        Ray ray = new Ray(pos, sc.transform.forward);
         RaycastHit hitPoint;
         Vector3 targetPosition;
 
@@ -24,8 +26,6 @@ public class skeleton_state_shoot : EnemyState
         } else {
             targetPosition = ray.GetPoint(60);
         }
-
-        Vector3 pos = sc.transform.position + new Vector3(0,1.5f,0);
 
         Vector3 direction = targetPosition - pos;
 

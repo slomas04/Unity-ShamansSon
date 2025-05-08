@@ -52,16 +52,7 @@ public class skeleton_state_walk : EnemyState
 
         if (Time.time - timeEnter > walkDuration)
         {
-            RaycastHit hit;
-            Ray ray = new Ray(sc.transform.position, sc.transform.forward);
-            if (Physics.Raycast(ray, out hit, EnemyStateController.triggerDist) && hit.collider.gameObject.CompareTag("Player"))
-            {
-                sc.setState(new skeleton_state_ready(sc));
-            }
-            else
-            {
-                sc.setState(new skeleton_state_idle(sc));
-            }
+            sc.setState(sc.canSeePlayer() ? new skeleton_state_ready(sc) : new skeleton_state_idle(sc));
         }
     }
 }

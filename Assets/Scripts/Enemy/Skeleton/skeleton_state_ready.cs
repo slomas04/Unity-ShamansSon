@@ -21,14 +21,7 @@ public class skeleton_state_ready : EnemyState
 
     public void OnUpdate(){
 
-        bool rayOnPlayer = false;
-        RaycastHit hit;
-        Ray ray = new Ray(sc.transform.position, sc.transform.forward);
-        if(Physics.Raycast(ray, out hit, EnemyStateController.triggerDist)){
-            if(hit.collider.gameObject.CompareTag("Player")){
-                rayOnPlayer = true;
-            }
-        } 
+        bool rayOnPlayer = sc.canSeePlayer();
 
         if (rayOnPlayer) {
             if (lastEyeShot == float.MaxValue) {

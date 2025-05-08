@@ -25,16 +25,9 @@ public class snake_state_ready : EnemyState
             return;
         }
 
-        bool rayOnPlayer = false;
-        RaycastHit hit;
-        Ray ray = new Ray(sc.transform.position, sc.transform.forward);
-        if(Physics.Raycast(ray, out hit, EnemyStateController.triggerDist)){
-            if(hit.collider.gameObject.CompareTag("Player")){
-                rayOnPlayer = true;
-            }
-        } 
+        bool playerInCone = sc.canSeePlayer();
 
-        if (rayOnPlayer){
+        if (playerInCone){
             if (lastEyeShot == float.MaxValue){
                 lastEyeShot = Time.time;
             }

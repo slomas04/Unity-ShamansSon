@@ -5,7 +5,7 @@ public class snake_state_active : EnemyState
 {
     private EnemyStateController sc;
     private float lastEyeShot;
-    private static double eyeShotSeconds = 0.5f;
+    private static float eyeShotSeconds = 0.5f;
 
     public snake_state_active(EnemyStateController stateController){
         sc = stateController;
@@ -26,16 +26,9 @@ public class snake_state_active : EnemyState
             return;
         }
 
-        bool rayOnPlayer = false;
-        RaycastHit hit;
-        Ray ray = new Ray(sc.transform.position, sc.transform.forward);
-        if(Physics.Raycast(ray, out hit, EnemyStateController.triggerDist)){
-            if(hit.collider.gameObject.CompareTag("Player")){
-                rayOnPlayer = true;
-            }
-        } 
+        bool playerInCone = sc.canSeePlayer();
 
-        if (rayOnPlayer){
+        if (playerInCone){
             if (lastEyeShot == float.MaxValue){
                 lastEyeShot = Time.time;
             }
@@ -49,7 +42,5 @@ public class snake_state_active : EnemyState
             lastEyeShot = float.MaxValue;
         }
         
-        
-
     }
 }

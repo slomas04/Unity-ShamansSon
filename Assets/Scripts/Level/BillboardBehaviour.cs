@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class BillboardBehaviour : MonoBehaviour
@@ -15,5 +16,6 @@ public class BillboardBehaviour : MonoBehaviour
     {
         // Look directly at the camera
         transform.LookAt(mainCamera.transform);
+        transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
     }
 }
