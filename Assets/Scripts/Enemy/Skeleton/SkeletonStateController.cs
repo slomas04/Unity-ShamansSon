@@ -6,7 +6,7 @@ public class SkeletonStateController : EnemyStateController
 {
     protected override void Awake()
     {
-        initialState = new snake_state_idle(this);
+        initialState = new skeleton_state_idle(this);
         base.Awake();
     }
 }

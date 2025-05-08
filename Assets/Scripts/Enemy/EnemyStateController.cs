@@ -9,6 +9,7 @@ public abstract class EnemyStateController : MonoBehaviour
     private Sprite[] sprites;
     private Animator anim;
     private Transform playerTransform;
+    private BillboardBehaviour billboard;
     public GameObject EnemyProjectile {get; private set;}
     
     protected EnemyState initialState;
@@ -19,6 +20,7 @@ public abstract class EnemyStateController : MonoBehaviour
     {
         EnemyProjectile = Resources.Load<GameObject>("Prefabs/EnemyProjectile");
         anim = GetComponent<Animator>();
+        billboard = GetComponent<BillboardBehaviour>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,7 +32,6 @@ public abstract class EnemyStateController : MonoBehaviour
         currentState.OnEnterState();
     }
 
-    // Update is called once per frame
     void Update()
     {
         currentState.OnUpdate();
@@ -47,6 +48,14 @@ public abstract class EnemyStateController : MonoBehaviour
         Vector3 playerPos = playerTransform.position;
         playerPos.y = 0;
         return Vector3.Distance(pos, playerPos);
+    }
+
+    public Transform getPlayer(){
+        return playerTransform;
+    }
+
+    public BillboardBehaviour getBillboard(){
+        return billboard;
     }
 
     public void setAnim(String name){

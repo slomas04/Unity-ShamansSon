@@ -1,17 +1,19 @@
 using System;
 using UnityEngine;
 
-public class snake_state_shoot : EnemyState
+public class skeleton_state_shoot : EnemyState
 {
     private EnemyStateController sc;
     private float timeEnter;
-    private static double frameDuration = 0.4f;
+    private static double frameDuration = 0.2f;
     private static float projSpeed = 80f;
 
-    public snake_state_shoot(EnemyStateController stateController){
+    public skeleton_state_shoot(EnemyStateController stateController){
         sc = stateController;
         timeEnter = Time.time;
+    }
 
+    public void OnEnterState(){
         // HANDLE BULLET FIRING LOGIC
         Ray ray = new Ray(sc.transform.position, sc.transform.forward);
         RaycastHit hitPoint;
@@ -28,23 +30,19 @@ public class snake_state_shoot : EnemyState
         Vector3 direction = targetPosition - pos;
 
         GameObject proj = GameObject.Instantiate(sc.EnemyProjectile, pos, Quaternion.identity);
-
         proj.transform.forward = direction.normalized;
         Rigidbody rb = proj.GetComponent<Rigidbody>();
+        sc.setAnim("SkeletonShoot");
         rb.AddForce(direction.normalized * projSpeed, ForceMode.Impulse);
     }
 
-    public void OnEnterState(){
-        sc.setAnim("SnakeShoot");
-    }
-
     public void OnShot(){
-        sc.setState(new snake_state_dead(sc));
+        sc.setState(new skeleton_state_dead(sc));
     }
 
     public void OnUpdate(){
         if(Time.time - timeEnter > frameDuration){
-            sc.setState(new snake_state_ready(sc));
+            sc.setState(new skeleton_state_walk(sc));
         }
     }
 }

@@ -1,20 +1,14 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class snake_state_ready : EnemyState
 {
     private EnemyStateController sc;
-    private DateTime lastEyeShot;
-    private TimeSpan eyeShotTime;
-
+    private float lastEyeShot;
     private static double eyeShotSeconds = 0.5f;
 
     public snake_state_ready(EnemyStateController stateController){
         sc = stateController;
-        lastEyeShot = DateTime.MaxValue;
-        eyeShotTime = TimeSpan.FromSeconds(eyeShotSeconds);
+        lastEyeShot = float.MaxValue;
     }
 
     public void OnEnterState(){
@@ -41,16 +35,16 @@ public class snake_state_ready : EnemyState
         } 
 
         if (rayOnPlayer){
-            if (lastEyeShot == DateTime.MaxValue){
-                lastEyeShot = DateTime.Now;
+            if (lastEyeShot == float.MaxValue){
+                lastEyeShot = Time.time;
             }
 
-            if (DateTime.Now - lastEyeShot > eyeShotTime){
-                lastEyeShot = DateTime.MaxValue;  
+            if (Time.time - lastEyeShot > eyeShotSeconds){
+                lastEyeShot = Time.time;  
                 sc.setState(new snake_state_shoot(sc));
             }
         } else {
-            lastEyeShot = DateTime.MaxValue;
+            lastEyeShot = Time.time;
             return;
         }
         

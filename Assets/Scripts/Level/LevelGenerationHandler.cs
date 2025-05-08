@@ -16,6 +16,7 @@ public class LevelGenerationHandler : MonoBehaviour
     private GameObject lampFloor;
     private GameObject exitDoors;
     private GameObject snakeEnemy;
+    private GameObject skeletonEnemy;
     private GameObject idol;
 
     private Vector3 spawnPos;
@@ -35,6 +36,7 @@ public class LevelGenerationHandler : MonoBehaviour
         idol = Resources.Load<GameObject>("Prefabs/Level/TheIdol");
 
         snakeEnemy = Resources.Load<GameObject>("Prefabs/Enemy/SnakeEnemy");
+        skeletonEnemy = Resources.Load<GameObject>("Prefabs/Enemy/SkeletonEnemy");
 
     }
 
@@ -153,6 +155,9 @@ public class LevelGenerationHandler : MonoBehaviour
                 Instantiate(snakeEnemy, position + new Vector3(0,0,0), zeroed);
                 break;
             case '2':
+                created = Instantiate(ceilFloor, position, zeroed);
+                Instantiate(skeletonEnemy, position + new Vector3(0,0,0), zeroed);
+                break;
             case '3':
             case 'L':
                 created = Instantiate(lampFloor, position, zeroed);

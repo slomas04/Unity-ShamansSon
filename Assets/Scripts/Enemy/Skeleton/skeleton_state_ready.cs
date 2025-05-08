@@ -1,30 +1,25 @@
-using System;
 using UnityEngine;
 
-public class snake_state_active : EnemyState
+public class skeleton_state_ready : EnemyState
 {
     private EnemyStateController sc;
     private float lastEyeShot;
-    private static double eyeShotSeconds = 0.5f;
+    private static float eyeShotSeconds = 0.4f;
 
-    public snake_state_active(EnemyStateController stateController){
+    public skeleton_state_ready(EnemyStateController stateController){
         sc = stateController;
         lastEyeShot = float.MaxValue;
     }
 
     public void OnEnterState(){
-        sc.setAnim("SnakeActive");
+        sc.setAnim("SkeletonReady");
     }
 
     public void OnShot(){
-        sc.setState(new snake_state_dead(sc));
+        sc.setState(new skeleton_state_dead(sc));
     }
 
     public void OnUpdate(){
-        if (sc.distToPlayer() > EnemyStateController.triggerDist){
-            sc.setState(new snake_state_idle(sc));
-            return;
-        }
 
         bool rayOnPlayer = false;
         RaycastHit hit;
@@ -35,18 +30,19 @@ public class snake_state_active : EnemyState
             }
         } 
 
-        if (rayOnPlayer){
-            if (lastEyeShot == float.MaxValue){
+        if (rayOnPlayer) {
+            if (lastEyeShot == float.MaxValue) {
                 lastEyeShot = Time.time;
-            }
-
-            if (Time.time - lastEyeShot > eyeShotSeconds){
-                lastEyeShot = float.MaxValue;  
-                sc.setState(new snake_state_ready(sc));
-                return;
+            } else {
+                if (Time.time - lastEyeShot > eyeShotSeconds) {
+                    lastEyeShot = float.MaxValue;
+                    sc.setState(new skeleton_state_shoot(sc));
+                }
             }
         } else {
             lastEyeShot = float.MaxValue;
+            sc.setState(new skeleton_state_walk(sc));
+            return;
         }
         
         
