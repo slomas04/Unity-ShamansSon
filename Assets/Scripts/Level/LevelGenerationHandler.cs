@@ -10,6 +10,7 @@ public class LevelGenerationHandler : MonoBehaviour
     private static Quaternion zeroed = Quaternion.Euler(0,0,0);
 
     private List<DoorController> doors;
+    private List<GameObject> entities;
 
     private GameObject player;
     private GameObject ceilFloor;
@@ -26,12 +27,15 @@ public class LevelGenerationHandler : MonoBehaviour
     private Vector3 spawnPos;
     private Vector3 idolPos;
 
+    private int lastLoadedLevel;
+
     void Awake()
     {
         if (Instance) Destroy(gameObject);
         Instance = this;
 
         doors = new List<DoorController>();
+        entities = new List<GameObject>();
 
         ceilFloor = Resources.Load<GameObject>("Prefabs/Level/CeilFloor");
         wall = Resources.Load<GameObject>("Prefabs/Level/Wall");
@@ -58,6 +62,7 @@ public class LevelGenerationHandler : MonoBehaviour
     }
 
     public void loadLevel(int levelNo){
+        lastLoadedLevel = levelNo;
         player = GameObject.Find("Player");
         player.SetActive(false);
         loadLevelFromFile(levelNo.ToString());
@@ -68,6 +73,8 @@ public class LevelGenerationHandler : MonoBehaviour
         } else {
             Debug.Log("No Spawn position given!");
         }
+
+        GlobalStateManager.Instance.handleLevelLoad();
     }
 
     void Update()
@@ -112,6 +119,7 @@ public class LevelGenerationHandler : MonoBehaviour
     private void handleChar(char c, int x, int y){
         Vector3 position = new Vector3(x * 4, 0, y * 4);
         GameObject created = null;
+        GameObject ent = null;
         switch(c){
             case 'T':
                 created = Instantiate(wallTorch, position, zeroed);
@@ -127,48 +135,56 @@ public class LevelGenerationHandler : MonoBehaviour
 
             case 'p':
                 created = Instantiate(ceilFloor, position, zeroed);
-                Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed)
-                    .GetComponent<PhysicsItemBehaviour>().setContainedItem(new Gunpowder());
+                ent = Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed);
+                ent.GetComponent<PhysicsItemBehaviour>().setContainedItem(new Gunpowder());
+                entities.Add(ent);
                 break;
 
             case 'o':
                 created = Instantiate(ceilFloor, position, zeroed);
-                Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed)
-                    .GetComponent<PhysicsItemBehaviour>().setContainedItem(new Primer());
+                ent = Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed);
+                ent.GetComponent<PhysicsItemBehaviour>().setContainedItem(new Primer());
+                entities.Add(ent);
                 break;
 
             case 'b':
                 created = Instantiate(ceilFloor, position, zeroed);
-                Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed)
-                    .GetComponent<PhysicsItemBehaviour>().setContainedItem(new Bullet());
+                ent = Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed);
+                ent.GetComponent<PhysicsItemBehaviour>().setContainedItem(new Bullet());
+                entities.Add(ent);
                 break;
 
             case 's':
                 created = Instantiate(ceilFloor, position, zeroed);
-                Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed)
-                    .GetComponent<PhysicsItemBehaviour>().setContainedItem(new ItemCasing(ItemCasing.CASING_SIZE.SMALL));
+                ent = Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed);
+                ent.GetComponent<PhysicsItemBehaviour>().setContainedItem(new ItemCasing(ItemCasing.CASING_SIZE.SMALL));
+                entities.Add(ent);
                 break;
 
             case 'm':
                 created = Instantiate(ceilFloor, position, zeroed);
-                Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed)
-                    .GetComponent<PhysicsItemBehaviour>().setContainedItem(new ItemCasing(ItemCasing.CASING_SIZE.MEDIUM));
+                ent = Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed);
+                ent.GetComponent<PhysicsItemBehaviour>().setContainedItem(new ItemCasing(ItemCasing.CASING_SIZE.MEDIUM));
+                entities.Add(ent);
                 break;
 
             case 'l':
                 created = Instantiate(ceilFloor, position, zeroed);
-                Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed)
-                    .GetComponent<PhysicsItemBehaviour>().setContainedItem(new ItemCasing(ItemCasing.CASING_SIZE.LARGE));
+                ent = Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed);
+                ent.GetComponent<PhysicsItemBehaviour>().setContainedItem(new ItemCasing(ItemCasing.CASING_SIZE.LARGE));
+                entities.Add(ent);
                 break;
 
             
             case '1':
                 created = Instantiate(ceilFloor, position, zeroed);
-                Instantiate(snakeEnemy, position + new Vector3(0,0,0), zeroed);
+                ent = Instantiate(snakeEnemy, position + new Vector3(0,0,0), zeroed);
+                entities.Add(ent);
                 break;
             case '2':
                 created = Instantiate(ceilFloor, position, zeroed);
-                Instantiate(skeletonEnemy, position + new Vector3(0,0,0), zeroed);
+                ent = Instantiate(skeletonEnemy, position + new Vector3(0,0,0), zeroed);
+                entities.Add(ent);
                 break;
             case '3':
             case 'L':
@@ -198,6 +214,19 @@ public class LevelGenerationHandler : MonoBehaviour
         if(created != null){
             created.transform.parent = transform;
         }
+    }
+
+    public void reloadLevel(){
+        foreach (GameObject e in entities){
+            Destroy(e);
+        }
+        entities = new List<GameObject>();
+        doors = new List<DoorController>();
+        Transform[] children = gameObject.GetComponentsInChildren<Transform>();
+        foreach (Transform t in children) {
+            if (t != this.transform) Destroy(t.gameObject);
+        }
+        loadLevel(lastLoadedLevel);
     }
 
 }

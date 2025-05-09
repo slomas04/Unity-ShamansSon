@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
-
+using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class PlayerHealthManager : MonoBehaviour
 {
@@ -10,8 +11,16 @@ public class PlayerHealthManager : MonoBehaviour
     [SerializeField] private int currentHealth;
     [SerializeField] private double iFrameRaw = 0.5;
 
+    public bool IsDead {get; private set;}
+    private GameObject deathOverlay;
+
     private TimeSpan iFrameTime;
     private DateTime lastHit;
+    private Transform mainCamera;
+    private Image damageOverlay;
+    private float fadeSpeed = 5f;
+    private float opacityMax = 0.3f;
+    private bool damageTime = false;
 
     private void Awake()
     {
@@ -26,15 +35,39 @@ public class PlayerHealthManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        mainCamera = Camera.main.transform;
+        damageOverlay = GameObject.Find("DamageOverlay").GetComponent<Image>();
+        damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, 0f);
+        deathOverlay = GameObject.Find("DeathOverlay");
+        deathOverlay.SetActive(false);
+
         HealthCylinderController.Instance.setHealth(currentHealth);
+        enablePlayer();
+    }
+
+    public void enablePlayer(){
+        mainCamera.position = new Vector3(mainCamera.position.x, 1f, mainCamera.position.z);
+        IsDead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        float currentAlpha = damageOverlay.color.a;
+        if(!(currentAlpha == 0f && damageTime == false) || !(currentAlpha == opacityMax && damageTime == true)){
+            int mult = (damageTime) ? 1 : -1;
+            float newAlpha = currentAlpha + (mult * Time.deltaTime * fadeSpeed);
+            if (newAlpha < 0f) newAlpha = 0f;
+            if (newAlpha > opacityMax) newAlpha = opacityMax;
+            damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, newAlpha);
+        }
+
         if (currentHealth < 1)
         {
-            // TODO: Handle death here!
+            mainCamera.position = new Vector3(mainCamera.position.x, 0.25f, mainCamera.position.z);
+            IsDead = true;
+            damageTime = true;
+            deathOverlay.SetActive(true);
         }
     }
 
@@ -45,6 +78,9 @@ public class PlayerHealthManager : MonoBehaviour
             currentHealth -= 1;
             HealthCylinderController.Instance.setHealth(currentHealth);
         }
+
+        damageTime = true;
+        if (!IsDead) Invoke("noRed", 0.25f);
     }
 
     public void Heal()
@@ -54,5 +90,17 @@ public class PlayerHealthManager : MonoBehaviour
             currentHealth += 1;
             HealthCylinderController.Instance.setHealth(currentHealth);
         }
+    }
+
+    private void noRed(){
+        damageTime = false;
+    }
+
+    public void respawn(){
+        currentHealth = startingHealth;
+        HealthCylinderController.Instance.setHealth(currentHealth);
+        IsDead = false;
+        damageTime = false;
+        deathOverlay.SetActive(false);
     }
 }

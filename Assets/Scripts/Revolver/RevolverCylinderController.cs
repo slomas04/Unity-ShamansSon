@@ -6,6 +6,7 @@ using TMPro;
 
 public class RevolverCylinderController : MonoBehaviour
 {
+    public static RevolverCylinderController Instance {get; private set;}
     public enum CHAMBER_STATE { EMPTY, LOADED, FIRED };
 
     private BulletSackController sack;
@@ -27,12 +28,19 @@ public class RevolverCylinderController : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance) Destroy(gameObject);
+        Instance = this;
         chamberEmpty = Resources.Load<Sprite>("Sprites/UI/Chamber/Chamber_empty");
         chamberFull = Resources.Load<Sprite>("Sprites/UI/Chamber/Chamber_full");
 
+        resetChamberState();
+    }
+
+    public void resetChamberState(){
         cylinderArr = new cBullet[CYLINDER_SIZE];
         Array.ForEach(cylinderArr, b => b = null);
         cylinderStateArr = new CHAMBER_STATE[CYLINDER_SIZE];
+        Array.ForEach(cylinderStateArr, b => b = CHAMBER_STATE.EMPTY);
         barrelPosition = 0;
         gatePosition = 1;
     }

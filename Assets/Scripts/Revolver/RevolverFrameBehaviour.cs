@@ -61,6 +61,7 @@ public class RevolverFrameBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PlayerHealthManager.Instance.IsDead) return;
         if (haltForDelay == true) return;
 
         // Do nothing if there is recoil

@@ -24,12 +24,15 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (PlayerHealthManager.Instance.IsDead) return;
         handleJump();
         handleAxisMovement();
     }
 
     void Update()
     {
+        if (PlayerHealthManager.Instance.IsDead) return;
+
         // Bob head, but only if on the ground
         if (transform.position.y < 1.1) {
             if (rb.linearVelocity != Vector3.zero){

@@ -65,4 +65,8 @@ public class BulletSackController : MonoBehaviour
     {
         return bStack.Count;
     }
+
+    public void resetBag(){
+        bStack = new Stack<cBullet>();
+    }
 }

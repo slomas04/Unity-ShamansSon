@@ -17,6 +17,7 @@ public class PlayerRotationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PlayerHealthManager.Instance.IsDead) return;
         if (lookLock)
         {
             return;
