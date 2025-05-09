@@ -1,12 +1,15 @@
 using UnityEngine;
 using System.IO;
 using UnityEditor;
+using System.Collections.Generic;
 
 public class LevelGenerationHandler : MonoBehaviour
 {
 
     public static LevelGenerationHandler Instance {get; private set;}
     private static Quaternion zeroed = Quaternion.Euler(0,0,0);
+
+    private List<DoorController> doors;
 
     private GameObject player;
     private GameObject ceilFloor;
@@ -15,6 +18,7 @@ public class LevelGenerationHandler : MonoBehaviour
     private GameObject wallTorch;
     private GameObject lampFloor;
     private GameObject exitDoors;
+    private GameObject door;
     private GameObject snakeEnemy;
     private GameObject skeletonEnemy;
     private GameObject idol;
@@ -27,6 +31,8 @@ public class LevelGenerationHandler : MonoBehaviour
         if (Instance) Destroy(gameObject);
         Instance = this;
 
+        doors = new List<DoorController>();
+
         ceilFloor = Resources.Load<GameObject>("Prefabs/Level/CeilFloor");
         wall = Resources.Load<GameObject>("Prefabs/Level/Wall");
         wallTorch = Resources.Load<GameObject>("Prefabs/Level/WallTorch");
@@ -34,6 +40,7 @@ public class LevelGenerationHandler : MonoBehaviour
         itemPickupPrefab = Resources.Load<GameObject>("Prefabs/ItemPickup");
         exitDoors = Resources.Load<GameObject>("Prefabs/Level/ExitDoors");
         idol = Resources.Load<GameObject>("Prefabs/Level/TheIdol");
+        door = Resources.Load<GameObject>("Prefabs/Level/Door");
 
         snakeEnemy = Resources.Load<GameObject>("Prefabs/Enemy/SnakeEnemy");
         skeletonEnemy = Resources.Load<GameObject>("Prefabs/Enemy/SkeletonEnemy");
@@ -94,6 +101,11 @@ public class LevelGenerationHandler : MonoBehaviour
             if(!Physics.Raycast(torch.transform.position, Vector3.down, 10)) {
                 GameObject.Destroy(torch);
             }
+        }
+
+        // Set proper rotation for each door
+        foreach (DoorController d in doors){
+            d.castRotation();
         }
     }
 
@@ -164,6 +176,10 @@ public class LevelGenerationHandler : MonoBehaviour
                 break;
                 
             case 'D':
+                created = Instantiate(door, position, zeroed);
+                doors.Add(created.GetComponentInChildren<DoorController>());
+                break;
+
             case '-':
                 created = Instantiate(ceilFloor, position, zeroed);
                 break;
