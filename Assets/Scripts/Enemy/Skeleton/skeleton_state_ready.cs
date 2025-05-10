@@ -5,15 +5,17 @@ public class skeleton_state_ready : EnemyState
     private SkeletonStateController sc;
     private float lastEyeShot;
     private static float eyeShotSeconds = 0.4f;
+    [SerializeField] private static AudioClip SkeletonClick; 
 
     public skeleton_state_ready(SkeletonStateController stateController){
         sc = stateController;
         lastEyeShot = float.MaxValue;
+        if (SkeletonClick == null) SkeletonClick = Resources.Load<AudioClip>("Audio/Enemy/SkeletonClick");
     }
 
     public void OnEnterState(){
         sc.setAnim("SkeletonReady");
-        sc.playSound(sc.SkeletonClick);
+        sc.playSound(SkeletonClick);
     }
 
     public void OnShot(){

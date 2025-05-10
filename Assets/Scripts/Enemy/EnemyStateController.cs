@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-public abstract class SkeletonStateController : MonoBehaviour
+public abstract class EnemyStateController : MonoBehaviour
 {
     private EnemyState currentState;
     private Sprite[] sprites;

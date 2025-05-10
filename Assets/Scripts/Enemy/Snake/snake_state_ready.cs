@@ -5,15 +5,18 @@ public class snake_state_ready : EnemyState
     private SnakeStateController sc;
     private float lastEyeShot;
     private static double eyeShotSeconds = 0.5f;
+    [SerializeField] private static AudioClip SnakeClick;
 
     public snake_state_ready(SnakeStateController stateController){
         sc = stateController;
         lastEyeShot = float.MaxValue;
+
+        if (SnakeClick == null) SnakeClick = Resources.Load<AudioClip>("Audio/Enemy/SnakeClick");
     }
 
     public void OnEnterState(){
         sc.setAnim("SnakeReady");
-        sc.playSound(sc.SnakeClick);
+        sc.playSound(SnakeClick);
     }
 
     public void OnShot(){
@@ -21,7 +24,7 @@ public class snake_state_ready : EnemyState
     }
 
     public void OnUpdate(){
-        if (sc.distToPlayer() > SkeletonStateController.triggerDist){
+        if (sc.distToPlayer() > EnemyStateController.triggerDist){
             sc.setState(new snake_state_idle(sc));
             return;
         }

@@ -7,10 +7,13 @@ public class skeleton_state_shoot : EnemyState
     private float timeEnter;
     private static double frameDuration = 0.2f;
     private static float projSpeed = 80f;
+    [SerializeField] private static AudioClip SkeletonShoot; 
+
 
     public skeleton_state_shoot(SkeletonStateController stateController){
         sc = stateController;
         timeEnter = Time.time;
+        if (SkeletonShoot == null) SkeletonShoot = Resources.Load<AudioClip>("Audio/Enemy/SkeletonFire");
     }
 
     public void OnEnterState(){
@@ -33,7 +36,7 @@ public class skeleton_state_shoot : EnemyState
         proj.transform.forward = direction.normalized;
         Rigidbody rb = proj.GetComponent<Rigidbody>();
         sc.setAnim("SkeletonShoot");
-        sc.playSound(sc.SkeletonShoot);
+        sc.playSound(SkeletonShoot);
         rb.AddForce(direction.normalized * projSpeed, ForceMode.Impulse);
     }
 

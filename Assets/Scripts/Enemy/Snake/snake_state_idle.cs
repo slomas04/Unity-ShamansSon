@@ -18,7 +18,7 @@ public class snake_state_idle : EnemyState
     }
 
     public void OnUpdate(){
-        if (sc.distToPlayer() < SkeletonStateController.triggerDist){
+        if (sc.distToPlayer() < EnemyStateController.triggerDist){
             sc.setState(new snake_state_active(sc));
             return;
         }

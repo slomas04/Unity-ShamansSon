@@ -6,11 +6,13 @@ public class snake_state_active : EnemyState
     private SnakeStateController sc;
     private float lastEyeShot;
     private static float eyeShotSeconds = 0.5f;
+    [SerializeField] private static AudioClip SnakeHiss;
 
     public snake_state_active(SnakeStateController stateController){
+        if (SnakeHiss == null) SnakeHiss = Resources.Load<AudioClip>("Audio/Enemy/SnakeHiss");
         sc = stateController;
         lastEyeShot = float.MaxValue;
-        sc.playSound(sc.SnakeHiss);
+        sc.playSound(SnakeHiss);
     }
 
     public void OnEnterState(){
@@ -22,7 +24,7 @@ public class snake_state_active : EnemyState
     }
 
     public void OnUpdate(){
-        if (sc.distToPlayer() > SkeletonStateController.triggerDist){
+        if (sc.distToPlayer() > EnemyStateController.triggerDist){
             sc.setState(new snake_state_idle(sc));
             return;
         }

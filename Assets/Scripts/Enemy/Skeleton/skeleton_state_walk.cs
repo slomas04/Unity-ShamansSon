@@ -13,10 +13,13 @@ public class skeleton_state_walk : EnemyState
     private float timeSinceLastStep;     
     private Vector3 wanderDirection;
     private Rigidbody rb;
+    [SerializeField] private static AudioClip SkeletonStep; 
+
 
     public skeleton_state_walk(SkeletonStateController stateController)
     {
         System.Random rnd = new System.Random();
+        if (SkeletonStep == null) SkeletonStep = Resources.Load<AudioClip>("Audio/Enemy/SkeletonStep");
         walkDuration = (float)(rnd.NextDouble() * 2f + 1); 
         sc = stateController;
         timeEnter = Time.time; 
@@ -53,7 +56,7 @@ public class skeleton_state_walk : EnemyState
 
         if (timeSinceLastStep >= stepInterval)
         {
-            sc.playSound(sc.SkeletonStep);
+            sc.playSound(SkeletonStep);
             timeSinceLastStep = 0f;
         }
 
