@@ -1,15 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class SettingsMenuManager : MonoBehaviour
 {
+    public static SettingsMenuManager Instance {get; private set;}
+    public static bool isEditing {get; private set;}
+    
     private float[] VolumeBounds = new float[]{0f,100f};
     private float[] FovBounds = new float[]{30f,160f};
     private float[] SensBounds = new float[]{1f,10f};
 
     private Button exitButton;
     private Button saveButton;
+    private Button changeUserButton;
 
     private Scrollbar volumeBar;
     private Scrollbar fovBar;
@@ -18,13 +23,26 @@ public class SettingsMenuManager : MonoBehaviour
     private TMP_Text volumeText;
     private TMP_Text fovText;
     private TMP_Text sensText;
+    private TMP_Text userText;
 
+    private SetUsernameScript usernameScript;
+
+    void Awake()
+    {
+        if (Instance) Destroy(gameObject);
+        Instance = this;
+        isEditing = false;
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        usernameScript = GameObject.Find("SetUserCanvas").GetComponent<SetUsernameScript>();
+        usernameScript.gameObject.SetActive(false);
+
         initPlayerPrefs();
-        exitButton = GameObject.Find("ExitButton").GetComponent<Button>();
+        exitButton = GameObject.Find("ExitSettingsButton").GetComponent<Button>();
         saveButton = GameObject.Find("SaveButton").GetComponent<Button>();
+        changeUserButton = GameObject.Find("ChangeUserButton").GetComponent<Button>();
 
         volumeBar = GameObject.Find("VolumeScrollbar").GetComponent<Scrollbar>();
         fovBar = GameObject.Find("FovScrollbar").GetComponent<Scrollbar>();
@@ -33,9 +51,11 @@ public class SettingsMenuManager : MonoBehaviour
         volumeText = GameObject.Find("VolumeValue").GetComponent<TMP_Text>();
         fovText = GameObject.Find("FovValue").GetComponent<TMP_Text>();
         sensText = GameObject.Find("SensValue").GetComponent<TMP_Text>();
+        userText = GameObject.Find("CurrentUserValue").GetComponent<TMP_Text>();
 
-        exitButton.onClick.AddListener(() => gameObject.SetActive(false));
+        exitButton.onClick.AddListener(() => closeSettings());
         saveButton.onClick.AddListener(() => savePlayerPrefs());
+        changeUserButton.onClick.AddListener(() => changeUsername());
 
         volumeBar.onValueChanged.AddListener(delegate {setVolText();});
         sensBar.onValueChanged.AddListener(delegate {setSensText();});
@@ -44,26 +64,37 @@ public class SettingsMenuManager : MonoBehaviour
         volumeBar.value = normalizeFloatToSlider(PlayerPrefs.GetFloat("Volume"), VolumeBounds);
         fovBar.value = normalizeFloatToSlider(PlayerPrefs.GetFloat("Fov"), FovBounds);
         sensBar.value = normalizeFloatToSlider(PlayerPrefs.GetFloat("Sens"), SensBounds);
+        setUsernameText();
 
         
     }
 
+    private void closeSettings(){
+        isEditing = false;
+        gameObject.SetActive(false);
+    }
+
     private void setVolText(){
-        volumeText.text = normalizeSlidertoFloat(volumeBar.value, VolumeBounds).ToString();
+        volumeText.text = Math.Truncate(normalizeSlidertoFloat(volumeBar.value, VolumeBounds)).ToString();
     }
 
     private void setSensText(){
-        sensText.text = normalizeSlidertoFloat(sensBar.value, SensBounds).ToString();
+        sensText.text = (Math.Truncate(normalizeSlidertoFloat(sensBar.value, SensBounds)*10)/10f).ToString();
     }
 
     private void setFovText(){
-        fovText.text = normalizeSlidertoFloat(fovBar.value, FovBounds).ToString();
+        fovText.text = Math.Truncate(normalizeSlidertoFloat(fovBar.value, FovBounds)).ToString();
+    }
+
+    public void setUsernameText(){
+        userText.text = PlayerPrefs.GetString("currentUser");
     }
 
     private void savePlayerPrefs(){
         PlayerPrefs.SetFloat("Volume", normalizeSlidertoFloat(volumeBar.value, VolumeBounds));
         PlayerPrefs.SetFloat("Sens", normalizeSlidertoFloat(sensBar.value, SensBounds));
         PlayerPrefs.SetFloat("Fov", normalizeSlidertoFloat(fovBar.value, FovBounds));
+        isEditing = false;
         gameObject.SetActive(false);
     }
 
@@ -77,6 +108,14 @@ public class SettingsMenuManager : MonoBehaviour
         if(!PlayerPrefs.HasKey("Sens")){
             PlayerPrefs.SetFloat("Sens", 7.5f);
         }
+        if(!PlayerPrefs.HasKey("currentUser")){
+            changeUsername();
+        }
+    }
+
+    private void changeUsername(){
+        usernameScript.gameObject.SetActive(true);
+        isEditing = true;
     }
 
     private float normalizeSlidertoFloat(float sliderValue, float[] bounds){
@@ -85,5 +124,9 @@ public class SettingsMenuManager : MonoBehaviour
 
     private float normalizeFloatToSlider(float floatValue, float[] bounds){
         return (floatValue - bounds[0]) / (bounds[1] - bounds[0]);
+    }
+
+    public void setEditing(bool b){
+        isEditing = b;
     }
 }

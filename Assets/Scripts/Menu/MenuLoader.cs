@@ -14,7 +14,7 @@ public class MenuLoader : MonoBehaviour
         mainCamera = Camera.main;
         lgh = gameObject.GetComponent<LevelGenerationHandler>();
         idolPos = lgh.loadMenu();
-        mainCamera.transform.position = idolPos + new Vector3(6, 1.5f, 0);
+        mainCamera.transform.position = idolPos + new Vector3(4, 1.5f, 0);
     }
 
     // Update is called once per frame
