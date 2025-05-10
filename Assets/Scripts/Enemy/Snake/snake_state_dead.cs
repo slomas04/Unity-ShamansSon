@@ -11,6 +11,7 @@ public class snake_state_dead : EnemyState
 
     public void OnEnterState(){
         sc.setAnim("SnakeDead");
+        sc.dropItems();
     }
 
     public void OnShot(){

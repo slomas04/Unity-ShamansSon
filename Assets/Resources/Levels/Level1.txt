@@ -1,15 +1,20 @@
-WWTWTWTWW
-W-------W
-T---[---TWWTWWW
-W---L---D-----]
-W-------W-----W
-T-------TWWWTDWWW           WWWTWWW
-W------sW---1---W           W-----W
-T------mT-------T           W-----W
-Wo--L--lW---L---WWTWTWTWTWTWW-----W
-Wb-----pW-------------D--------L--W
-T---------------TWTWTWTWTWTWW-----W
-W---------------W           W-----W
-WWWTWTWTWTWTWTWWW           W--2--W
-                            W-----W
-                            WWWTWWW
+WWTWTWTWWWWTWWTWWWWW
+W--spob-W-------m--W
+T-[---L-W--1----p--T
+W---W---W----------W
+WWTWWWDWW---T------T
+Wm--D---------W--p-W
+Tpo-W---------W--p-W
+WWTWWWTWWTWDWTWTWTWW
+T---W--2-W---W-----W
+W-L---p--T---T--1--W
+T---TWWTWW---W--L--W
+W---Wl-------D-----W
+W---W--o-----WWTWTWW
+T-1-T--------------W
+W---W-------L---1--W
+T--pT---W-sb-------W
+WWDWW---WWTWT------W
+W--------pbpW------W
+W-----b------------]
+WWWWWWWWWWWWWWWWWWWW

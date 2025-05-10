@@ -34,9 +34,23 @@ public class DoorController : MonoBehaviour
     }
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player" && Input.GetKey(KeyCode.E)){
+        if (other.CompareTag("Player") && Input.GetKey(KeyCode.E))
+        {
             goingDown = false;
             Invoke("lowerDoor", 5);
+        }
+
+        if (goingDown && transform.position.y > MIN_HEIGHT)
+        {
+            Rigidbody playerRb = other.GetComponent<Rigidbody>();
+            Vector3 pushDirection = (other.transform.position - transform.position).normalized;
+            pushDirection.y = 0f; 
+
+            playerRb.AddForce(pushDirection * 5f, ForceMode.Impulse);
+
+            Vector3 clampedPosition = playerRb.transform.position;
+            clampedPosition.y = Mathf.Max(clampedPosition.y, 0.5f); 
+            playerRb.transform.position = clampedPosition;
         }
     }
 

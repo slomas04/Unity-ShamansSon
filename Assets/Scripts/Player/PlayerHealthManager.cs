@@ -103,4 +103,9 @@ public class PlayerHealthManager : MonoBehaviour
         damageTime = false;
         deathOverlay.SetActive(false);
     }
+
+    public void killPlayer(){
+        currentHealth = 0;
+        HealthCylinderController.Instance.setHealth(currentHealth);
+    }
 }

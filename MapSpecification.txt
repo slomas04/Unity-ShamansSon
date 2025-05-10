@@ -1,11 +1,9 @@
 Tilemap Features:
 W - Wall
 - - empty space
-F - Pit
 T - Torch on wall
 L - Lamp on floor
 D - Door
-
 
 [ - Player Spawn
 ] - Level Exit
@@ -18,6 +16,5 @@ o - Primer
 b - bullet
 e - explosive bullet
 
-1 - Turret
-2 - Melee Enemy
-3 - Ranged Enemy
+1 - Snake
+2 - Skeleton

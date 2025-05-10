@@ -11,6 +11,7 @@ public class skeleton_state_dead : EnemyState
 
     public void OnEnterState(){
         sc.setAnim("SkeletonDead");
+        sc.dropItems();
     }
 
     public void OnShot(){

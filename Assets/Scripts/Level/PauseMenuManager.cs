@@ -18,12 +18,13 @@ public class PauseMenuManager : MonoBehaviour
 
     private void OnResumeClicked()
     {
-        Debug.Log("Resume button clicked");
+        GlobalStateManager.Instance.settingsMenuToggle();
     }
 
     private void OnSuicideClicked()
     {
-        Debug.Log("Settings button clicked");
+        PlayerHealthManager.Instance.killPlayer();
+        GlobalStateManager.Instance.settingsMenuToggle();
     }
 
     private void OnQuitClicked()

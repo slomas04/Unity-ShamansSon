@@ -6,12 +6,12 @@ public class GlobalStateManager : MonoBehaviour
 {
     public static GlobalStateManager Instance {get; private set;}
 
-    private LevelGenerationHandler lgh;
-    private GameObject loadScreen;
+    [SerializeField] private LevelGenerationHandler lgh;
+    [SerializeField] private GameObject loadScreen;
     private bool isReloading = false;
-    private PlayerRotationController playerRotationController;
-    private Camera mainCamera;
-    private GameObject settingsMenu;
+    [SerializeField] private PlayerRotationController playerRotationController;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private GameObject pauseMenu;
 
     private Boolean settingsMenuVisible;
 
@@ -24,17 +24,12 @@ public class GlobalStateManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        loadScreen = GameObject.Find("LoadCanvas");
         loadScreen.SetActive(true);
 
-        settingsMenu = GameObject.Find("PauseMenu");
-        settingsMenu.SetActive(false);
+        pauseMenu.SetActive(false);
         settingsMenuVisible = false;
 
-        lgh = gameObject.GetComponent<LevelGenerationHandler>();
         lgh.loadLevel(1);
-        mainCamera = Camera.main;
-        playerRotationController = GameObject.Find("Player").GetComponent<PlayerRotationController>();
         loadPlayerSettings();
     }
 
@@ -54,10 +49,11 @@ public class GlobalStateManager : MonoBehaviour
 
     public void settingsMenuToggle(){
         settingsMenuVisible = !settingsMenuVisible;
-        settingsMenu.SetActive(settingsMenuVisible);
+        pauseMenu.SetActive(settingsMenuVisible);
         Time.timeScale = settingsMenuVisible ? 0 : 1;
         Cursor.lockState = (settingsMenuVisible) ? CursorLockMode.None : CursorLockMode.Locked;
         playerRotationController.setSettingsOpen(settingsMenuVisible);
+        loadPlayerSettings();
     }
 
     private void handleRespawn(){
