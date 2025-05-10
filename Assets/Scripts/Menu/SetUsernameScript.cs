@@ -4,13 +4,11 @@ using UnityEngine.UI;
 
 public class SetUsernameScript : MonoBehaviour
 {
-    private TMP_InputField textInput;
+    [SerializeField] private TMP_InputField textInput;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        textInput = GameObject.Find("UsernameInput").GetComponent<TMP_InputField>();
-
         textInput.onSubmit.AddListener(delegate { submitUsername(textInput); });
     }
 

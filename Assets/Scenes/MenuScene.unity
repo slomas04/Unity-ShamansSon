@@ -1911,6 +1911,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6e7b503f3423d44b6b1873dddd812e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exitButton: {fileID: 1758713526}
+  saveButton: {fileID: 893494650}
+  changeUserButton: {fileID: 651517768}
+  volumeBar: {fileID: 1529637532}
+  fovBar: {fileID: 407268375}
+  sensBar: {fileID: 1447243456}
+  volumeText: {fileID: 1119754481}
+  fovText: {fileID: 1635189366}
+  sensText: {fileID: 199959107}
+  userText: {fileID: 2050714303}
+  usernameScript: {fileID: 1348739405}
 --- !u!1 &893494648
 GameObject:
   m_ObjectHideFlags: 0
@@ -2153,6 +2164,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec87942ab9040144485ef82ad12d7059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newGameButton: {fileID: 1266603408}
+  continueButton: {fileID: 1234008966}
+  settingsButton: {fileID: 389733718}
+  exitButton: {fileID: 951896300}
+  settingsMenu: {fileID: 857170322}
 --- !u!1 &951896298
 GameObject:
   m_ObjectHideFlags: 0
@@ -3740,6 +3756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b68f21c13e95749b050fc726c21a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textInput: {fileID: 1775748166}
 --- !u!1 &1401745460
 GameObject:
   m_ObjectHideFlags: 0

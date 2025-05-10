@@ -6,6 +6,7 @@ public class PlayerRotationController : MonoBehaviour
     private float pitch = 0f;
 
     private bool lookLock = false;
+    private bool settingsOpen = false;
 
     public float sensitivity = 7.5f;
 
@@ -18,10 +19,9 @@ public class PlayerRotationController : MonoBehaviour
     void Update()
     {
         if (PlayerHealthManager.Instance.IsDead) return;
-        if (lookLock)
-        {
-            return;
-        }
+        if (settingsOpen) return;
+        if (lookLock) return;
+
         // Pitch must be inverted, then clamp it
         pitch -= Input.GetAxisRaw("Mouse Y") * sensitivity;
         pitch = Mathf.Clamp(pitch, -90f, 90f);
@@ -33,9 +33,17 @@ public class PlayerRotationController : MonoBehaviour
         gameObject.transform.rotation = Quaternion.Euler(0f, yaw, 0f);
     }
 
-    void toggleInventoryShow(bool show)
+    public void toggleInventoryShow(bool show)
     {
         lookLock = show;
         Cursor.lockState = (show) ? CursorLockMode.None : CursorLockMode.Locked;
+    }
+
+    public void setSensitivity(float s){
+        sensitivity = s;
+    }
+
+    public void setSettingsOpen(bool s){
+        settingsOpen = s;
     }
 }

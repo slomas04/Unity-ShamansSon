@@ -8,6 +8,7 @@ using System;
 
 public class RevolverFrameBehaviour : MonoBehaviour
 {
+    public static RevolverFrameBehaviour Instance {get; private set;}
     public enum REVOLVER_STATE { IDLE, IDLE_T, HALF, HALF_T, FULL, FULL_T, FIRE, 
         RELOAD_SHUT, RELOAD_OPEN, RELOAD_INSERT, RELOAD_EJECT, RELOAD_EJECT_F };
 
@@ -32,6 +33,9 @@ public class RevolverFrameBehaviour : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance) Destroy(gameObject);
+        Instance = this;
+        
         thumbDuration = TimeSpan.FromSeconds(thumbTime);
 
         lastThumb = DateTime.UtcNow;
