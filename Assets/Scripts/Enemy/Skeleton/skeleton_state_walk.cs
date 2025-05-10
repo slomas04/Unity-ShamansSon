@@ -4,15 +4,17 @@ public class skeleton_state_walk : EnemyState
 {
     private static float directionChangeInterval = 1f; 
     private static float moveSpeed = 3f;
+    private static float stepInterval = 0.3f;
 
-    private EnemyStateController sc;
+    private SkeletonStateController sc;
     private float timeEnter;
     private float walkDuration;
     private float timeSinceLastChange;
+    private float timeSinceLastStep;     
     private Vector3 wanderDirection;
     private Rigidbody rb;
 
-    public skeleton_state_walk(EnemyStateController stateController)
+    public skeleton_state_walk(SkeletonStateController stateController)
     {
         System.Random rnd = new System.Random();
         walkDuration = (float)(rnd.NextDouble() * 2f + 1); 
@@ -28,6 +30,7 @@ public class skeleton_state_walk : EnemyState
     public void OnEnterState()
     {
         sc.setAnim("SkeletonWalk");
+        timeSinceLastStep = 0f; 
     }
 
     public void OnShot()
@@ -37,8 +40,8 @@ public class skeleton_state_walk : EnemyState
 
     public void OnUpdate()
     {
-
         timeSinceLastChange += Time.deltaTime;
+        timeSinceLastStep += Time.deltaTime;
 
         if (timeSinceLastChange >= directionChangeInterval)
         {
@@ -46,6 +49,12 @@ public class skeleton_state_walk : EnemyState
             wanderDirection.y = 0; 
             wanderDirection.Normalize();
             timeSinceLastChange = 0f;
+        }
+
+        if (timeSinceLastStep >= stepInterval)
+        {
+            sc.playSound(sc.SkeletonStep);
+            timeSinceLastStep = 0f;
         }
 
         rb.linearVelocity = wanderDirection * moveSpeed; 

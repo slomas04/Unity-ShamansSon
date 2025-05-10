@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class skeleton_state_ready : EnemyState
 {
-    private EnemyStateController sc;
+    private SkeletonStateController sc;
     private float lastEyeShot;
     private static float eyeShotSeconds = 0.4f;
 
-    public skeleton_state_ready(EnemyStateController stateController){
+    public skeleton_state_ready(SkeletonStateController stateController){
         sc = stateController;
         lastEyeShot = float.MaxValue;
     }
 
     public void OnEnterState(){
         sc.setAnim("SkeletonReady");
+        sc.playSound(sc.SkeletonClick);
     }
 
     public void OnShot(){

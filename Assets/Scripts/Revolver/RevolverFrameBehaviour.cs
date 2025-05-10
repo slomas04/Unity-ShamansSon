@@ -31,11 +31,17 @@ public class RevolverFrameBehaviour : MonoBehaviour
     [SerializeField] private float firedelay = 0.1f;
     [SerializeField] private bool haltForDelay = false;
 
+    [SerializeField] private AudioSource audioController;
+    [SerializeField] private AudioClip fireSound;
+    [SerializeField] private AudioClip chamberSound;
+    [SerializeField] private AudioClip ejectSound;
+    [SerializeField] private AudioClip hammerSound;
+    [SerializeField] private AudioClip insertSound;
+
     private void Awake()
     {
         if (Instance) Destroy(gameObject);
         Instance = this;
-        
         thumbDuration = TimeSpan.FromSeconds(thumbTime);
 
         lastThumb = DateTime.UtcNow;
@@ -80,6 +86,7 @@ public class RevolverFrameBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && cycleWhitelist.Contains(currentState))
         {
             cylinder.cycleCylinder();
+            audioController.PlayOneShot(chamberSound);
         }
 
         if (!isReloading)
@@ -110,6 +117,7 @@ public class RevolverFrameBehaviour : MonoBehaviour
                 {
                     currentState = REVOLVER_STATE.RELOAD_OPEN;
                     handleBulletInsert();
+                    audioController.PlayOneShot(insertSound);
                     lastEject = DateTime.UtcNow - thumbDuration;
                 }
 
@@ -119,12 +127,16 @@ public class RevolverFrameBehaviour : MonoBehaviour
                     lastEject = DateTime.UtcNow;
                     currentState = REVOLVER_STATE.RELOAD_OPEN;
                     handleBulletEject();
+                    audioController.PlayOneShot(ejectSound);
                 }
             }
 
             if (currentState != REVOLVER_STATE.RELOAD_INSERT && currentState != REVOLVER_STATE.RELOAD_EJECT_F)
             {
-                if (Input.GetKeyDown(KeyCode.T)) handleGate();
+                if (Input.GetKeyDown(KeyCode.T)){
+                    handleGate();
+                    audioController.PlayOneShot(chamberSound);
+                } 
             }
         }
 
@@ -158,16 +170,23 @@ public class RevolverFrameBehaviour : MonoBehaviour
         {
             case REVOLVER_STATE.IDLE:
                 currentState = (isUp) ? currentState : REVOLVER_STATE.HALF;
-                if (!isUp) health.spin(40f);
+                if (!isUp) {
+                    health.spin(40f);
+                    audioController.PlayOneShot(hammerSound);
+                } 
                 break;
             case REVOLVER_STATE.HALF:
                 currentState = (isUp) ? REVOLVER_STATE.IDLE : REVOLVER_STATE.FULL;
                 if (!isUp) cylinder.cycleCylinder();
                 health.spin(isUp ? -40f : 80f);
+                audioController.PlayOneShot(hammerSound);
                 break;
             case REVOLVER_STATE.FULL:
                 currentState = (isUp) ? REVOLVER_STATE.HALF : currentState;
-                if(isUp) health.spin(-80f);
+                if(isUp) {
+                    health.spin(-80f);
+                    audioController.PlayOneShot(hammerSound);
+                }
                 break;
             default:
                 break;
@@ -178,16 +197,18 @@ public class RevolverFrameBehaviour : MonoBehaviour
         if(currentState == REVOLVER_STATE.FULL)
         {
             currentState = REVOLVER_STATE.IDLE;
+            audioController.PlayOneShot(hammerSound);
             lastThumb = DateTime.UtcNow - thumbDuration;
             if (cylinder.getBarrelState() == RevolverCylinderController.CHAMBER_STATE.LOADED)
             {
                 haltForDelay = true;
-                GOImage.sprite = spriteMap[REVOLVER_STATE.IDLE]; // Prolly wanna play a clicking sound here TODO
+                GOImage.sprite = spriteMap[REVOLVER_STATE.IDLE];
                 yield return new WaitForSeconds(firedelay);
 
                 haltForDelay = false;
                 lastFire = DateTime.UtcNow; //TODO: PROPER RECOIL HANDLING
                 cylinder.handleFire();
+                audioController.PlayOneShot(fireSound);
             }
         }
     }

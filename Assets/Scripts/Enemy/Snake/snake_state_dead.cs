@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class snake_state_dead : EnemyState
 {
-    private EnemyStateController sc;
+    private SnakeStateController sc;
 
-    public snake_state_dead(EnemyStateController stateController){
+    public snake_state_dead(SnakeStateController stateController){
         sc = stateController;
     }
 
     public void OnEnterState(){
         sc.setAnim("SnakeDead");
+        sc.playSound(sc.SnakeDie);
         sc.dropItems();
     }
 

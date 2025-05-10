@@ -12,6 +12,7 @@ public class GlobalStateManager : MonoBehaviour
     [SerializeField] private PlayerRotationController playerRotationController;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private AudioListener cameraListener;
 
     private Boolean settingsMenuVisible;
 
@@ -72,5 +73,6 @@ public class GlobalStateManager : MonoBehaviour
     private void loadPlayerSettings(){
         mainCamera.fieldOfView = PlayerPrefs.GetFloat("Fov");
         playerRotationController.setSensitivity(PlayerPrefs.GetFloat("Sens"));
+        AudioListener.volume = PlayerPrefs.GetFloat("Volume")/100f;
     }
 }

@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class skeleton_state_idle : EnemyState
 {
-    private EnemyStateController sc;
+    private SkeletonStateController sc;
     private float timeEnter;
     private static float idleDuration = 0.4f;
 
-    public skeleton_state_idle(EnemyStateController stateController)
+    public skeleton_state_idle(SkeletonStateController stateController)
     {
         sc = stateController;
         timeEnter = Time.time; // Store the time when the state starts

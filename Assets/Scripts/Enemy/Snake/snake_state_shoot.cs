@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class snake_state_shoot : EnemyState
 {
-    private EnemyStateController sc;
+    private SnakeStateController sc;
     private float timeEnter;
     private static double frameDuration = 0.4f;
     private static float projSpeed = 80f;
 
-    public snake_state_shoot(EnemyStateController stateController){
+    public snake_state_shoot(SnakeStateController stateController){
         sc = stateController;
         timeEnter = Time.time;
         Vector3 pos = sc.transform.position + new Vector3(0, 1f, 0);
@@ -29,6 +29,7 @@ public class snake_state_shoot : EnemyState
 
         proj.transform.forward = direction.normalized;
         Rigidbody rb = proj.GetComponent<Rigidbody>();
+        sc.playSound(sc.SnakeFire);
         rb.AddForce(direction.normalized * projSpeed, ForceMode.Impulse);
     }
 

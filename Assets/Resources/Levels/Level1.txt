@@ -11,10 +11,10 @@ W-L---p--T---T--1--W
 T---TWWTWW---W--L--W
 W---Wl-------D-----W
 W---W--o-----WWTWTWW
-T-1-T--------------W
+T-1-T--------------T
 W---W-------L---1--W
-T--pT---W-sb-------W
-WWDWW---WWTWT------W
-W--------pbpW------W
-W-----b------------]
-WWWWWWWWWWWWWWWWWWWW
+T--pT---W-sb-------T
+WWDWW---WWTWT---o--W
+Wp-------pbpW------W
+Ws----b------------]
+WWTWWTWWTWWTWWTWWTWW

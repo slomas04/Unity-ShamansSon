@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class snake_state_ready : EnemyState
 {
-    private EnemyStateController sc;
+    private SnakeStateController sc;
     private float lastEyeShot;
     private static double eyeShotSeconds = 0.5f;
 
-    public snake_state_ready(EnemyStateController stateController){
+    public snake_state_ready(SnakeStateController stateController){
         sc = stateController;
         lastEyeShot = float.MaxValue;
     }
 
     public void OnEnterState(){
         sc.setAnim("SnakeReady");
+        sc.playSound(sc.SnakeClick);
     }
 
     public void OnShot(){
@@ -20,7 +21,7 @@ public class snake_state_ready : EnemyState
     }
 
     public void OnUpdate(){
-        if (sc.distToPlayer() > EnemyStateController.triggerDist){
+        if (sc.distToPlayer() > SkeletonStateController.triggerDist){
             sc.setState(new snake_state_idle(sc));
             return;
         }

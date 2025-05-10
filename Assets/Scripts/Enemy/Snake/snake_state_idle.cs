@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class snake_state_idle : EnemyState
 {
-    private EnemyStateController sc;
+    private SnakeStateController sc;
 
-    public snake_state_idle(EnemyStateController stateController){
+    public snake_state_idle(SnakeStateController stateController){
         sc = stateController;
     }
 
@@ -18,7 +18,7 @@ public class snake_state_idle : EnemyState
     }
 
     public void OnUpdate(){
-        if (sc.distToPlayer() < EnemyStateController.triggerDist){
+        if (sc.distToPlayer() < SkeletonStateController.triggerDist){
             sc.setState(new snake_state_active(sc));
             return;
         }

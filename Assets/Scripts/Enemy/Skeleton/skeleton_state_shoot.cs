@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class skeleton_state_shoot : EnemyState
 {
-    private EnemyStateController sc;
+    private SkeletonStateController sc;
     private float timeEnter;
     private static double frameDuration = 0.2f;
     private static float projSpeed = 80f;
 
-    public skeleton_state_shoot(EnemyStateController stateController){
+    public skeleton_state_shoot(SkeletonStateController stateController){
         sc = stateController;
         timeEnter = Time.time;
     }
@@ -33,6 +33,7 @@ public class skeleton_state_shoot : EnemyState
         proj.transform.forward = direction.normalized;
         Rigidbody rb = proj.GetComponent<Rigidbody>();
         sc.setAnim("SkeletonShoot");
+        sc.playSound(sc.SkeletonShoot);
         rb.AddForce(direction.normalized * projSpeed, ForceMode.Impulse);
     }
 

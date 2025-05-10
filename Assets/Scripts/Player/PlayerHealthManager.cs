@@ -11,6 +11,11 @@ public class PlayerHealthManager : MonoBehaviour
     [SerializeField] private int currentHealth;
     [SerializeField] private double iFrameRaw = 0.5;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip hitSound;
+    [SerializeField] private AudioClip healSound;
+    [SerializeField] private AudioClip deathSound;
+
     public bool IsDead {get; private set;}
     private GameObject deathOverlay;
 
@@ -62,10 +67,11 @@ public class PlayerHealthManager : MonoBehaviour
             damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, newAlpha);
         }
 
-        if (currentHealth < 1)
+        if (currentHealth < 1 && !IsDead)
         {
             mainCamera.position = new Vector3(mainCamera.position.x, 0.25f, mainCamera.position.z);
             IsDead = true;
+            audioSource.PlayOneShot(deathSound);
             damageTime = true;
             deathOverlay.SetActive(true);
         }
@@ -77,10 +83,10 @@ public class PlayerHealthManager : MonoBehaviour
         {
             currentHealth -= 1;
             HealthCylinderController.Instance.setHealth(currentHealth);
+            audioSource.PlayOneShot(hitSound);
+            damageTime = true;
+            if (!IsDead) Invoke("noRed", 0.25f);
         }
-
-        damageTime = true;
-        if (!IsDead) Invoke("noRed", 0.25f);
     }
 
     public void Heal()
@@ -89,6 +95,7 @@ public class PlayerHealthManager : MonoBehaviour
         {
             currentHealth += 1;
             HealthCylinderController.Instance.setHealth(currentHealth);
+            audioSource.PlayOneShot(healSound);
         }
     }
 

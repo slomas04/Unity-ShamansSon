@@ -13,7 +13,14 @@ public class PlayerMovementController : MonoBehaviour
     private Rigidbody rb; 
     private Camera mainCamera;
 
-    //Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private AudioSource audioSource; 
+    [SerializeField] private AudioClip stepSound;
+    [SerializeField] private AudioClip jumpSound;
+
+
+    private bool isAtTop = false; 
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -34,9 +41,11 @@ public class PlayerMovementController : MonoBehaviour
         if (PlayerHealthManager.Instance.IsDead) return;
 
         // Bob head, but only if on the ground
-        if (transform.position.y < 1.1) {
-            if (rb.linearVelocity != Vector3.zero){
-                distance += headBobMultiplier * rb.linearVelocity.magnitude;
+        if (transform.position.y < 1.1)
+        {
+            if (rb.linearVelocity != Vector3.zero)
+            {
+                distance += (headBobMultiplier * 2.0) * rb.linearVelocity.magnitude;
             }
             bobHead();
         }
@@ -61,12 +70,33 @@ public class PlayerMovementController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && Physics.Raycast(rb.transform.position, Vector3.down, 1 + 0.001f))
         {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
+            audioSource.PlayOneShot(jumpSound);
         }
     }
 
-    void bobHead(){
-        // This is probably quite expensive
-        double cameraHeight = 0.5 + (0.1*Math.Cos(distance));
-        mainCamera.transform.localPosition = new Vector3(mainCamera.transform.localPosition.x, (float) cameraHeight, mainCamera.transform.localPosition.z);
+    void bobHead()
+    {
+        double cameraHeight = 0.5 + (0.05 * Math.Cos(distance));
+        mainCamera.transform.localPosition = new Vector3(mainCamera.transform.localPosition.x, (float)cameraHeight, mainCamera.transform.localPosition.z);
+
+        double bobValue = Math.Cos(distance);
+        if (bobValue > 0.99 && !isAtTop) 
+        {
+            PlayStepSound(1.0f);
+            isAtTop = true;
+        }
+        else if (bobValue < -0.99 && isAtTop) 
+        {
+            PlayStepSound(0.8f); 
+            isAtTop = false;
+        }
+    }
+
+    void PlayStepSound(float pitch)
+    {
+        float prevpitch = audioSource.pitch;
+        audioSource.pitch = pitch;
+        audioSource.PlayOneShot(stepSound);
+        audioSource.pitch = prevpitch;
     }
 }

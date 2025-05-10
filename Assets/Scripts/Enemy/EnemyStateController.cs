@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-public abstract class EnemyStateController : MonoBehaviour
+public abstract class SkeletonStateController : MonoBehaviour
 {
     private EnemyState currentState;
     private Sprite[] sprites;
@@ -15,6 +15,7 @@ public abstract class EnemyStateController : MonoBehaviour
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] public static float triggerDist = 24f;
     [SerializeField] public static float sightAngle = Mathf.Cos(30 * Mathf.Deg2Rad);
+    [SerializeField] private AudioSource audioController;
 
     protected virtual void Awake()
     {
@@ -138,6 +139,11 @@ public abstract class EnemyStateController : MonoBehaviour
             default:
                 return null;
         }
+    }
+
+    public void playSound(AudioClip clip)
+    {
+            audioController.PlayOneShot(clip);
     }
 }
 

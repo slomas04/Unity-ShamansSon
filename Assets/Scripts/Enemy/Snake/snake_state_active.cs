@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class snake_state_active : EnemyState
 {
-    private EnemyStateController sc;
+    private SnakeStateController sc;
     private float lastEyeShot;
     private static float eyeShotSeconds = 0.5f;
 
-    public snake_state_active(EnemyStateController stateController){
+    public snake_state_active(SnakeStateController stateController){
         sc = stateController;
         lastEyeShot = float.MaxValue;
+        sc.playSound(sc.SnakeHiss);
     }
 
     public void OnEnterState(){
@@ -21,7 +22,7 @@ public class snake_state_active : EnemyState
     }
 
     public void OnUpdate(){
-        if (sc.distToPlayer() > EnemyStateController.triggerDist){
+        if (sc.distToPlayer() > SkeletonStateController.triggerDist){
             sc.setState(new snake_state_idle(sc));
             return;
         }

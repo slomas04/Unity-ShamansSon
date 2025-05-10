@@ -3,9 +3,9 @@ using System;
 
 public class skeleton_state_dead : EnemyState
 {
-    private EnemyStateController sc;
+    private SkeletonStateController sc;
 
-    public skeleton_state_dead(EnemyStateController stateController){
+    public skeleton_state_dead(SkeletonStateController stateController){
         sc = stateController;
     }
 
