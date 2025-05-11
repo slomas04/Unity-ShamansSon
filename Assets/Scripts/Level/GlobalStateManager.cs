@@ -14,6 +14,7 @@ public class GlobalStateManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private AudioListener cameraListener;
     private float startTime;
+    private bool levelFinished;
 
     private Boolean settingsMenuVisible;
 
@@ -27,27 +28,48 @@ public class GlobalStateManager : MonoBehaviour
     void Start()
     {
         loadScreen.SetActive(true);
+        LevelCompleteOverlayController.Instance.gameObject.SetActive(false);
 
         pauseMenu.SetActive(false);
         settingsMenuVisible = false;
 
-        lgh.loadLevel(1);
+        int level = PlayerPrefs.GetInt("LevelToLoad", 1);
+        lgh.loadLevel(level);
         startTime = Time.time;
+        levelFinished = false;
         loadPlayerSettings();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)){
-            if (PlayerHealthManager.Instance.IsDead && !isReloading){
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (PlayerHealthManager.Instance.IsDead && !isReloading)
+            {
                 isReloading = true;
                 handleRespawn();
             }
+            if (levelFinished)
+            {   
+                isReloading = true;
+                handleNextLevel();
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Escape)){
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            StatsMenuController.Instance.updateStats();
             settingsMenuToggle();
         }
         
+    }
+
+    private void handleNextLevel()
+    {
+        loadScreen.SetActive(true);
+        LevelCompleteOverlayController.Instance.gameObject.SetActive(false);
+        lgh.destroyOldLevel();
+        lgh.loadLevel(PlayerScoreManager.Instance.CurrentLevel);
+        isReloading = false;
     }
 
     public void settingsMenuToggle(){
@@ -81,5 +103,13 @@ public class GlobalStateManager : MonoBehaviour
 
     public float timeSinceStart(){
         return Time.time - startTime;
+    }
+
+    public int getLivingEnemies(){
+        return lgh.getLivingEnemies();
+    }
+
+    public void setLevelFinished(){
+        levelFinished = true;
     }
 }

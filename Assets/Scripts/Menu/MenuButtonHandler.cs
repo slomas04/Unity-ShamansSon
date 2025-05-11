@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class MenuButtonHandler : MonoBehaviour
 {
@@ -18,11 +20,23 @@ public class MenuButtonHandler : MonoBehaviour
 
         exitButton.onClick.AddListener(() => Application.Quit());
         settingsButton.onClick.AddListener(() => settingsMenu.SetActive(true));
+
+        newGameButton.onClick.AddListener(() => StartNewGame());
+        continueButton.onClick.AddListener(() => ContinueGame());
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void StartNewGame()
     {
-        
+        PlayerScoreManager.Instance.handleStartNewGame();
+        PlayerPrefs.SetInt("LevelToLoad", 1);
+        SceneManager.LoadScene("GameScene");
+    }
+
+    private void ContinueGame()
+    {
+        int lastLevel = PlayerScoreManager.Instance.CurrentLevel;
+        PlayerPrefs.SetInt("LevelToLoad", lastLevel);
+        SceneManager.LoadScene("GameScene");
     }
 }

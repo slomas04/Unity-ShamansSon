@@ -11,6 +11,7 @@ public class LevelGenerationHandler : MonoBehaviour
 
     private List<DoorController> doors;
     private List<GameObject> entities;
+    private List<EnemyStateController> enemies;
 
     private GameObject player;
     private GameObject ceilFloor;
@@ -36,6 +37,7 @@ public class LevelGenerationHandler : MonoBehaviour
 
         doors = new List<DoorController>();
         entities = new List<GameObject>();
+        enemies = new List<EnemyStateController>();
 
         ceilFloor = Resources.Load<GameObject>("Prefabs/Level/CeilFloor");
         wall = Resources.Load<GameObject>("Prefabs/Level/Wall");
@@ -180,13 +182,14 @@ public class LevelGenerationHandler : MonoBehaviour
                 created = Instantiate(ceilFloor, position, zeroed);
                 ent = Instantiate(snakeEnemy, position + new Vector3(0,0,0), zeroed);
                 entities.Add(ent);
+                enemies.Add(ent.GetComponent<EnemyStateController>());
                 break;
             case '2':
                 created = Instantiate(ceilFloor, position, zeroed);
                 ent = Instantiate(skeletonEnemy, position + new Vector3(0,0,0), zeroed);
                 entities.Add(ent);
+                enemies.Add(ent.GetComponent<EnemyStateController>());
                 break;
-            case '3':
             case 'L':
                 created = Instantiate(lampFloor, position, zeroed);
                 break;
@@ -217,16 +220,30 @@ public class LevelGenerationHandler : MonoBehaviour
     }
 
     public void reloadLevel(){
+        destroyOldLevel();
+        loadLevel(lastLoadedLevel);
+    }
+
+    public void destroyOldLevel(){
         foreach (GameObject e in entities){
             Destroy(e);
         }
         entities = new List<GameObject>();
+        enemies = new List<EnemyStateController>();
         doors = new List<DoorController>();
         Transform[] children = gameObject.GetComponentsInChildren<Transform>();
         foreach (Transform t in children) {
             if (t != this.transform) Destroy(t.gameObject);
         }
-        loadLevel(lastLoadedLevel);
     }
 
+    public int getLivingEnemies(){
+        int count = 0;
+        foreach (EnemyStateController e in enemies){
+            if(!e.isDead()){
+                count++;
+            }
+        }
+        return count;
+    }
 }

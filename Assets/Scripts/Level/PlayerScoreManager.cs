@@ -6,11 +6,12 @@ public class PlayerScoreManager : MonoBehaviour
 {
     public static PlayerScoreManager Instance { get; private set; }
 
-    [SerializeField] private float playTime;
-    [SerializeField] private int shotsFired;
-    [SerializeField] private int shotsHit;
-    [SerializeField] private int maxLevel;
-    [SerializeField] private int deaths;
+    [SerializeField] public float PlayTime { get; private set; }
+    [SerializeField] public int ShotsFired { get; private set; }
+    [SerializeField] public int ShotsHit { get; private set; }
+    [SerializeField] public int LevelsCompleted{ get; private set; }
+    [SerializeField] public int CurrentLevel { get; private set; }
+    [SerializeField] public int Deaths { get; private set; }
 
     private string currentPlayer;
     private Dictionary<string, PlayerData> allPlayerScores = new Dictionary<string, PlayerData>();
@@ -49,11 +50,12 @@ public class PlayerScoreManager : MonoBehaviour
     {
         PlayerData playerData = new PlayerData
         {
-            PlayTime = playTime,
-            ShotsFired = shotsFired,
-            ShotsHit = shotsHit,
-            MaxLevel = maxLevel,
-            Deaths = deaths
+            PlayTime = PlayTime,
+            ShotsFired = ShotsFired,
+            ShotsHit = ShotsHit,
+            LevelsCompleted = LevelsCompleted,
+            CurrentLevel = CurrentLevel,
+            Deaths = Deaths
         };
 
         allPlayerScores[currentPlayer] = playerData;
@@ -107,11 +109,12 @@ public class PlayerScoreManager : MonoBehaviour
     {
         if (allPlayerScores.TryGetValue(currentPlayer, out PlayerData playerData))
         {
-            playTime = playerData.PlayTime;
-            shotsFired = playerData.ShotsFired;
-            shotsHit = playerData.ShotsHit;
-            maxLevel = playerData.MaxLevel;
-            deaths = playerData.Deaths;
+            PlayTime = playerData.PlayTime;
+            ShotsFired = playerData.ShotsFired;
+            ShotsHit = playerData.ShotsHit;
+            LevelsCompleted = playerData.LevelsCompleted;
+            CurrentLevel = playerData.CurrentLevel;
+            Deaths = playerData.Deaths;
 
         }
     }
@@ -125,7 +128,8 @@ public class PlayerScoreManager : MonoBehaviour
             PlayTime = 0,
             ShotsFired = 0,
             ShotsHit = 0,
-            MaxLevel = 0,
+            LevelsCompleted = 0,
+            CurrentLevel = 1,
             Deaths = 0
         };
 
@@ -134,19 +138,35 @@ public class PlayerScoreManager : MonoBehaviour
 
     public void handleDeath(float time)
     {
-        deaths++;
-        playTime += time;
+        Deaths++;
+        PlayTime += time;
     }
 
     public void handleShotFired()
     {
-        shotsFired++;
+        ShotsFired++;
     }
 
     public void handleShotHit()
     {
-        shotsHit++;
+        ShotsHit++;
     }
+
+    public void handleStartNewGame()
+    {
+        CurrentLevel = 1;
+        SaveCurrentPlayerScores();
+    }
+
+    public void completeLevel()
+    {
+        LevelsCompleted++;
+        PlayTime += Time.time;
+        CurrentLevel++;
+        if (CurrentLevel == 9) CurrentLevel = 1; 
+        SaveCurrentPlayerScores();
+    }
+
 
     [System.Serializable]
     private class PlayerData
@@ -154,7 +174,8 @@ public class PlayerScoreManager : MonoBehaviour
         public float PlayTime;
         public int ShotsFired;
         public int ShotsHit;
-        public int MaxLevel;
+        public int LevelsCompleted;
+        public int CurrentLevel;
         public int Deaths;
     }
 

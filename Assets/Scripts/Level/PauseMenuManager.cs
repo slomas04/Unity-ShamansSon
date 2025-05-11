@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour
 {
@@ -29,10 +30,11 @@ public class PauseMenuManager : MonoBehaviour
 
     private void OnQuitClicked()
     {
-        Debug.Log("Quit button clicked");
+        Application.Quit();
     }
     private void OnMenuClicked()
     {
-        Debug.Log("Menu button clicked");
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MenuScene");
     }
 }

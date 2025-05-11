@@ -145,6 +145,11 @@ public abstract class EnemyStateController : MonoBehaviour
     {
             audioController.PlayOneShot(clip);
     }
+
+    public bool isDead()
+    {
+        return currentState is skeleton_state_dead || currentState is snake_state_dead;
+    }
 }
 
 public interface EnemyState{
