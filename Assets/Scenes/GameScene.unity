@@ -7421,6 +7421,7 @@ MonoBehaviour:
   mainCamera: {fileID: 778187402}
   pauseMenu: {fileID: 1532670543}
   cameraListener: {fileID: 330585544}
+  killsText: {fileID: 450210222}
 --- !u!114 &1442510774
 MonoBehaviour:
   m_ObjectHideFlags: 0

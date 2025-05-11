@@ -12,7 +12,7 @@ public class PlayerExitHandler : MonoBehaviour
     void Start()
     {
         if(SceneManager.GetActiveScene().name == "MenuScene") return;
-        killText = GameObject.Find("DenyText").GetComponent<TMP_Text>();
+        killText = GlobalStateManager.Instance.getKillText();
         killText.gameObject.SetActive(false);
         boxCol = gameObject.GetComponent<BoxCollider>();
     }

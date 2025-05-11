@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
@@ -13,6 +14,7 @@ public class GlobalStateManager : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private AudioListener cameraListener;
+    [SerializeField] private TMP_Text killsText;
     private float startTime;
     private bool levelFinished;
 
@@ -70,6 +72,7 @@ public class GlobalStateManager : MonoBehaviour
         lgh.destroyOldLevel();
         lgh.loadLevel(PlayerScoreManager.Instance.CurrentLevel);
         isReloading = false;
+        levelFinished = false;
     }
 
     public void settingsMenuToggle(){
@@ -111,5 +114,9 @@ public class GlobalStateManager : MonoBehaviour
 
     public void setLevelFinished(){
         levelFinished = true;
+    }
+
+    public TMP_Text getKillText(){
+        return killsText;
     }
 }
