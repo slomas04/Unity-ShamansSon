@@ -19,6 +19,7 @@ public class PlayerExitHandler : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player" && Input.GetKey(KeyCode.E)){
+            PlayerScoreManager.Instance.SaveCurrentPlayerScores();
             print("End Level!");
         }
     }

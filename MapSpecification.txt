@@ -1,6 +1,6 @@
-Tilemap Features:
 W - Wall
-- - empty space
+  - empty space
+- - Ceiling and floor
 T - Torch on wall
 L - Lamp on floor
 D - Door
@@ -11,7 +11,7 @@ D - Door
 s - Small Casing
 m - Medium Casing
 l - Large Casing
-g - Gunpowder
+p - Gunpowder
 o - Primer
 b - bullet
 e - explosive bullet

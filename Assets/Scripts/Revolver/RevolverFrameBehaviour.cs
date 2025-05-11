@@ -193,12 +193,14 @@ public class RevolverFrameBehaviour : MonoBehaviour
         }
     }
 
-    private IEnumerator handleMouseDown(){
-        if(currentState == REVOLVER_STATE.FULL)
+    private IEnumerator handleMouseDown()
+    {
+        if (currentState == REVOLVER_STATE.FULL)
         {
             currentState = REVOLVER_STATE.IDLE;
             audioController.PlayOneShot(hammerSound);
             lastThumb = DateTime.UtcNow - thumbDuration;
+
             if (cylinder.getBarrelState() == RevolverCylinderController.CHAMBER_STATE.LOADED)
             {
                 haltForDelay = true;
@@ -206,8 +208,9 @@ public class RevolverFrameBehaviour : MonoBehaviour
                 yield return new WaitForSeconds(firedelay);
 
                 haltForDelay = false;
-                lastFire = DateTime.UtcNow; //TODO: PROPER RECOIL HANDLING
+                lastFire = DateTime.UtcNow;
                 cylinder.handleFire();
+                PlayerScoreManager.Instance.handleShotFired();
                 audioController.PlayOneShot(fireSound);
             }
         }

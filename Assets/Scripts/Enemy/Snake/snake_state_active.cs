@@ -20,6 +20,7 @@ public class snake_state_active : EnemyState
     }
 
     public void OnShot(){
+        PlayerScoreManager.Instance.handleShotHit();
         sc.setState(new snake_state_dead(sc));
     }
 

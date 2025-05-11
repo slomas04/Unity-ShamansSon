@@ -13,6 +13,7 @@ public class GlobalStateManager : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private AudioListener cameraListener;
+    private float startTime;
 
     private Boolean settingsMenuVisible;
 
@@ -31,6 +32,7 @@ public class GlobalStateManager : MonoBehaviour
         settingsMenuVisible = false;
 
         lgh.loadLevel(1);
+        startTime = Time.time;
         loadPlayerSettings();
     }
 
@@ -64,6 +66,7 @@ public class GlobalStateManager : MonoBehaviour
         lgh.reloadLevel();
         PlayerHealthManager.Instance.respawn();
         isReloading = false;
+        startTime = Time.time;
     }
 
     public void handleLevelLoad(){
@@ -74,5 +77,9 @@ public class GlobalStateManager : MonoBehaviour
         mainCamera.fieldOfView = PlayerPrefs.GetFloat("Fov");
         playerRotationController.setSensitivity(PlayerPrefs.GetFloat("Sens"));
         AudioListener.volume = PlayerPrefs.GetFloat("Volume")/100f;
+    }
+
+    public float timeSinceStart(){
+        return Time.time - startTime;
     }
 }

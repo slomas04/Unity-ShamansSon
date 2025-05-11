@@ -22,6 +22,7 @@ public class SetUsernameScript : MonoBehaviour
         PlayerPrefs.SetString("currentUser", s.text);
         SettingsMenuManager.Instance.setEditing(false);
         SettingsMenuManager.Instance.setUsernameText();
+        PlayerScoreManager.Instance.InitializePlayer();
         gameObject.SetActive(false);
     }
 }

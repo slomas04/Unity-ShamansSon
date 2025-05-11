@@ -74,6 +74,8 @@ public class PlayerHealthManager : MonoBehaviour
             audioSource.PlayOneShot(deathSound);
             damageTime = true;
             deathOverlay.SetActive(true);
+            PlayerScoreManager.Instance.handleDeath(GlobalStateManager.Instance.timeSinceStart());
+            PlayerScoreManager.Instance.SaveCurrentPlayerScores();
         }
     }
 

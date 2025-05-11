@@ -19,6 +19,7 @@ public class skeleton_state_ready : EnemyState
     }
 
     public void OnShot(){
+        PlayerScoreManager.Instance.handleShotHit();
         sc.setState(new skeleton_state_dead(sc));
     }
 
