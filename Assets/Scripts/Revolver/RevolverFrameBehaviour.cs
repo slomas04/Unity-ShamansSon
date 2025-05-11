@@ -72,6 +72,7 @@ public class RevolverFrameBehaviour : MonoBehaviour
     void Update()
     {
         if (PlayerHealthManager.Instance.IsDead) return;
+        if (GlobalStateManager.LevelFinished) return;
         if (haltForDelay == true) return;
 
         // Do nothing if there is recoil

@@ -10,6 +10,8 @@ public class MenuButtonHandler : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private Button settingsButton;
     [SerializeField] private Button exitButton;
+    [SerializeField] private Button leaderboardButton;
+    [SerializeField] private LeaderboardController leaderboardController;
 
     [SerializeField] private GameObject settingsMenu;
 
@@ -20,12 +22,17 @@ public class MenuButtonHandler : MonoBehaviour
 
         exitButton.onClick.AddListener(() => Application.Quit());
         settingsButton.onClick.AddListener(() => settingsMenu.SetActive(true));
-
+        leaderboardButton.onClick.AddListener(() => showLeaderboard());
         newGameButton.onClick.AddListener(() => StartNewGame());
         continueButton.onClick.AddListener(() => ContinueGame());
     }
 
-
+    private void showLeaderboard()
+    {
+        leaderboardController.gameObject.SetActive(true);
+        leaderboardController.LoadLeaderboardData();
+        leaderboardController.PopulateLeaderboard();
+    }
     private void StartNewGame()
     {
         PlayerScoreManager.Instance.handleStartNewGame();

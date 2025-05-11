@@ -14,7 +14,9 @@ public class skeleton_state_idle : EnemyState
 
     public void OnEnterState()
     {
+        sc.setIsWalking(false);
         sc.setAnim("SkeletonIdle");
+        sc.GetComponent<Rigidbody>().linearVelocity = Vector3.zero; // Stop that skeleton!
     }
 
     public void OnShot()

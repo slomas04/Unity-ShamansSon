@@ -7,14 +7,17 @@ public abstract class EnemyStateController : MonoBehaviour
 {
     private EnemyState currentState;
     private Sprite[] sprites;
-    private Animator anim;
+    protected Animator anim;
     private Transform playerTransform;
+    private Rigidbody playerRigidbody;
     private BillboardBehaviour billboard;
     public GameObject EnemyProjectile {get; private set;}
     protected EnemyState initialState;
     [SerializeField] private GameObject itemPrefab;
-    [SerializeField] public static float triggerDist = 24f;
-    [SerializeField] public static float sightAngle = Mathf.Cos(30 * Mathf.Deg2Rad);
+    [SerializeField] public float triggerDist = 24f;
+    [SerializeField] public float sightAngle = Mathf.Cos(30 * Mathf.Deg2Rad);
+    [SerializeField] public float projectileSpeed = 75f;
+    [SerializeField] private float aimOffset = 0.5f;
     [SerializeField] private AudioSource audioController;
 
     protected virtual void Awake()
@@ -29,6 +32,7 @@ public abstract class EnemyStateController : MonoBehaviour
     void Start()
     {
         playerTransform = GameObject.Find("Player").GetComponent<Transform>();
+        playerRigidbody = playerTransform.gameObject.GetComponent<Rigidbody>();
 
         currentState = initialState;
         currentState.OnEnterState();
@@ -63,7 +67,6 @@ public abstract class EnemyStateController : MonoBehaviour
     public void setAnim(String name){
         anim.SetTrigger(name);
     }
-
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("PlayerBullet")){
@@ -88,6 +91,25 @@ public abstract class EnemyStateController : MonoBehaviour
         }
 
         return false;
+    }
+
+    // Try to predict the player's position
+    public Vector3 predictPlayerPosition()
+    {
+        Vector3 directionToPlayer = playerTransform.position - transform.position;
+        float distance = directionToPlayer.magnitude;
+
+        // Add a cap to the prediction distance to prevent the enemies becoming MLG pros
+        float timeToTarget = Mathf.Min(distance / projectileSpeed, 1.5f);
+
+        Vector3 predictedPosition = playerTransform.position + playerRigidbody.linearVelocity * timeToTarget;
+
+        return predictedPosition;
+    }
+
+    public Vector3 getRandomOffset()
+    {
+        return new Vector3(Random.Range(-aimOffset, aimOffset), Random.Range(-aimOffset, aimOffset), Random.Range(-aimOffset, aimOffset));
     }
 
     public void dropItems()

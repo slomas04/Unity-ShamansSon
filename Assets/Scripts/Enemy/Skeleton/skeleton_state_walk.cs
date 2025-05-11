@@ -18,9 +18,9 @@ public class skeleton_state_walk : EnemyState
 
     public skeleton_state_walk(SkeletonStateController stateController)
     {
-        System.Random rnd = new System.Random();
         if (SkeletonStep == null) SkeletonStep = Resources.Load<AudioClip>("Audio/Enemy/SkeletonStep");
-        walkDuration = (float)(rnd.NextDouble() * 2f + 1); 
+        System.Random rnd = new System.Random();
+        walkDuration = (float)(rnd.NextDouble() * 1f + 1); // Walk for 1–2 seconds
         sc = stateController;
         timeEnter = Time.time; 
         rb = sc.GetComponent<Rigidbody>();
@@ -33,6 +33,7 @@ public class skeleton_state_walk : EnemyState
     public void OnEnterState()
     {
         sc.setAnim("SkeletonWalk");
+        sc.setIsWalking(true);
         timeSinceLastStep = 0f; 
     }
 
@@ -61,11 +62,18 @@ public class skeleton_state_walk : EnemyState
             timeSinceLastStep = 0f;
         }
 
-        rb.linearVelocity = wanderDirection * moveSpeed; 
+        rb.linearVelocity = wanderDirection * moveSpeed;
 
         if (Time.time - timeEnter > walkDuration)
         {
-            sc.setState(sc.canSeePlayer() ? new skeleton_state_ready(sc) : new skeleton_state_idle(sc));
+            if (sc.canSeePlayer())
+            {
+                sc.setState(new skeleton_state_ready(sc)); 
+            }
+            else
+            {
+                sc.setState(new skeleton_state_idle(sc)); 
+            }
         }
     }
 }

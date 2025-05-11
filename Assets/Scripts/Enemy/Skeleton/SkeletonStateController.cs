@@ -9,4 +9,9 @@ public class SkeletonStateController : EnemyStateController
         initialState = new skeleton_state_idle(this);
         base.Awake();
     }
+
+    public void setIsWalking(bool isWalking)
+    {
+        anim.SetBool("isWalking", isWalking);
+    }
 }

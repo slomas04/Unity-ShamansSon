@@ -6,6 +6,7 @@ using UnityEngine.Assertions.Must;
 public class GlobalStateManager : MonoBehaviour
 {
     public static GlobalStateManager Instance {get; private set;}
+    public static bool LevelFinished { get; private set; }
 
     [SerializeField] private LevelGenerationHandler lgh;
     [SerializeField] private GameObject loadScreen;
@@ -16,7 +17,6 @@ public class GlobalStateManager : MonoBehaviour
     [SerializeField] private AudioListener cameraListener;
     [SerializeField] private TMP_Text killsText;
     private float startTime;
-    private bool levelFinished;
 
     private Boolean settingsMenuVisible;
 
@@ -38,8 +38,9 @@ public class GlobalStateManager : MonoBehaviour
         int level = PlayerPrefs.GetInt("LevelToLoad", 1);
         lgh.loadLevel(level);
         startTime = Time.time;
-        levelFinished = false;
+        LevelFinished = false;
         loadPlayerSettings();
+        resetInventory();
     }
 
     void Update()
@@ -51,7 +52,7 @@ public class GlobalStateManager : MonoBehaviour
                 isReloading = true;
                 handleRespawn();
             }
-            if (levelFinished)
+            if (LevelFinished)
             {   
                 isReloading = true;
                 handleNextLevel();
@@ -65,6 +66,14 @@ public class GlobalStateManager : MonoBehaviour
         
     }
 
+    // Prepares the inventory for a new level
+    private void resetInventory()
+    {
+        BulletSackController.Instance.newSack();
+        RevolverCylinderController.Instance.resetChamberState();
+        InventoryController.Instance.clearInventory();
+    }
+
     private void handleNextLevel()
     {
         loadScreen.SetActive(true);
@@ -72,7 +81,8 @@ public class GlobalStateManager : MonoBehaviour
         lgh.destroyOldLevel();
         lgh.loadLevel(PlayerScoreManager.Instance.CurrentLevel);
         isReloading = false;
-        levelFinished = false;
+        LevelFinished = false;
+        resetInventory();
     }
 
     public void settingsMenuToggle(){
@@ -86,12 +96,11 @@ public class GlobalStateManager : MonoBehaviour
 
     private void handleRespawn(){
         loadScreen.SetActive(true);
-        BulletSackController.Instance.resetBag();
-        RevolverCylinderController.Instance.resetChamberState();
         lgh.reloadLevel();
         PlayerHealthManager.Instance.respawn();
         isReloading = false;
         startTime = Time.time;
+        resetInventory();
     }
 
     public void handleLevelLoad(){
@@ -113,7 +122,7 @@ public class GlobalStateManager : MonoBehaviour
     }
 
     public void setLevelFinished(){
-        levelFinished = true;
+        LevelFinished = true;
     }
 
     public TMP_Text getKillText(){

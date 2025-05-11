@@ -7,8 +7,9 @@ public class BulletSackController : MonoBehaviour
 {
     public static BulletSackController Instance { get; private set; }
 
-    [SerializeField] private const int MAX_SIZE = 255;
-    [SerializeField] private const int MAX_RECUR = 10;
+    [SerializeField] private int maxSize = 255;
+    [SerializeField] private int maxRecurrences = 10;
+    [SerializeField] private int StartingBullets = 2;
 
     [SerializeField] private Stack<cBullet> bStack;
     [SerializeField] private TMP_Text textBox;
@@ -19,13 +20,23 @@ public class BulletSackController : MonoBehaviour
     {
         if (Instance) Destroy(gameObject);
         Instance = this;
-        bStack = new Stack<cBullet>();
+        newSack();
         r = new System.Random();
     }
 
     void Start()
     {
         textBox = gameObject.GetComponentInChildren<TMP_Text>();
+    }
+
+    // We want the player to start with some default bullets upon start or death
+    public void newSack()
+    {
+        bStack = new Stack<cBullet>();
+        for (int i = 0; i < StartingBullets; i++)
+        {
+            bStack.Push(cBullet.GetGenericBullet());
+        }
     }
 
 
@@ -36,7 +47,7 @@ public class BulletSackController : MonoBehaviour
 
     public bool addItem(cBullet b)
     {
-        bool canPush = bStack.Count <= MAX_SIZE;
+        bool canPush = bStack.Count <= maxSize;
         if (canPush)
         {
             bStack.Push(b);
@@ -51,7 +62,7 @@ public class BulletSackController : MonoBehaviour
 
     private cBullet recurAndGrab(int i)
     {
-        if (i < MAX_RECUR && bStack.Count > 1 && r.NextDouble() < 0.5)
+        if (i < maxRecurrences && bStack.Count > 1 && r.NextDouble() < 0.5)
         {
             cBullet tempBullet = bStack.Pop();
             cBullet rBullet = recurAndGrab(i + 1);
@@ -64,9 +75,5 @@ public class BulletSackController : MonoBehaviour
     public int getSize()
     {
         return bStack.Count;
-    }
-
-    public void resetBag(){
-        bStack = new Stack<cBullet>();
     }
 }

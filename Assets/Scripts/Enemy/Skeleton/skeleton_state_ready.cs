@@ -3,46 +3,43 @@ using UnityEngine;
 public class skeleton_state_ready : EnemyState
 {
     private SkeletonStateController sc;
-    private float lastEyeShot;
-    private static float eyeShotSeconds = 0.4f;
-    [SerializeField] private static AudioClip SkeletonClick; 
+    private float timeEnterState; 
+    private static float eyeShotDelay = 0.4f; 
+    [SerializeField] private static AudioClip SkeletonClick;
 
-    public skeleton_state_ready(SkeletonStateController stateController){
+    public skeleton_state_ready(SkeletonStateController stateController)
+    {
         sc = stateController;
-        lastEyeShot = float.MaxValue;
         if (SkeletonClick == null) SkeletonClick = Resources.Load<AudioClip>("Audio/Enemy/SkeletonClick");
     }
 
-    public void OnEnterState(){
+    public void OnEnterState()
+    {
+        sc.setIsWalking(false);
+        sc.GetComponent<Rigidbody>().linearVelocity = Vector3.zero; // Stop the Skeleton!
         sc.setAnim("SkeletonReady");
         sc.playSound(SkeletonClick);
+        timeEnterState = Time.time; 
     }
 
-    public void OnShot(){
+    public void OnShot()
+    {
         PlayerScoreManager.Instance.handleShotHit();
         sc.setState(new skeleton_state_dead(sc));
     }
 
-    public void OnUpdate(){
-
-        bool rayOnPlayer = sc.canSeePlayer();
-
-        if (rayOnPlayer) {
-            if (lastEyeShot == float.MaxValue) {
-                lastEyeShot = Time.time;
-            } else {
-                if (Time.time - lastEyeShot > eyeShotSeconds) {
-                    lastEyeShot = float.MaxValue;
-                    sc.setState(new skeleton_state_shoot(sc));
-                }
+    public void OnUpdate()
+    {
+        if (Time.time - timeEnterState >= eyeShotDelay)
+        {
+            if (sc.canSeePlayer())
+            {
+                sc.setState(new skeleton_state_shoot(sc)); 
             }
-        } else {
-            lastEyeShot = float.MaxValue;
-            sc.setState(new skeleton_state_walk(sc));
-            return;
+            else
+            {
+                sc.setState(new skeleton_state_walk(sc)); 
+            }
         }
-        
-        
-
     }
 }

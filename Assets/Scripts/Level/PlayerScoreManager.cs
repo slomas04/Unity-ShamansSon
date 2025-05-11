@@ -167,9 +167,24 @@ public class PlayerScoreManager : MonoBehaviour
         SaveCurrentPlayerScores();
     }
 
+    public List<PlayerScoreEntry> GetAllPlayerScores()
+    {
+        var playerScoreEntries = new List<PlayerScoreEntry>();
+
+        foreach (var entry in allPlayerScores)
+        {
+            playerScoreEntries.Add(new PlayerScoreEntry
+            {
+                User = entry.Key,
+                Data = entry.Value
+            });
+        }
+
+        return playerScoreEntries;
+    }
 
     [System.Serializable]
-    private class PlayerData
+    public class PlayerData
     {
         public float PlayTime;
         public int ShotsFired;
@@ -186,7 +201,7 @@ public class PlayerScoreManager : MonoBehaviour
     }
 
     [System.Serializable]
-    private class PlayerScoreEntry
+    public class PlayerScoreEntry
     {
         public string User;
         public PlayerData Data;

@@ -25,7 +25,7 @@ public class snake_state_ready : EnemyState
     }
 
     public void OnUpdate(){
-        if (sc.distToPlayer() > EnemyStateController.triggerDist){
+        if (sc.distToPlayer() > sc.triggerDist){
             sc.setState(new snake_state_idle(sc));
             return;
         }

@@ -72,4 +72,12 @@ public class InventoryController : MonoBehaviour
     {
         inventory[index] = ics;
     }
+
+    public void clearInventory()
+    {
+        foreach(KeyValuePair<int,InventorySlotController> entry in inventory)
+        {
+            if (entry.Value != null) entry.Value.setHeldItem(null);
+        }
+    }
 }

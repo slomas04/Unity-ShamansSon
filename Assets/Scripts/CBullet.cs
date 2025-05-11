@@ -36,4 +36,9 @@ public class cBullet
             }
         }
     }
+
+    public static cBullet GetGenericBullet()
+    {
+        return new cBullet(new GenericItem[] { new Bullet(), new Gunpowder(), new Primer() });
+    }
 }
