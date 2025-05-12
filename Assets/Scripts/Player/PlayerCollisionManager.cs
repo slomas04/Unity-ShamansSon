@@ -21,8 +21,8 @@ public class PlayerCollisionManager : MonoBehaviour
     {
         if (other.tag == item_pickup_tag){
             GenericItem item = other.GetComponent<PhysicsItemBehaviour>().getContainedItem();
-            InventoryController.Instance.addItem(item);
-            GameObject.Destroy(other.gameObject);
+            // Only destroy item if it is added to inventory
+            if (InventoryController.Instance.addItem(item)) Destroy(other.gameObject);
         }
     }
 

@@ -132,6 +132,11 @@ public class RevolverCylinderController : MonoBehaviour
             Vector3 cameraPos = camera.gameObject.transform.position;
             cBullet b = cylinderArr[barrelPosition];
 
+            if (cylinderArr[barrelPosition].PrimerType is cBullet.PRIMER_TYPE.HEALING)
+            {
+                PlayerHealthManager.Instance.Heal(); // Heal the player for 1 health
+            }
+
             // HANDLE BULLET FIRING LOGIC
             Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hitPoint;

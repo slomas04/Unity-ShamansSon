@@ -53,15 +53,17 @@ public class PlayerMovementController : MonoBehaviour
 
     void handleAxisMovement()
     {
+        // Get input axis
         Vector2 axis = new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal")) 
-            * moveSpeed // Apply Default move speed
-            * (Input.GetKey(KeyCode.LeftShift) ? sprintMultiplier : 1f); // Multiply by sprint multiplier if shift down
+            * moveSpeed // Apply default move speed
+            * (Input.GetKey(KeyCode.LeftShift) ? sprintMultiplier : 1f); // Multiply by sprint multiplier if shift is held
 
-        // Determine forward vector from camera's right vector, avoids using rb forward vector which lacks camera sync
-        Vector3 forward = new Vector3(-Camera.main.transform.right.z, 0f, Camera.main.transform.right.x);
+        // Calculate movement direction relative to the player's rotation
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right; 
 
-        // Combine velocity of all values
-        Vector3 nextVelocity = (forward * axis.x + Camera.main.transform.right * axis.y + Vector3.up * rb.linearVelocity.y);
+        // Combine movement directions
+        Vector3 nextVelocity = (forward * axis.x + right * axis.y + Vector3.up * rb.linearVelocity.y);
         rb.linearVelocity = nextVelocity;
     }
 

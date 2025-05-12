@@ -41,6 +41,7 @@ public class GlobalStateManager : MonoBehaviour
         LevelFinished = false;
         loadPlayerSettings();
         resetInventory();
+        LevelCompleteOverlayController.Instance.loadStartingValues();
     }
 
     void Update()
@@ -83,6 +84,7 @@ public class GlobalStateManager : MonoBehaviour
         isReloading = false;
         LevelFinished = false;
         resetInventory();
+        LevelCompleteOverlayController.Instance.loadStartingValues();
     }
 
     public void settingsMenuToggle(){

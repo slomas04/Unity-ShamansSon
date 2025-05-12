@@ -1,20 +1,28 @@
+The map can be as big as it needs to be.
+By default, the player will spawn in with 2 bullets.
+When an enemy is killed, they will drop the ingredients to a basic bullet plus a random item, so you will need to add some other bullet parts around the map for the player to pick up.
+
+Map elements:
 W - Wall
-  - empty space
-- - Ceiling and floor
-T - Torch on wall
-L - Lamp on floor
-D - Door
+- - Ceiling and Floor
+  - Nothing
+T - Wall with torch, need these frequently for good lighting
+L - lamp on floor
+D - Door, place between two walls
+G - The idol [ONLY USE IN LAST LEVEL]
+] - Map Exit
 
-[ - Player Spawn
-] - Level Exit
+Items:
+p - gunpowder
+o - primer
+b - bullet tip
+e - explosive bullet tip
+h - healing primer, every level will need some of these
+s - small casing
+m - medium casing
+l - large casing
 
-s - Small Casing
-m - Medium Casing
-l - Large Casing
-p - Gunpowder
-o - Primer
-b - bullet
-e - explosive bullet
-
-1 - Snake
-2 - Skeleton
+Entities:
+[ - Player spawn point
+1 - Snake (turret) spawn point
+2 - Skeleton (roamer) spawn point

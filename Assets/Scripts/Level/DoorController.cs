@@ -40,6 +40,7 @@ public class DoorController : MonoBehaviour
             Invoke("lowerDoor", 5);
         }
 
+        // Push the player away from the door to prevent the player going out of map
         if (goingDown && transform.position.y > MIN_HEIGHT)
         {
             Rigidbody playerRb = other.GetComponent<Rigidbody>();

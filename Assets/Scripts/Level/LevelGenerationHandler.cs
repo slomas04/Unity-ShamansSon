@@ -76,6 +76,11 @@ public class LevelGenerationHandler : MonoBehaviour
             Debug.Log("No Spawn position given!");
         }
 
+        // Delay loading the level to allow for game elements to settle.
+        Invoke("hideLoadingScreen", 0.5f);
+    }
+
+    private void hideLoadingScreen(){
         GlobalStateManager.Instance.handleLevelLoad();
     }
 
@@ -153,6 +158,20 @@ public class LevelGenerationHandler : MonoBehaviour
                 created = Instantiate(ceilFloor, position, zeroed);
                 ent = Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed);
                 ent.GetComponent<PhysicsItemBehaviour>().setContainedItem(new Bullet());
+                entities.Add(ent);
+                break;
+
+            case 'e':
+                created = Instantiate(ceilFloor, position, zeroed);
+                ent = Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed);
+                ent.GetComponent<PhysicsItemBehaviour>().setContainedItem(new ExplosiveBullet());
+                entities.Add(ent);
+                break;
+
+            case 'h':
+                created = Instantiate(ceilFloor, position, zeroed);
+                ent = Instantiate(itemPickupPrefab, position + new Vector3(0,1,0), zeroed);
+                ent.GetComponent<PhysicsItemBehaviour>().setContainedItem(new HealingPrimer());
                 entities.Add(ent);
                 break;
 

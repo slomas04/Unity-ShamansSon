@@ -6,6 +6,8 @@ public class CreateBulletBehaviour : MonoBehaviour
 {
     private Button buttonObj;
     [SerializeField] private BulletConstructorComponent constructor;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip createBulletSound;
     private BulletSackController sack;
     private TypeConstrainedInventorySlotController casingSelector;
 
@@ -47,6 +49,7 @@ public class CreateBulletBehaviour : MonoBehaviour
                 s.containedItem = null;
             }
         }
+        audioSource.PlayOneShot(createBulletSound);
         sack.addItem(b);
     }
 }

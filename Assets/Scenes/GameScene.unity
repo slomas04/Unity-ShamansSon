@@ -3793,6 +3793,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   constructor: {fileID: 0}
+  audioSource: {fileID: 1809167920}
+  createBulletSound: {fileID: 8300000, guid: 2c3c893476cab694cb48d48da24fd4bf, type: 3}
 --- !u!1 &690887826
 GameObject:
   m_ObjectHideFlags: 0
@@ -8727,6 +8729,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af41ccc64388f214ba91254805f30bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 1809167920}
+  binSound: {fileID: 8300000, guid: b90aae489c373fc4f857b61657594e8e, type: 3}
 --- !u!1 &1681308930
 GameObject:
   m_ObjectHideFlags: 0
@@ -9848,6 +9852,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced89b32aba78e344a9f4839f7111de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSize: 255
+  maxRecurrences: 10
+  StartingBullets: 2
   textBox: {fileID: 0}
 --- !u!1 &1934897453
 GameObject:
@@ -10807,6 +10814,7 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 40c7196342711194fb3177652b2f4b3c, type: 3}
   healSound: {fileID: 8300000, guid: 417d4acbaa66ce94cbf9ce96ce657400, type: 3}
   deathSound: {fileID: 8300000, guid: 858e09c08256bd4418dac27ae76ebf51, type: 3}
+  mainCamera: {fileID: 330585546}
 --- !u!1 &2107360161
 GameObject:
   m_ObjectHideFlags: 0

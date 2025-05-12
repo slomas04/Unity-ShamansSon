@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using Unity.VisualScripting;
 
 public abstract class EnemyStateController : MonoBehaviour
 {
@@ -72,6 +73,10 @@ public abstract class EnemyStateController : MonoBehaviour
         if (collision.gameObject.CompareTag("PlayerBullet")){
             currentState.OnShot();
         }
+    }
+
+    public void applyExplosion(){
+        currentState.OnShot();
     }
 
     public bool canSeePlayer(){

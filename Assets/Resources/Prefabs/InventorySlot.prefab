@@ -90,3 +90,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   imageRenderer: {fileID: 0}
+  binSound: {fileID: 8300000, guid: b90aae489c373fc4f857b61657594e8e, type: 3}
+  insertSound: {fileID: 8300000, guid: 325c6c8023f91b84789e50cc8f30e522, type: 3}
+  itemAddSound: {fileID: 8300000, guid: fc04485f102af2c40bcd40698a864f9b, type: 3}

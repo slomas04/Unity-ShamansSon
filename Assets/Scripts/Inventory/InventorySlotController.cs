@@ -12,6 +12,9 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
     [SerializeField] public int index;
     [SerializeField] public GenericItem containedItem;
     [SerializeField] protected Image imageRenderer;
+    [SerializeField] private AudioClip binSound;
+    [SerializeField] private AudioClip insertSound;
+    [SerializeField] private AudioClip itemAddSound;
 
     // Protected statics handle object references that every Slot should keep.
     // They are instanced only once for the sake of efficency.
@@ -21,6 +24,8 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
 
     // Static int used to keep each slot's index unique.
     private static int nextIndex = 0;
+    private static AudioSource audioSource;
+
 
     private void Awake()
     {
@@ -35,6 +40,8 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
 
     private void Start()
     {
+        if (audioSource == null) audioSource = GameObject.Find("FirearmAudioSource").GetComponent<AudioSource>();
+
         // Get Drag and inventory objects if they are null
         dragged_item = DraggedItemBehaviour.Instance;
         inventoryController = InventoryController.Instance;
@@ -69,14 +76,21 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
     {
         if (Input.GetKey(KeyCode.LeftShift)){
             if (BulletConstructorComponent.Instance.handleShiftInsert(containedItem)) containedItem = null;
+            audioSource.PlayOneShot(insertSound);
         } else if (Input.GetKey(KeyCode.LeftControl)){
             containedItem = null;
+            audioSource.PlayOneShot(binSound);
         } else {
             GenericItem pastCont = (containedItem == null) ? null : (GenericItem) containedItem.Clone();
             containedItem = dragged_item.getItem();
             dragged_item.setItem(pastCont);
+            audioSource.PlayOneShot(insertSound);
         }
         
+    }
+
+    public void playItemAdd(){
+        audioSource.PlayOneShot(itemAddSound);
     }
 
 }

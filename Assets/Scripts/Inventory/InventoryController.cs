@@ -35,6 +35,7 @@ public class InventoryController : MonoBehaviour
             {
                 isSet = true;
                 entry.Value.setHeldItem(item);
+                entry.Value.playItemAdd();
                 return true;
             }
         }

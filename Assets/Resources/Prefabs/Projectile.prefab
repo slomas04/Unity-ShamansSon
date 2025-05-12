@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liveTime: 20
+  explosionPrefab: {fileID: 7668283945207371187, guid: 26be355129a33854db6ba80da516629c, type: 3}
+  ricochetSound: {fileID: 8300000, guid: 3f81890a374c30246a69858666704fb8, type: 3}
 --- !u!135 &128823317789445449
 SphereCollider:
   m_ObjectHideFlags: 0
