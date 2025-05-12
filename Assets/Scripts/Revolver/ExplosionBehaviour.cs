@@ -7,7 +7,6 @@ public class ExplosionBehaviour : MonoBehaviour
     [SerializeField] private AnimationClip explosionAnimation;
     [SerializeField] private Animator animator;
     [SerializeField] private AudioClip explosionSound;
-    [SerializeField] private float explosionDuration = 0.3f; 
     [SerializeField] private float explosionForce = 500f; 
     [SerializeField] private float explosionRadius = 5f; 
 

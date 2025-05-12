@@ -18,7 +18,7 @@ public class RevolverCylinderController : MonoBehaviour
     private Sprite chamberFull;
     private GameObject projectilePrefab;
     private GameObject player;
-    private Camera camera;
+    private Camera playerCamera;
 
     [SerializeField] public const int CYLINDER_SIZE = 6;
     [SerializeField] private cBullet[] cylinderArr;
@@ -51,7 +51,7 @@ public class RevolverCylinderController : MonoBehaviour
         chamberImage = GameObject.Find("ChamberImage").GetComponent<Image>();
         chamberDecal = GameObject.Find("FiredDecal");
         player = GameObject.Find("Player");
-        camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        playerCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         textBox = GameObject.Find("ChamberStatusText").GetComponent<TMP_Text>();
         projectilePrefab = Resources.Load<GameObject>("Prefabs/Projectile");
 
@@ -129,7 +129,7 @@ public class RevolverCylinderController : MonoBehaviour
     {
         if(cylinderStateArr[barrelPosition] == CHAMBER_STATE.LOADED)
         {
-            Vector3 cameraPos = camera.gameObject.transform.position;
+            Vector3 cameraPos = playerCamera.gameObject.transform.position;
             cBullet b = cylinderArr[barrelPosition];
 
             if (cylinderArr[barrelPosition].PrimerType is cBullet.PRIMER_TYPE.HEALING)
@@ -138,7 +138,7 @@ public class RevolverCylinderController : MonoBehaviour
             }
 
             // HANDLE BULLET FIRING LOGIC
-            Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hitPoint;
             Vector3 targetPosition;
 

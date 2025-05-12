@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerCollisionManager : MonoBehaviour
 {
-    [SerializeField] private string item_large_tag = "Item_Large";
     [SerializeField] private string item_pickup_tag = "Item_Pickup";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

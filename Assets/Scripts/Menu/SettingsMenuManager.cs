@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEditor;
 
 public class SettingsMenuManager : PauseSettingsManager
 {
     public static SettingsMenuManager Instance { get; private set; }
-    public static bool isEditing { get; private set; }
 
     [SerializeField] private Button exitButton;
     [SerializeField] private Button changeUserButton;
@@ -21,7 +21,6 @@ public class SettingsMenuManager : PauseSettingsManager
 
         if (Instance) Destroy(gameObject);
         Instance = this;
-        isEditing = false;
 
         usernameScript.gameObject.SetActive(false);
 
@@ -34,24 +33,25 @@ public class SettingsMenuManager : PauseSettingsManager
     private void closeSettings()
     {
         audioSource.PlayOneShot(buttonClickSound);
-        isEditing = false;
         gameObject.SetActive(false);
+        MenuButtonHandler.TabOpen = false;
     }
 
     public void setUsernameText()
     {
+        string currentUser = PlayerPrefs.GetString("currentUser");
+        if (string.IsNullOrEmpty(currentUser))
+        {
+            changeUsername();
+            return;
+        }
         userText.text = PlayerPrefs.GetString("currentUser");
     }
 
     private void changeUsername()
     {
+        MenuButtonHandler.TabOpen = true;
         audioSource.PlayOneShot(buttonClickSound);
         usernameScript.gameObject.SetActive(true);
-        isEditing = true;
-    }
-
-    public void setEditing(bool editing)
-    {
-        isEditing = editing;
     }
 }

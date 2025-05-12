@@ -35,6 +35,7 @@ public class LeaderboardController : MonoBehaviour
     public void HideLeaderboard()
     {
         audioSource.PlayOneShot(buttonClickSound);
+        MenuButtonHandler.TabOpen = false;
         leaderboardPanel.SetActive(false);
     }
 

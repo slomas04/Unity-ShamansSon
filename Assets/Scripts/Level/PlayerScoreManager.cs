@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerScoreManager : MonoBehaviour
 {
@@ -163,7 +165,12 @@ public class PlayerScoreManager : MonoBehaviour
         LevelsCompleted++;
         PlayTime += Time.time;
         CurrentLevel++;
-        if (CurrentLevel == 9) CurrentLevel = 1; 
+        if (CurrentLevel > 5) {
+            CurrentLevel = 1; 
+            SaveCurrentPlayerScores();
+            SceneManager.LoadScene("MenuScene");
+            return;
+        }
         SaveCurrentPlayerScores();
     }
 

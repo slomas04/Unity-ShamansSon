@@ -20,9 +20,9 @@ public class SetUsernameScript : MonoBehaviour
 
     private void submitUsername(TMP_InputField s){
         PlayerPrefs.SetString("currentUser", s.text);
-        SettingsMenuManager.Instance.setEditing(false);
         SettingsMenuManager.Instance.setUsernameText();
         PlayerScoreManager.Instance.InitializePlayer();
+        MenuButtonHandler.TabOpen = false;
         gameObject.SetActive(false);
     }
 }
