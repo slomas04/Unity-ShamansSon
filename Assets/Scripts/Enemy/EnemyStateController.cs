@@ -4,51 +4,77 @@ using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using Unity.VisualScripting;
 
+// This is the base class for handling the AI of both enemies
 public abstract class EnemyStateController : MonoBehaviour
 {
+    // The current EnemyState of the entity
     private EnemyState currentState;
-    private Sprite[] sprites;
+
+    // Reference to the Animator component
     protected Animator anim;
+
+    // Reference to the Player's Transform and Rigidbody
     private Transform playerTransform;
     private Rigidbody playerRigidbody;
+
+    // Reference to the BillboardBehaviour component
     private BillboardBehaviour billboard;
-    public GameObject EnemyProjectile {get; private set;}
-    protected EnemyState initialState;
+
+    // Reference to the EnemyProjectile prefab
+    [SerializeField] public GameObject EnemyProjectile;
+
+    // Reference to the item prefab, for dropping items
     [SerializeField] private GameObject itemPrefab;
+
+    // Reference to the initial state of the enemy
+    protected EnemyState initialState;
+
+    // The minimum distance for the enemy to trigger an action
     [SerializeField] public float triggerDist = 24f;
+
+    // The max angle for the enemy to see the player
     [SerializeField] public float sightAngle = Mathf.Cos(30 * Mathf.Deg2Rad);
+
+    // The speed of the enemy's projectiles
     [SerializeField] public float projectileSpeed = 75f;
+
+    // How bad (in units) the enemy's aim is
     [SerializeField] private float aimOffset = 0.5f;
+
+    // The audio controller for playing sounds
     [SerializeField] private AudioSource audioController;
 
     protected virtual void Awake()
     {
-        itemPrefab = Resources.Load<GameObject>("Prefabs/ItemPickup");
-        EnemyProjectile = Resources.Load<GameObject>("Prefabs/EnemyProjectile");
+        // Get components for the entity
         anim = GetComponent<Animator>();
         billboard = GetComponent<BillboardBehaviour>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Get the necessary components of the player
         playerTransform = GameObject.Find("Player").GetComponent<Transform>();
         playerRigidbody = playerTransform.gameObject.GetComponent<Rigidbody>();
 
+        // Set the initial state of the enemy
         currentState = initialState;
         currentState.OnEnterState();
     }
 
     void Update()
     {
+        // Update the current state of the enemy
         currentState.OnUpdate();
     }
 
     public void setState(EnemyState s){
+        // Trigger state entering for the enemy
         currentState = s;
         s.OnEnterState();
     }
 
+    // Get the distance to the player
     public float distToPlayer(){
         Vector3 pos = transform.position;
         pos.y = 0;
@@ -57,10 +83,12 @@ public abstract class EnemyStateController : MonoBehaviour
         return Vector3.Distance(pos, playerPos);
     }
 
+    // Get the player's transform
     public Transform getPlayer(){
         return playerTransform;
     }
 
+    // Get the entity's billboard
     public BillboardBehaviour getBillboard(){
         return billboard;
     }
@@ -69,23 +97,28 @@ public abstract class EnemyStateController : MonoBehaviour
         anim.SetTrigger(name);
     }
     void OnCollisionEnter(Collision collision)
-    {
+    {   
+        // Call the OnShot method of the current state if the enemy is hit by a bullet
         if (collision.gameObject.CompareTag("PlayerBullet")){
             currentState.OnShot();
         }
     }
 
+    // The explosion uses triggers, so we can call this instead.
     public void applyExplosion(){
         currentState.OnShot();
     }
 
+    // Check if the entity can see the player
     public bool canSeePlayer(){
 
         Vector3 directionToPlayer = playerTransform.position - transform.position;
         directionToPlayer.y = 0f;
 
+        // Get the dot product of the forward vector and the direction to the player
         if (Vector3.Dot(transform.forward, directionToPlayer.normalized) < sightAngle) return false;
 
+        // Cast a ray from the enemy to the player
         Vector3 eyePosition = transform.position + Vector3.up * 1.5f;
         RaycastHit hit;
         if (Physics.Raycast(eyePosition, directionToPlayer.normalized, out hit, directionToPlayer.magnitude)){

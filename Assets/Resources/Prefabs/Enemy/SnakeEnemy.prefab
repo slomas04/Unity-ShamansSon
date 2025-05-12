@@ -117,7 +117,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f605d9357401a44b97f2cc80bb710d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyProjectile: {fileID: 3596344137981024254, guid: 50685d30e93d8ce47a04589450fb0c2b, type: 3}
   itemPrefab: {fileID: 6310053639715074335, guid: 9daba36d03b48cde6ad50838470aa303, type: 3}
+  triggerDist: 24
+  sightAngle: 0.8660254
+  projectileSpeed: 75
+  aimOffset: 0.5
   audioController: {fileID: 5483074962988658518}
 --- !u!65 &9066140276217541491
 BoxCollider:

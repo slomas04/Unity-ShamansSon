@@ -17,7 +17,7 @@ Wb--------W--------W       W--------------h--W
 WWTWWW-WWWWWWW-WWTWW       WWTWWW-WWWWWW-WWWWW
 W------be-p-m------W       W------o---p------W
 T-o--1----WWW------T       T------2----------T
-Ws----h-----------h-W       W-------h--------W
+Ws----h----------h-W       W-------h---------W
 WWDWWWTWWWDWWWTWWW-W       W-WWDWWWTWWWDWWWWWW
 W-p-------p--------W       W-------------p---W
 T----L----o---1----T       T----L----2-------T
