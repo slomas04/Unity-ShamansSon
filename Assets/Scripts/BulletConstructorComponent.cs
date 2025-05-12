@@ -101,6 +101,7 @@ public class BulletConstructorComponent : MonoBehaviour
     }
 
     public bool handleShiftInsert(GenericItem i){
+        if (i == null) return false;
         if (i.type == GenericItem.ITEM_TYPE.CASING && slotController.containedItem == null){
             slotController.containedItem = i;
             return true;

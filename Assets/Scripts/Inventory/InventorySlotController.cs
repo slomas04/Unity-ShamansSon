@@ -58,6 +58,8 @@ public class InventorySlotController : MonoBehaviour, IPointerDownHandler
         imageRenderer.sprite = (containedItem == null) ? DEFAULT_SPRITE : containedItem.icon;
     }
 
+    public static void ResetIndex() { nextIndex = 0; }
+
     // Can be called from inventoryController to assign this slot an item when one is picked up.
     public void setHeldItem(GenericItem item)
     {

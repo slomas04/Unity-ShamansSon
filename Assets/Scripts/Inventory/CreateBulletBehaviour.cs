@@ -30,11 +30,11 @@ public class CreateBulletBehaviour : MonoBehaviour
 
     private void handleMakeBullet(){
         TypeConstrainedInventorySlotController[] componentArr = constructor.getBulletSlots();
-        if (componentArr.Length < 1) return;
+        if (componentArr == null || componentArr.Length < 1) return;
         GenericItem[] bulletComponents = new GenericItem[componentArr.Length];
         for (int i = 0; i < componentArr.Length; i++){
             // Don't make bullet if slots are not filled
-            if (componentArr[i].containedItem == null){
+            if (componentArr[i] == null || componentArr[i].containedItem == null){
                 return;
             }
             bulletComponents[i] = componentArr[i].containedItem;

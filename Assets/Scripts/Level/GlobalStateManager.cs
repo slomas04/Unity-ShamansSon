@@ -10,6 +10,7 @@ public class GlobalStateManager : MonoBehaviour
 
     [SerializeField] private LevelGenerationHandler lgh;
     [SerializeField] private GameObject loadScreen;
+    [SerializeField] private GameObject loadHintText;
     private bool isReloading = false;
     [SerializeField] private PlayerRotationController playerRotationController;
     [SerializeField] private Camera mainCamera;
@@ -34,6 +35,15 @@ public class GlobalStateManager : MonoBehaviour
 
         pauseMenu.SetActive(false);
         settingsMenuVisible = false;
+        loadHintText.SetActive(false);
+        
+        if (PlayerPrefs.GetInt("newGame", 0) == 1)
+        {
+            PlayerPrefs.SetInt("LevelToLoad", 1);
+            loadHintText.SetActive(true);
+            Invoke("hideHintText", 5f);
+            PlayerPrefs.SetInt("newGame", 0);
+        }
 
         int level = PlayerPrefs.GetInt("LevelToLoad", 1);
         lgh.loadLevel(level);
@@ -67,9 +77,15 @@ public class GlobalStateManager : MonoBehaviour
         
     }
 
+    private void hideHintText()
+    {
+        loadHintText.SetActive(false);
+    }
+
     // Prepares the inventory for a new level
     private void resetInventory()
     {
+        InventorySlotController.ResetIndex();
         BulletSackController.Instance.newSack();
         RevolverCylinderController.Instance.resetChamberState();
         InventoryController.Instance.clearInventory();

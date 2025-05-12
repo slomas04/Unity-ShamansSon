@@ -1285,8 +1285,8 @@ MonoBehaviour:
     At full cock, you may click to
     squeeze the trigger.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
-  m_sharedMaterial: {fileID: 2259789365846281130, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 72399d186a52fda41baa853e131e809c, type: 2}
+  m_sharedMaterial: {fileID: 7842967295622147820, guid: 72399d186a52fda41baa853e131e809c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2471,8 +2471,8 @@ MonoBehaviour:
     Shift + click
     to put an item directly into a crafting slot. Control + click to bin it.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
-  m_sharedMaterial: {fileID: 2259789365846281130, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 72399d186a52fda41baa853e131e809c, type: 2}
+  m_sharedMaterial: {fileID: 7842967295622147820, guid: 72399d186a52fda41baa853e131e809c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2845,8 +2845,8 @@ MonoBehaviour:
   m_text: "If the gun's door is open, you can press E to insert a bullet. \nSimilarly,
     you can press F to eject a spent bullet from the chamber."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
-  m_sharedMaterial: {fileID: 2259789365846281130, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 72399d186a52fda41baa853e131e809c, type: 2}
+  m_sharedMaterial: {fileID: 7842967295622147820, guid: 72399d186a52fda41baa853e131e809c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5496,7 +5496,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00007450907}
+  m_AnchoredPosition: {x: 0, y: 0.00022764945}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1022591623
@@ -5784,8 +5784,8 @@ MonoBehaviour:
     the Village idiot, you are given a sacrificial dosage of ayahuasca and a vintage
     firearm. You must kill all monsters in the mines and retrieve the idol.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
-  m_sharedMaterial: {fileID: 2259789365846281130, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 72399d186a52fda41baa853e131e809c, type: 2}
+  m_sharedMaterial: {fileID: 7842967295622147820, guid: 72399d186a52fda41baa853e131e809c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8198,8 +8198,8 @@ MonoBehaviour:
     At
     any time, you may press Q to rotate the gun''s cylinder.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
-  m_sharedMaterial: {fileID: 2259789365846281130, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 72399d186a52fda41baa853e131e809c, type: 2}
+  m_sharedMaterial: {fileID: 7842967295622147820, guid: 72399d186a52fda41baa853e131e809c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8358,7 +8358,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 242104882}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999724
+  m_Size: 0.9999913
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9539,8 +9539,8 @@ MonoBehaviour:
 
     Cycle Cylinder'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
-  m_sharedMaterial: {fileID: 2259789365846281130, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 72399d186a52fda41baa853e131e809c, type: 2}
+  m_sharedMaterial: {fileID: 7842967295622147820, guid: 72399d186a52fda41baa853e131e809c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11006,8 +11006,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: The Colt Single Action Army - The Greatest Handgun ever made
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
-  m_sharedMaterial: {fileID: 2259789365846281130, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 72399d186a52fda41baa853e131e809c, type: 2}
+  m_sharedMaterial: {fileID: 7842967295622147820, guid: 72399d186a52fda41baa853e131e809c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11940,8 +11940,8 @@ MonoBehaviour:
 
     Q'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
-  m_sharedMaterial: {fileID: 2259789365846281130, guid: 02fded289b8a8fe45bf3993455bc9162, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 72399d186a52fda41baa853e131e809c, type: 2}
+  m_sharedMaterial: {fileID: 7842967295622147820, guid: 72399d186a52fda41baa853e131e809c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

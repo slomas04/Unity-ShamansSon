@@ -6,7 +6,7 @@ public class PlayerMovementController : MonoBehaviour
     public float moveSpeed = 10f;
     public float jumpForce = 5f;
     public float sprintMultiplier = 2f;
-    public double headBobMultiplier = 0.006;
+    public double headBobMultiplier = 2f;
 
     [SerializeField] private double distance;
 
@@ -45,7 +45,8 @@ public class PlayerMovementController : MonoBehaviour
         {
             if (rb.linearVelocity != Vector3.zero)
             {
-                distance += (headBobMultiplier * 2.0) * rb.linearVelocity.magnitude;
+                // Multiply by Time.deltaTime to make it frame-rate independent
+                distance += headBobMultiplier * rb.linearVelocity.magnitude * Time.deltaTime;
             }
             bobHead();
         }
@@ -82,12 +83,12 @@ public class PlayerMovementController : MonoBehaviour
         mainCamera.transform.localPosition = new Vector3(mainCamera.transform.localPosition.x, (float)cameraHeight, mainCamera.transform.localPosition.z);
 
         double bobValue = Math.Cos(distance);
-        if (bobValue > 0.99 && !isAtTop) 
+        if (bobValue > 0.9 && !isAtTop) 
         {
             PlayStepSound(1.0f);
             isAtTop = true;
         }
-        else if (bobValue < -0.99 && isAtTop) 
+        else if (bobValue < -0.9 && isAtTop) 
         {
             PlayStepSound(0.8f); 
             isAtTop = false;

@@ -66,6 +66,7 @@ public class MenuButtonHandler : MonoBehaviour
         audioSource.PlayOneShot(buttonClickSound);
         PlayerScoreManager.Instance.handleStartNewGame();
         PlayerPrefs.SetInt("LevelToLoad", 1);
+        PlayerPrefs.SetInt("newGame", 1);
         SceneManager.LoadScene("GameScene");
     }
 

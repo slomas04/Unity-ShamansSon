@@ -28,6 +28,7 @@ public class SettingsMenuManager : PauseSettingsManager
         changeUserButton.onClick.AddListener(() => changeUsername());
 
         setUsernameText();
+        ApplyAudioSettings(); 
     }
 
     private void closeSettings()
@@ -35,6 +36,7 @@ public class SettingsMenuManager : PauseSettingsManager
         audioSource.PlayOneShot(buttonClickSound);
         gameObject.SetActive(false);
         MenuButtonHandler.TabOpen = false;
+        ApplyAudioSettings();
     }
 
     public void setUsernameText()
@@ -54,4 +56,11 @@ public class SettingsMenuManager : PauseSettingsManager
         audioSource.PlayOneShot(buttonClickSound);
         usernameScript.gameObject.SetActive(true);
     }
+
+    public void ApplyAudioSettings()
+    {
+        float volume = PlayerPrefs.GetFloat("Volume", 30f);
+        AudioListener.volume = volume / 100f;
+    }
+
 }
