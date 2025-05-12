@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 
+// The skeleton_state_dead class is responsible for handling the dead state of the skeleton enemy
+// The skeleton cannot exit this state
 public class skeleton_state_dead : EnemyState
 {
     private EnemyStateController sc;

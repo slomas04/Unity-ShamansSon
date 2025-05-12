@@ -23,6 +23,6 @@ public class snake_state_dead : EnemyState
     }
 
     public void OnUpdate(){
-
+        // The snake cannot exit this state
     }
 }

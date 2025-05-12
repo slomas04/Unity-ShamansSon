@@ -25,6 +25,7 @@ public class snake_state_ready : EnemyState
     }
 
     public void OnUpdate(){
+        // If the player is too far away, go idle
         if (sc.distToPlayer() > sc.triggerDist){
             sc.setState(new snake_state_idle(sc));
             return;
@@ -32,6 +33,7 @@ public class snake_state_ready : EnemyState
 
         bool playerInCone = sc.canSeePlayer();
 
+        // If the player is in sight of the snake, shoot
         if (playerInCone){
             if (lastEyeShot == float.MaxValue){
                 lastEyeShot = Time.time;

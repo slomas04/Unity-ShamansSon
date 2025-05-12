@@ -3,23 +3,23 @@ W---L---h---L---p---W          W---L---b---L-W
 T---1---T---2---T---TWWTWWTWWTWT---o---T---h-T
 W---W---W---W---W-------L-------W---W---W----W
 WWDWWWTWWWDWWWTWWW----2-h----WWDWWWTWWWDWWWWWW
-W------e--p--------W---WWW---W---------------W
+W------e----p------W---WWW---W---------------W
 T----L----o---1----D----T----D----L----2-----T
 W---------W--------W---WWW---W---------------W
 WWTWWW-WWWWWWW-WWTWW----[----TWWW-WWWWWW-WWWWW
 Wh----b----mp---l--W---L-----W----o----p-----W
-T----1----WWW------D----h----D-----1---------T
-W-o----e-----------W----L----W---------------W
+T-o--1----WWW------D----h----D-----1---------T
+W------e-----------W----L----W---------------W
 WWDWWWTWWWDWWWTWWW-WWWWW]WWWDWWTWWWTWWWDWWWWWW
-W-p-----h----------W       W--------------m--W
-T----L----1---2----T       T----L----1-------T
+W-------h----------W       W--------------m--W
+T-p--L----1---2----T       T----L----1-------T
 Wb--------W--------W       W--------------h--W
 WWTWWW-WWWWWWW-WWTWW       WWTWWW-WWWWWW-WWWWW
 W------be-p-m------W       W------o---p------W
 T-o--1----WWW------T       T------2----------T
 Ws----h----------h-W       W-------h---------W
 WWDWWWTWWWDWWWTWWW-W       W-WWDWWWTWWWDWWWWWW
-W-p-------p--------W       W-------------p---W
+W-p---------p------W       W-------------p---W
 T----L----o---1----T       T----L----2-------T
 W---------Wp-------W       W-------------p---W
 WWTWWW-WWWWWWW-WWTWW       WWTWWW-WWWWWW-WWWWW

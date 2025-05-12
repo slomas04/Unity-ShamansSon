@@ -9,9 +9,12 @@ public class snake_state_active : EnemyState
     [SerializeField] private static AudioClip SnakeHiss;
 
     public snake_state_active(SnakeStateController stateController){
+        // Load the audio clip for the snake hiss sound
         if (SnakeHiss == null) SnakeHiss = Resources.Load<AudioClip>("Audio/Enemy/SnakeHiss");
         sc = stateController;
         lastEyeShot = float.MaxValue;
+
+        // Hiss sound is played when the snake enters the active state
         sc.playSound(SnakeHiss);
     }
 
@@ -25,6 +28,7 @@ public class snake_state_active : EnemyState
     }
 
     public void OnUpdate(){
+        // If the player is too far away, go idle
         if (sc.distToPlayer() > sc.triggerDist){
             sc.setState(new snake_state_idle(sc));
             return;
@@ -32,6 +36,7 @@ public class snake_state_active : EnemyState
 
         bool playerInCone = sc.canSeePlayer();
 
+        // If the player is in sight of the snake, go to ready state
         if (playerInCone){
             if (lastEyeShot == float.MaxValue){
                 lastEyeShot = Time.time;

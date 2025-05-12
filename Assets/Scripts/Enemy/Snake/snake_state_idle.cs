@@ -18,6 +18,7 @@ public class snake_state_idle : EnemyState
     }
 
     public void OnUpdate(){
+        // If the player is closer than the trigger distance, go to ready state
         if (sc.distToPlayer() < sc.triggerDist){
             sc.setState(new snake_state_active(sc));
             return;

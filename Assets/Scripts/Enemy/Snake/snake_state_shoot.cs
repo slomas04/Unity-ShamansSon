@@ -16,15 +16,17 @@ public class snake_state_shoot : EnemyState
     }
 
     public void OnEnterState(){
+        // Predict the player's position and add a random offset
         Vector3 pos = sc.transform.position + new Vector3(0, 1f, 0);
         Vector3 predictedPosition = sc.predictPlayerPosition();
-
         Vector3 direction = predictedPosition - pos;
         direction += sc.getRandomOffset();
 
+        // Create the projectile and set its direction
         GameObject proj = GameObject.Instantiate(sc.EnemyProjectile, pos, Quaternion.identity);
         proj.transform.forward = direction.normalized;
         Rigidbody rb = proj.GetComponent<Rigidbody>();
+        // Launch the projectile
         rb.AddForce(direction.normalized * sc.projectileSpeed, ForceMode.Impulse);
         sc.setAnim("SnakeShoot");
         sc.playSound(SnakeShoot);

@@ -15,6 +15,7 @@ public class skeleton_state_ready : EnemyState
 
     public void OnEnterState()
     {
+        // Stop the walking animation and set the skeleton to ready state
         sc.setIsWalking(false);
         sc.GetComponent<Rigidbody>().linearVelocity = Vector3.zero; // Stop the Skeleton!
         sc.setAnim("SkeletonReady");
@@ -30,8 +31,11 @@ public class skeleton_state_ready : EnemyState
 
     public void OnUpdate()
     {
+        // Check that the skeleton can exit the state
         if (Time.time - timeEnterState >= eyeShotDelay)
         {
+            // Shoot if in sight of the player
+            // If the player is not in sight, wander around
             if (sc.canSeePlayer())
             {
                 sc.setState(new skeleton_state_shoot(sc)); 

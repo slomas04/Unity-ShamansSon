@@ -5,7 +5,11 @@ public class skeleton_state_shoot : EnemyState
 {
     private SkeletonStateController sc;
     private float timeEnter;
+
+
     private static float frameDuration = 0.2f;
+
+    // The audio clip for the skeleton's shooting sound
     [SerializeField] private static AudioClip SkeletonShoot; 
 
 
@@ -13,6 +17,8 @@ public class skeleton_state_shoot : EnemyState
     {
         sc = stateController;
         timeEnter = Time.time;
+
+        // Load the skeleton shooting sound if not already loaded
         if (SkeletonShoot == null) SkeletonShoot = Resources.Load<AudioClip>("Audio/Enemy/SkeletonFire");
     }
 
@@ -20,14 +26,20 @@ public class skeleton_state_shoot : EnemyState
     {
         sc.GetComponent<Rigidbody>().linearVelocity = Vector3.zero; // Stop the skeleton!
         Vector3 pos = sc.transform.position + new Vector3(0, 1f, 0);
+
+        // Get the player's position
         Vector3 predictedPosition = sc.predictPlayerPosition();
 
+        // Add a random offset to the predicted position
         Vector3 direction = predictedPosition - pos;
         direction += sc.getRandomOffset();
 
+        // create the projectile and set its direction
         GameObject proj = GameObject.Instantiate(sc.EnemyProjectile, pos, Quaternion.identity);
         proj.transform.forward = direction.normalized;
         Rigidbody rb = proj.GetComponent<Rigidbody>();
+
+        //launch the projectile
         rb.AddForce(direction.normalized * sc.projectileSpeed, ForceMode.Impulse);
         sc.setAnim("SkeletonShoot");
         sc.playSound(SkeletonShoot);

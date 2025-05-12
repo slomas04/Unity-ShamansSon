@@ -145,13 +145,16 @@ public abstract class EnemyStateController : MonoBehaviour
         return predictedPosition;
     }
 
+    // Get a random offset for the aim
     public Vector3 getRandomOffset()
     {
         return new Vector3(Random.Range(-aimOffset, aimOffset), Random.Range(-aimOffset, aimOffset), Random.Range(-aimOffset, aimOffset));
     }
 
+    // Drop items when the enemy is killed
     public void dropItems()
     {
+        // The enemy drops a casing, primer, bullet, and gunpowder and a random item
         List<GenericItem> itemsToDrop = new List<GenericItem>{
             new ItemCasing(ItemCasing.CASING_SIZE.SMALL),
             new Primer(),
@@ -162,8 +165,10 @@ public abstract class EnemyStateController : MonoBehaviour
 
         foreach (var item in itemsToDrop)
         {
+            // Create a new item object
             GameObject itemObject = Instantiate(itemPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
 
+            // Set the contents of the item object
             PhysicsItemBehaviour itemBehaviour = itemObject.GetComponent<PhysicsItemBehaviour>();
             if (itemBehaviour != null)
             {
@@ -181,6 +186,7 @@ public abstract class EnemyStateController : MonoBehaviour
         }
     }
 
+    // Get a random item to drop
     private GenericItem getRandomGenericItem()
     {
         GenericItem.ITEM_TYPE[] itemTypes = { GenericItem.ITEM_TYPE.CASING, GenericItem.ITEM_TYPE.PRIMER, GenericItem.ITEM_TYPE.BULLET, GenericItem.ITEM_TYPE.POWDER };
@@ -212,6 +218,7 @@ public abstract class EnemyStateController : MonoBehaviour
     }
 }
 
+// EnemyState subclass for the enemy's state
 public interface EnemyState{
     public void OnEnterState();
 
