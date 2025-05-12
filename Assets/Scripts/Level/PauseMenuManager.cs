@@ -9,6 +9,9 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] private Button menuButton;
     [SerializeField] private Button quitButton;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip buttonClickSound;
+
     void Start()
     {
         resumeButton.onClick.AddListener(OnResumeClicked);
@@ -19,21 +22,25 @@ public class PauseMenuManager : MonoBehaviour
 
     private void OnResumeClicked()
     {
+        audioSource.PlayOneShot(buttonClickSound);
         GlobalStateManager.Instance.settingsMenuToggle();
     }
 
     private void OnSuicideClicked()
     {
+        audioSource.PlayOneShot(buttonClickSound);
         PlayerHealthManager.Instance.killPlayer();
         GlobalStateManager.Instance.settingsMenuToggle();
     }
 
     private void OnQuitClicked()
     {
+        audioSource.PlayOneShot(buttonClickSound);
         Application.Quit();
     }
     private void OnMenuClicked()
     {
+        audioSource.PlayOneShot(buttonClickSound);
         Time.timeScale = 1;
         SceneManager.LoadScene("MenuScene");
     }

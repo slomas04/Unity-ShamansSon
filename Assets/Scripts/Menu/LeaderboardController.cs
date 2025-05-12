@@ -14,6 +14,8 @@ public class LeaderboardController : MonoBehaviour
     [SerializeField] private Button deathsHeader;
     [SerializeField] private Button avgTimeHeader;
     [SerializeField] private Button closeLeaderboardButton;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip buttonClickSound;
 
     private List<PlayerScoreEntry> leaderboardData;
 
@@ -32,6 +34,7 @@ public class LeaderboardController : MonoBehaviour
 
     public void HideLeaderboard()
     {
+        audioSource.PlayOneShot(buttonClickSound);
         leaderboardPanel.SetActive(false);
     }
 
@@ -87,6 +90,7 @@ public class LeaderboardController : MonoBehaviour
 
     private void SortLeaderboard(string sortBy)
     {
+        audioSource.PlayOneShot(buttonClickSound);
         if (leaderboardData == null || leaderboardData.Count == 0) return;
 
         switch (sortBy)

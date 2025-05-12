@@ -13,6 +13,9 @@ public class MenuButtonHandler : MonoBehaviour
     [SerializeField] private Button leaderboardButton;
     [SerializeField] private LeaderboardController leaderboardController;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip buttonClickSound;
+
     [SerializeField] private GameObject settingsMenu;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,20 +24,28 @@ public class MenuButtonHandler : MonoBehaviour
         settingsMenu.SetActive(false);
 
         exitButton.onClick.AddListener(() => Application.Quit());
-        settingsButton.onClick.AddListener(() => settingsMenu.SetActive(true));
+        settingsButton.onClick.AddListener(() => showSettingsMenu());
         leaderboardButton.onClick.AddListener(() => showLeaderboard());
         newGameButton.onClick.AddListener(() => StartNewGame());
         continueButton.onClick.AddListener(() => ContinueGame());
     }
 
+    private void showSettingsMenu()
+    {   
+        audioSource.PlayOneShot(buttonClickSound);
+        settingsMenu.SetActive(true);
+    }
+
     private void showLeaderboard()
     {
+        audioSource.PlayOneShot(buttonClickSound);
         leaderboardController.gameObject.SetActive(true);
         leaderboardController.LoadLeaderboardData();
         leaderboardController.PopulateLeaderboard();
     }
     private void StartNewGame()
     {
+        audioSource.PlayOneShot(buttonClickSound);
         PlayerScoreManager.Instance.handleStartNewGame();
         PlayerPrefs.SetInt("LevelToLoad", 1);
         SceneManager.LoadScene("GameScene");
@@ -42,6 +53,7 @@ public class MenuButtonHandler : MonoBehaviour
 
     private void ContinueGame()
     {
+        audioSource.PlayOneShot(buttonClickSound);
         int lastLevel = PlayerScoreManager.Instance.CurrentLevel;
         PlayerPrefs.SetInt("LevelToLoad", lastLevel);
         SceneManager.LoadScene("GameScene");

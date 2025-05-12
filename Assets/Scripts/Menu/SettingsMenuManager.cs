@@ -13,6 +13,7 @@ public class SettingsMenuManager : PauseSettingsManager
 
     [SerializeField] private TMP_Text userText;
     [SerializeField] private SetUsernameScript usernameScript;
+    [SerializeField] private AudioClip buttonClickSound;
 
     protected override void Start()
     {
@@ -32,6 +33,7 @@ public class SettingsMenuManager : PauseSettingsManager
 
     private void closeSettings()
     {
+        audioSource.PlayOneShot(buttonClickSound);
         isEditing = false;
         gameObject.SetActive(false);
     }
@@ -43,6 +45,7 @@ public class SettingsMenuManager : PauseSettingsManager
 
     private void changeUsername()
     {
+        audioSource.PlayOneShot(buttonClickSound);
         usernameScript.gameObject.SetActive(true);
         isEditing = true;
     }

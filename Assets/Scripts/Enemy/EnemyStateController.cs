@@ -158,9 +158,9 @@ public abstract class EnemyStateController : MonoBehaviour
             case GenericItem.ITEM_TYPE.CASING:
                 return new ItemCasing((ItemCasing.CASING_SIZE)Random.Range(0, 3)); 
             case GenericItem.ITEM_TYPE.PRIMER:
-                return new Primer();
+                return (Random.Range(0,2) == 1) ? new Primer() : new HealingPrimer();
             case GenericItem.ITEM_TYPE.BULLET:
-                return new Bullet();
+                return (Random.Range(0,2) == 1) ? new Bullet() : new ExplosiveBullet();
             case GenericItem.ITEM_TYPE.POWDER:
                 return new Gunpowder();
             default:

@@ -19,6 +19,9 @@ public class PauseSettingsManager : MonoBehaviour
     [SerializeField] protected TMP_Text fovText;
     [SerializeField] protected TMP_Text sensText;
 
+    [SerializeField] protected AudioSource audioSource;
+    [SerializeField] private AudioClip saveSound;
+
     protected virtual void Start()
     {
         initPlayerPrefs();
@@ -51,6 +54,7 @@ public class PauseSettingsManager : MonoBehaviour
 
     protected void savePlayerPrefs()
     {
+        audioSource.PlayOneShot(saveSound);
         PlayerPrefs.SetFloat("Volume", normalizeSlidertoFloat(volumeBar.value, VolumeBounds));
         PlayerPrefs.SetFloat("Sens", normalizeSlidertoFloat(sensBar.value, SensBounds));
         PlayerPrefs.SetFloat("Fov", normalizeSlidertoFloat(fovBar.value, FovBounds));

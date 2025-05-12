@@ -6,7 +6,10 @@ public class DoorController : MonoBehaviour
     [SerializeField] private static float MIN_HEIGHT = 0f;
     [SerializeField] private static float MAX_HEIGHT = 3f;
     [SerializeField] private static float MOVESPEED = 2f;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip doorSound;
     private bool goingDown = true;
+    private bool doorPressed = false;
 
 
     public void castRotation(){
@@ -37,7 +40,11 @@ public class DoorController : MonoBehaviour
         if (other.CompareTag("Player") && Input.GetKey(KeyCode.E))
         {
             goingDown = false;
-            Invoke("lowerDoor", 5);
+            if(!doorPressed){
+                audioSource.PlayOneShot(doorSound);
+                doorPressed = true;
+                Invoke("lowerDoor", 5);
+            } 
         }
 
         // Push the player away from the door to prevent the player going out of map
@@ -57,5 +64,7 @@ public class DoorController : MonoBehaviour
 
     private void lowerDoor(){
         goingDown = true;
+        doorPressed = false;
+        audioSource.PlayOneShot(doorSound);
     }
 }

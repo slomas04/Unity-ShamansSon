@@ -69,7 +69,7 @@ public class PlayerHealthManager : MonoBehaviour
 
         if (currentHealth < 1 && !IsDead)
         {
-            mainCamera.position = new Vector3(mainCamera.position.x, 0.25f, mainCamera.position.z);
+            mainCamera.position = new Vector3(mainCamera.position.x, 0.75f, mainCamera.position.z);
             IsDead = true;
             audioSource.PlayOneShot(deathSound);
             damageTime = true;

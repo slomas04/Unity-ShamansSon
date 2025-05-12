@@ -8216,6 +8216,8 @@ MonoBehaviour:
   volumeText: {fileID: 54996789}
   fovText: {fileID: 904882350}
   sensText: {fileID: 626265432}
+  audioSource: {fileID: 1809167920}
+  saveSound: {fileID: 8300000, guid: fc04485f102af2c40bcd40698a864f9b, type: 3}
 --- !u!114 &1532670549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8232,6 +8234,8 @@ MonoBehaviour:
   suicideButton: {fileID: 2075278992}
   menuButton: {fileID: 1301491254}
   quitButton: {fileID: 813971694}
+  audioSource: {fileID: 1809167920}
+  buttonClickSound: {fileID: 8300000, guid: 848ab24993da0b84b8c84719b1c07d03, type: 3}
 --- !u!1 &1542517362
 GameObject:
   m_ObjectHideFlags: 0
@@ -10814,7 +10818,6 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 40c7196342711194fb3177652b2f4b3c, type: 3}
   healSound: {fileID: 8300000, guid: 417d4acbaa66ce94cbf9ce96ce657400, type: 3}
   deathSound: {fileID: 8300000, guid: 858e09c08256bd4418dac27ae76ebf51, type: 3}
-  mainCamera: {fileID: 330585546}
 --- !u!1 &2107360161
 GameObject:
   m_ObjectHideFlags: 0
