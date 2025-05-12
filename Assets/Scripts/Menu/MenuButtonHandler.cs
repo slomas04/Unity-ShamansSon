@@ -48,6 +48,7 @@ public class MenuButtonHandler : MonoBehaviour
         TabOpen = true;
         audioSource.PlayOneShot(buttonClickSound);
         tutorialMenuController.gameObject.SetActive(true);
+        tutorialMenuController.ShowStoryTab();
     }
 
     private void showLeaderboard()

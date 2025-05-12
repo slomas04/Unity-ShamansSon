@@ -84,6 +84,7 @@ public class GlobalStateManager : MonoBehaviour
         isReloading = false;
         LevelFinished = false;
         resetInventory();
+        PlayerHealthManager.Instance.resetHealth();
         LevelCompleteOverlayController.Instance.loadStartingValues();
     }
 

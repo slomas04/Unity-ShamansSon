@@ -26,10 +26,11 @@ public class TutorialMenuController : MonoBehaviour
     public void HideMenuPanel()
     {
         audioSource.PlayOneShot(buttonClickSound);
+        MenuButtonHandler.TabOpen = false;
         gameObject.SetActive(false);
     }
 
-    private void ShowStoryTab()
+    public void ShowStoryTab()
     {
         audioSource.PlayOneShot(buttonClickSound);
         storyTab.SetActive(true);

@@ -106,11 +106,15 @@ public class PlayerHealthManager : MonoBehaviour
     }
 
     public void respawn(){
-        currentHealth = startingHealth;
-        HealthCylinderController.Instance.setHealth(currentHealth);
+        resetHealth();
         IsDead = false;
         damageTime = false;
         deathOverlay.SetActive(false);
+    }
+
+    public void resetHealth(){
+        currentHealth = startingHealth;
+        HealthCylinderController.Instance.setHealth(currentHealth);
     }
 
     public void killPlayer(){
