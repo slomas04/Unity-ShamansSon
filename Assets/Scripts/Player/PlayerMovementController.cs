@@ -55,7 +55,7 @@ public class PlayerMovementController : MonoBehaviour
     void handleAxisMovement()
     {
         // Get input axis
-        Vector2 axis = new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal")) 
+        Vector2 axis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) 
             * moveSpeed // Apply default move speed
             * (Input.GetKey(KeyCode.LeftShift) ? sprintMultiplier : 1f); // Multiply by sprint multiplier if shift is held
 
@@ -64,7 +64,7 @@ public class PlayerMovementController : MonoBehaviour
         Vector3 right = transform.right; 
 
         // Combine movement directions
-        Vector3 nextVelocity = (forward * axis.x + right * axis.y + Vector3.up * rb.linearVelocity.y);
+        Vector3 nextVelocity = (right * axis.x + forward * axis.y + Vector3.up * rb.linearVelocity.y);
         rb.linearVelocity = nextVelocity;
     }
 
